@@ -1,0 +1,32 @@
+name: CI - Build and Test
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # GitHub-hosted runner with Ubuntu 22.04 LTS
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Dev Container CLI
+      # This action installs the Dev Container CLI which is required to build/run dev containers
+      # It ensures we use the same tooling as our local devcontainer setup.
+      uses: devcontainers/ci@v0.3
+
+    - name: Build and Test Dev Container
+      # This command finds your .devcontainer/devcontainer.json, builds the Docker image,
+      # mounts your code, and executes commands inside the container.
+      run: |
+        touch .env
+        devcontainer up --workspace-folder . --config ./.devcontainer/devcontainer.json
+        devcontainer exec --workspace-folder . --config ./.devcontainer/devcontainer.json ./scripts/build_and_test.sh

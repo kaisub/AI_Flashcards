@@ -1,0 +1,32 @@
+{
+    "name": "C++20 Flashcards Environment",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "runArgs": [
+        "--env-file", ".env"
+    ],
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash"
+            },
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-extension-pack",
+                "ms-vscode.cmake-tools",
+                "googlecloudtools.cloudcode",
+                "ms-toolsai.jupyter",
+                "twxs.cmake"
+            ]
+        }
+    },
+    "remoteUser": "ubuntu",
+    "workspaceFolder": "/workspace",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
+    "remoteEnv": {
+        "GH_TOKEN": "${localEnv:GITHUB_TOKEN}",
+        "OPENAI_API_KEY": "${localEnv:OPENAI_API_KEY}"
+    },
+    "postCreateCommand": "sh -lc 'if [ -n \"$GH_TOKEN\" ] || gh auth status >/dev/null 2>&1; then gh extension install github/gh-copilot || gh extension upgrade github/gh-copilot; else echo Skipping gh-copilot extension install: gh is not authenticated.; fi'"
+}

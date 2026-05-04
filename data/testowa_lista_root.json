@@ -1,0 +1,19 @@
+{
+    "cards": [
+        {
+            "id": "card-1776580849787-2373636159",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "New",
+            "text_back": "papa",
+            "text_front": "bye"
+        },
+        {
+            "id": "root-1",
+            "state_Back_to_Front": "Known",
+            "state_Front_to_Back": "Known",
+            "text_back": "Cześć2e",
+            "text_front": "Hello2e"
+        }
+    ],
+    "name": "Zwroty Podstawowe"
+}

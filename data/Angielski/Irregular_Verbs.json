@@ -1,0 +1,19 @@
+{
+    "cards": [
+        {
+            "id": "irr-1",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "Iść",
+            "text_front": "Go - Went - Gone"
+        },
+        {
+            "id": "irr-2",
+            "state_Back_to_Front": "Known",
+            "state_Front_to_Back": "New",
+            "text_back": "Jeść",
+            "text_front": "Eat - Ate - Eaten"
+        }
+    ],
+    "name": "Irregular Verbs"
+}

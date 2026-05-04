@@ -1,0 +1,337 @@
+
+==================================================
+FILE: include/core/Flashcard.hpp
+==================================================
+
+#pragma once
+
+#include <string>
+
+namespace core {
+
+    enum class CardState {
+        New,
+        Known,
+        Mastered
+    };
+
+    enum class TranslationDirection {
+        Front_to_Back,
+        Back_to_Front,
+        Mixed
+    };
+
+    struct Flashcard {
+        std::string id;
+        std::string text_front;
+        std::string text_back;
+        
+        CardState state_Front_to_Back{CardState::New};
+        CardState state_Back_to_Front{CardState::New};
+
+        bool operator==(const Flashcard& other) const {
+            return id == other.id &&
+                   text_front == other.text_front &&
+                   text_back == other.text_back &&
+                   state_Front_to_Back == other.state_Front_to_Back &&
+                   state_Back_to_Front == other.state_Back_to_Front;
+        }
+
+        bool operator!=(const Flashcard& other) const {
+            return !(*this == other);
+        }
+    };
+
+} // namespace core
+
+
+==================================================
+FILE: include/core/FlashcardList.hpp
+==================================================
+
+#pragma once
+
+#include "Flashcard.hpp"
+#include <unordered_map>
+#include <memory>
+#include <vector>
+#include <string>
+
+namespace core {
+
+    class FlashcardList {
+    public:
+        explicit FlashcardList(std::string name) : listName(std::move(name)) {}
+
+        const std::string& getName() const { return listName; }
+        void setName(const std::string& newName) { listName = newName; }
+
+        // Basic CRUD
+        bool addCard(std::shared_ptr<Flashcard> card);
+        bool removeCard(const std::string& id);
+        bool updateCard(const std::string& id, const std::string& newFront, const std::string& newBack);
+        
+        std::shared_ptr<Flashcard> getCard(const std::string& id) const;
+        std::vector<std::shared_ptr<Flashcard>> getAllCards() const;
+
+        // Bulk Operations
+        size_t removeCards(const std::vector<std::string>& ids);
+        size_t importCardsFrom(const FlashcardList& sourceList);
+        size_t importCardsFrom(const std::vector<std::shared_ptr<Flashcard>>& newCards);
+
+        void clear();
+        size_t size() const;
+
+    private:
+        std::string listName;
+        std::unordered_map<std::string, std::shared_ptr<Flashcard>> cards;
+    };
+
+} // namespace core
+
+
+==================================================
+FILE: include/core/IStorage.hpp
+==================================================
+
+#pragma once
+
+#include "FlashcardList.hpp"
+#include <filesystem>
+#include <vector>
+#include <string>
+#include <memory>
+
+namespace core {
+    namespace fs = std::filesystem;
+
+    /**
+     * @brief Interface for deck persistence management.
+     * Responsibility: Mapping the domain (FlashcardList) to physical storage.
+     */
+    class IStorage {
+    public:
+        virtual ~IStorage() = default;
+
+        // --- List Operations ---
+
+        /**
+         * @brief Loads a deck from a given relative path.
+         */
+        virtual std::shared_ptr<FlashcardList> loadList(const fs::path& relativePath) = 0;
+
+        /**
+         * @brief Atomically saves a deck to a given relative path.
+         * Requirements: Must use a temporary file to ensure data integrity.
+         */
+        virtual bool saveList(const FlashcardList& list, const fs::path& relativePath) = 0;
+
+        virtual bool deleteList(const fs::path& relativePath) = 0;
+        virtual bool moveList(const fs::path& oldPath, const fs::path& newPath) = 0;
+
+        // --- Folder Operations ---
+        virtual bool createFolder(const fs::path& folderPath) = 0;
+        virtual bool deleteFolder(const fs::path& folderPath) = 0;
+        virtual bool renameFolder(const fs::path& oldPath, const fs::path& newPath) = 0;
+
+        // --- Discovery ---
+        /**
+         * @brief Scans the root data directory for all available .json decks.
+         */
+        virtual std::vector<fs::path> getAllAvailableLists() const = 0;
+    };
+}
+
+
+==================================================
+FILE: include/core/DeckManager.hpp
+==================================================
+
+#pragma once
+
+#include "FlashcardList.hpp"
+#include <unordered_map>
+#include <memory>
+#include <string>
+#include <vector>
+
+namespace core {
+
+    class DeckManager {
+    public:
+        DeckManager() = default;
+
+        // List Management
+        bool createList(const std::string& listName);
+        bool deleteList(const std::string& listName);
+        std::vector<std::string> getAllListNames() const;
+        std::shared_ptr<FlashcardList> getList(const std::string& listName) const;
+
+        // Single Card Facade
+        bool addCardToList(const std::string& listName, std::shared_ptr<Flashcard> card);
+        bool removeCardFromList(const std::string& listName, const std::string& cardId);
+        bool updateCardInList(const std::string& listName, const std::string& cardId, const std::string& newFront, const std::string& newBack);
+        bool moveCard(const std::string& cardId, const std::string& sourceListName, const std::string& targetListName);
+
+        // Bulk Operations Facade
+        size_t addCardsToList(const std::string& listName, const std::vector<std::shared_ptr<Flashcard>>& cards);
+        size_t removeCardsFromList(const std::string& listName, const std::vector<std::string>& cardIds);
+        size_t moveCards(const std::vector<std::string>& cardIds, const std::string& sourceListName, const std::string& targetListName);
+
+    private:
+        std::unordered_map<std::string, std::shared_ptr<FlashcardList>> decks;
+    };
+
+} // namespace core
+
+
+==================================================
+FILE: include/core/StudySession.hpp
+==================================================
+
+#pragma once
+
+#include "Flashcard.hpp"
+#include <deque>
+#include <vector>
+#include <memory>
+#include <optional>
+#include <random>
+#include <string>
+
+namespace core {
+
+    struct ReviewItem {
+        std::shared_ptr<Flashcard> card;
+        TranslationDirection askedDirection;
+    };
+
+    enum class SessionType {
+        Standard,
+        Focused
+    };
+
+    struct SessionConfig {
+        SessionType type{SessionType::Standard};
+        std::optional<CardState> focusedTargetState{std::nullopt};
+        TranslationDirection direction{TranslationDirection::Mixed};
+        
+        unsigned int weightNew{70};
+        unsigned int weightKnown{23};
+        unsigned int weightMastered{7};
+
+        void resetToDefaults() {
+            type = SessionType::Standard;
+            focusedTargetState = std::nullopt;
+            direction = TranslationDirection::Mixed;
+            weightNew = 70;
+            weightKnown = 23;
+            weightMastered = 7;
+        }
+    };
+
+    struct HistoryRecord {
+        std::string cardId;
+        std::shared_ptr<Flashcard> cardPtr;
+        CardState previousFrontState;
+        CardState previousBackState;
+        TranslationDirection askedDirection;
+        CardState pushedToQueueState;
+    };
+
+    class StudySession {
+    public:
+        StudySession(const std::vector<std::shared_ptr<Flashcard>>& deck, const SessionConfig& config);
+        
+        void updateConfig(const SessionConfig& newConfig);
+        size_t getQueueSize(CardState state) const;
+        size_t getTotalRemainingInFocusedMode() const;
+
+        // Core flow
+        std::optional<ReviewItem> getNextItem();
+        void submitAnswer(ReviewItem item, CardState newState);
+        
+        // UX requirements
+        bool undoLastAction(); 
+        bool removeCardFromSession(const std::string& cardId);
+
+    private:
+        std::deque<ReviewItem> queueNew;
+        std::deque<ReviewItem> queueKnown;
+        std::deque<ReviewItem> queueMastered;
+        
+        std::vector<HistoryRecord> historyStack;
+        SessionConfig currentConfig;
+        std::mt19937 randomEngine;
+
+        void initializeQueues(const std::vector<std::shared_ptr<Flashcard>>& deck);
+        TranslationDirection getRandomDirection();
+        bool removeCardFromAnyQueue(const std::string& cardId);
+        
+        std::optional<ReviewItem> drawStandard();
+        std::optional<ReviewItem> drawFocused();
+    };
+
+} // namespace core
+
+
+==================================================
+FILE: include/storage/JsonStorage.hpp
+==================================================
+
+#pragma once
+
+#include "core/IStorage.hpp"
+#include "core/Flashcard.hpp"
+#include <nlohmann/json.hpp>
+#include <fstream>
+#include <filesystem>
+#include <stdexcept>
+#include <memory>
+#include <vector>
+#include <string>
+
+namespace storage {
+    namespace fs = std::filesystem;
+
+    /**
+     * @brief Implementation of IStorage interface for JSON persistence using nlohmann/json.
+     * Handles serialization and deserialization of FlashcardList objects to/from JSON files.
+     * Ensures atomic writes to prevent data corruption.
+     */
+    class JsonStorage : public core::IStorage {
+    public:
+        /**
+         * @brief Constructs a JsonStorage instance with a specified base path for data.
+         * The base path is where all lists and folders will be managed relative to.
+         * If the base path does not exist, it will attempt to create it.
+         * @param basePath The root directory for storing flashcard data.
+         */
+        explicit JsonStorage(const fs::path& basePath);
+        
+        ~JsonStorage() override = default;
+
+        // --- List Operations ---
+        std::shared_ptr<core::FlashcardList> loadList(const fs::path& relativePath) override;
+        bool saveList(const core::FlashcardList& list, const fs::path& relativePath) override;
+        bool deleteList(const fs::path& relativePath) override;
+        bool moveList(const fs::path& oldPath, const fs::path& newPath) override;
+
+        // --- Folder Operations ---
+        bool createFolder(const fs::path& folderPath) override;
+        bool deleteFolder(const fs::path& folderPath) override;
+        bool renameFolder(const fs::path& oldPath, const fs::path& newPath) override;
+
+        // --- Discovery ---
+        std::vector<fs::path> getAllAvailableLists() const override;
+
+    private:
+        fs::path _basePath;
+
+        fs::path getFullPath(const fs::path& relativePath) const;
+        fs::path getTempPath(const fs::path& relativePath) const;
+    };
+
+} // namespace storage
+
+

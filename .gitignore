@@ -1,0 +1,17 @@
+# CMake and build artifacts
+build/
+out/
+bin/
+*.o
+*.a
+*.so
+*.exe
+.vs/
+.vscode/
+
+# Environment files
+.env
+
+# MacOS
+.DS_Store
+.aider*

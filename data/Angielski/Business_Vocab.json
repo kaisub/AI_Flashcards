@@ -1,0 +1,33 @@
+{
+    "cards": [
+        {
+            "id": "bus-1",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "1Wydatki",
+            "text_front": "1Expenditure"
+        },
+        {
+            "id": "bus-2",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "2Dochódd",
+            "text_front": "2Incomed"
+        },
+        {
+            "id": "bus-3",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "New",
+            "text_back": "3Zysk",
+            "text_front": "3Profit"
+        },
+        {
+            "id": "bus-4",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "4Strata",
+            "text_front": "4Loss"
+        }
+    ],
+    "name": "Business Vocab"
+}

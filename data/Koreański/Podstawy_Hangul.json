@@ -1,0 +1,152 @@
+{
+    "cards": [
+        {
+            "id": "kor-4",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "sklep",
+            "text_front": "가게"
+        },
+        {
+            "id": "kor-15",
+            "state_Back_to_Front": "Known",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "łóżko",
+            "text_front": "침대"
+        },
+        {
+            "id": "kor-9",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "telefon",
+            "text_front": "전화"
+        },
+        {
+            "id": "card-1776011502290-3163471595",
+            "state_Back_to_Front": "Known",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "btmp1\n",
+            "text_front": "tmp1\n"
+        },
+        {
+            "id": "card-1776535779815-4285548905",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "New",
+            "text_back": "ergerger",
+            "text_front": "sdfsdf"
+        },
+        {
+            "id": "card-1776011483826-4183710043",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "\n",
+            "text_front": "\n\n"
+        },
+        {
+            "id": "card-1776011492491-1897482729",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "Known",
+            "text_back": "\n\n\n",
+            "text_front": "\n"
+        },
+        {
+            "id": "kor-12",
+            "state_Back_to_Front": "Known",
+            "state_Front_to_Back": "Known",
+            "text_back": "krzesło",
+            "text_front": "의자"
+        },
+        {
+            "id": "card-1776535762555-462792846",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "fds",
+            "text_front": "dsfff"
+        },
+        {
+            "id": "kor-14",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "drzwi",
+            "text_front": "문"
+        },
+        {
+            "id": "kor-6",
+            "state_Back_to_Front": "Known",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "samochód",
+            "text_front": "자동차"
+        },
+        {
+            "id": "kor-10",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "Known",
+            "text_back": "książka",
+            "text_front": "책"
+        },
+        {
+            "id": "kor-13",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "Known",
+            "text_back": "okno",
+            "text_front": "창문"
+        },
+        {
+            "id": "kor-11",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "stół",
+            "text_front": "책상"
+        },
+        {
+            "id": "kor-7",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "New",
+            "text_back": "rower",
+            "text_front": "자전거"
+        },
+        {
+            "id": "kor-2",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "Known",
+            "text_back": "n",
+            "text_front": "ㄴ (nieun)"
+        },
+        {
+            "id": "kor-5",
+            "state_Back_to_Front": "Known",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "dom",
+            "text_front": "집"
+        },
+        {
+            "id": "kor-8",
+            "state_Back_to_Front": "Known",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "komputer",
+            "text_front": "컴퓨터"
+        },
+        {
+            "id": "kor-1",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "k/g",
+            "text_front": "ㄱ (giyeok)"
+        },
+        {
+            "id": "card-1776535767747-2276478261",
+            "state_Back_to_Front": "Known",
+            "state_Front_to_Back": "Known",
+            "text_back": "er",
+            "text_front": "er"
+        },
+        {
+            "id": "kor-3",
+            "state_Back_to_Front": "Known",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "Dzień dobry / Cześć",
+            "text_front": "안녕하세요 (Annyeonghaseyo)"
+        }
+    ],
+    "name": "Podstawy Hangul"
+}
