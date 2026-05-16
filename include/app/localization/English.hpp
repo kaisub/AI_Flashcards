@@ -67,7 +67,10 @@ inline constexpr const char* kRateNewButton = "NEW (LEFT | ALT+1)";
 inline constexpr const char* kRateKnownButton = "KNOWN (DOWN | ALT+2)";
 inline constexpr const char* kRateMasteredButton = "MASTERED (RIGHT | ALT+3)";
 inline constexpr const char* kAnswerPlaceholder = "Type your answer...";
-inline constexpr const char* kHint = "(UP / ENTER) Check answer and flip | [ALT+E] Edit | [ALT+D] Delete | [ALT+C] Copy";
+inline constexpr const char* kHintFlipButton = "(UP / ENTER) Check answer and flip";
+inline constexpr const char* kHintEditButton = "[ALT+E] Edit";
+inline constexpr const char* kHintDeleteButton = "[ALT+D] Delete";
+inline constexpr const char* kHintCopyButton = "[ALT+C] Copy";
 }  // namespace study_session
 
 namespace deck_editor {

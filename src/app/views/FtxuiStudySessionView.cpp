@@ -236,6 +236,14 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
 
     auto custom_btn_style = buttonStyle();
 
+    auto flip_action = [this] {
+        if (!_vm.isFlipped) {
+            const bool isCorrect = app::views::utils::isAnswerCorrect(_vm.userInput, _vm.currentBack);
+            _vm.lastCheckResult = isCorrect ? app::model::CheckResult::Correct : app::model::CheckResult::Incorrect;
+        }
+        _vm.isFlipped = !_vm.isFlipped;
+    };
+
     InputOption answer_option;
     answer_option.transform = [this](const InputState& state) -> Element {
         if (_vm.lastCheckResult == app::model::CheckResult::Correct) {
@@ -295,9 +303,27 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
     }
 
     auto answer_input = Input(&_vm.userInput, txt::study_session::kAnswerPlaceholder, answer_option);
-    auto bottom_container = Container::Vertical({answer_input, button_bar});
 
-    auto renderer = Renderer(bottom_container, [this, answer_input, button_bar] {
+    auto flip_button = Button(txt::study_session::kHintFlipButton, [flip_action] {
+        flip_action();
+    }, custom_btn_style);
+    auto edit_button = Button(txt::study_session::kHintEditButton, [this, &screen] {
+        _isEditing = true;
+        screen.Exit();
+    }, custom_btn_style);
+    auto delete_button = Button(txt::study_session::kHintDeleteButton, [this, &screen] {
+        _isDeleting = true;
+        screen.Exit();
+    }, custom_btn_style);
+    auto copy_button = Button(txt::study_session::kHintCopyButton, [this, &screen] {
+        _isCopying = true;
+        screen.Exit();
+    }, custom_btn_style);
+
+    auto action_bar = Container::Horizontal({flip_button, edit_button, delete_button, copy_button});
+    auto bottom_container = Container::Vertical({answer_input, action_bar, button_bar});
+
+    auto renderer = Renderer(bottom_container, [this, answer_input, action_bar, button_bar] {
         Elements text_content_elements;
         text_content_elements.push_back(text(" "));
         text_content_elements.push_back(text(" "));
@@ -331,7 +357,7 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
         }
 
         auto hint_text = hbox({
-            text(txt::study_session::kHint) | dim,
+            action_bar->Render(),
             text("  "),
             text(status_text) | bold | color(Color::Cyan)
         }) | hcenter;
@@ -340,13 +366,12 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
             card_area,
             blueSep(),
             hint_text,
-            text(" "),
             blueSep(),
             button_bar->Render() | hcenter,
         });
     });
 
-    return CatchEvent(renderer, [this, &screen, &returnToController, &focusedButtonIndex, button_bar](const Event& event) {
+    return CatchEvent(renderer, [this, &screen, &returnToController, &focusedButtonIndex, action_bar, button_bar, flip_action](const Event& event) {
         auto is_alt_char = [&](char cval) {
             const std::string lower = std::string("\x1B") + std::string(1, cval);
             const std::string upper = std::string("\x1B") + std::string(1, static_cast<char>(std::toupper(static_cast<unsigned char>(cval))));
@@ -363,14 +388,10 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
 
         if (event == Event::ArrowUp || event == Event::Return) {
             // If a user tabbed to the bottom buttons, let them press Enter natively
-            if (event == Event::Return && button_bar->Focused()) {
+            if (event == Event::Return && (button_bar->Focused() || action_bar->Focused())) {
                 return false; 
             }
-            if (!_vm.isFlipped) {
-                const bool isCorrect = app::views::utils::isAnswerCorrect(_vm.userInput, _vm.currentBack);
-                _vm.lastCheckResult = isCorrect ? app::model::CheckResult::Correct : app::model::CheckResult::Incorrect;
-            }
-            _vm.isFlipped = !_vm.isFlipped;
+            flip_action();
             return true;
         }
         if (event == Event::Escape) {
