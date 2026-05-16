@@ -96,7 +96,14 @@ TEST(FlashcardListTest, BulkImportAndRemove) {
     EXPECT_EQ(addedCount2, 5u);
     EXPECT_EQ(list2.size(), 5u);
     EXPECT_NE(list2.getCard("C3"), nullptr);
-    EXPECT_EQ(list2.getCard("A1"), list1.getCard("A1")); // Verify shared ownership
+    EXPECT_NE(list2.getCard("A1"), list1.getCard("A1")); // Imported cards should be independent clones
+
+    // Verify mutation in List1 does not leak to List2.
+    ASSERT_TRUE(list1.updateCard("A1", "Apple changed", "Jabłko changed"));
+    ASSERT_NE(list1.getCard("A1"), nullptr);
+    ASSERT_NE(list2.getCard("A1"), nullptr);
+    EXPECT_EQ(list1.getCard("A1")->text_front, "Apple changed");
+    EXPECT_EQ(list2.getCard("A1")->text_front, "Apple");
 
     // Remove multiple cards from List1
     std::vector<std::string> idsToRemove = {"B2", "D4", "F6"}; // F6 does not exist
@@ -109,7 +116,7 @@ TEST(FlashcardListTest, BulkImportAndRemove) {
     EXPECT_NE(list1.getCard("C3"), nullptr);
     EXPECT_NE(list1.getCard("E5"), nullptr);
 
-    // Check List2 is unaffected by removals in List1 (as they are shared_ptrs)
+    // Check List2 is unaffected by removals in List1.
     EXPECT_EQ(list2.size(), 5u);
     EXPECT_NE(list2.getCard("B2"), nullptr);
     EXPECT_NE(list2.getCard("D4"), nullptr);

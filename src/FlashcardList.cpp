@@ -66,10 +66,13 @@ namespace core {
     size_t FlashcardList::importCardsFrom(const FlashcardList& sourceList) {
         size_t addedCount = 0;
         for (const auto& card_ptr : sourceList.getAllCards()) {
-            // Create a new shared_ptr pointing to the same Flashcard object
-            // This ensures both lists share ownership of the same card instance,
-            // which is crucial for StudySession and state updates.
-            if (addCard(card_ptr)) {
+            if (!card_ptr) {
+                continue;
+            }
+
+            // Clone the card object to avoid shared mutable state between lists.
+            auto cloned_card = std::make_shared<Flashcard>(*card_ptr);
+            if (addCard(cloned_card)) {
                 addedCount++;
             }
         }
