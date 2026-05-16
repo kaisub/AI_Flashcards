@@ -508,7 +508,7 @@ void FtxuiDeckEditorView::run() {
                 auto row_container = Container::Horizontal({checkbox});
 
                 auto row_with_edit = CatchEvent(row_container, [this, card, custom_btn_style](const Event& event) {
-                    if (app::views::utils::isCharInsensitive(event, 'e')) {
+                    if (app::views::utils::isCharInsensitive(event, txt::deck_editor::kEditShortcut)) {
                         _vm.startEditing(card);
                         _isEditing = true;
                         _editModal = buildEditModal(custom_btn_style);
@@ -567,7 +567,7 @@ void FtxuiDeckEditorView::run() {
         auto header = vbox({
             text(txt::deck_editor::headerTitle(deck_name)) | bold | color(Color::CyanLight) | center,
             text(txt::deck_editor::headerStats(card_count, selected_count)) | color(Color::White) | center,
-        });
+    });
 
         auto card_list_view = card_list_container->Render() | vscroll_indicator | yframe | flex;
         auto hint = text(txt::deck_editor::kSelectionHint) | color(Color::White) | center;
@@ -589,7 +589,7 @@ void FtxuiDeckEditorView::run() {
             blueSep(),
             hbox({btn_start_study->Render(), text(" "), btn_exit->Render()}) | center
         }) | border | bold | color(Color::BlueLight) | center;
-    });
+        });
 
     // --- Build modal components ---
     auto delete_modal = buildDeleteModal(custom_btn_style);
@@ -670,16 +670,16 @@ void FtxuiDeckEditorView::run() {
                 screen.Exit();
                 return true;
             }
-            if (app::views::utils::isCharInsensitive(event, 'u')) {
+            if (app::views::utils::isCharInsensitive(event, txt::deck_editor::kDeleteShortcut)) {
                 if (_vm.getSelectedCount() > 0 || !_focusedCardId.empty()) { _isDeletingBulk = true; return true; }
             }
-            if (app::views::utils::isCharInsensitive(event, 'k')) {
+            if (app::views::utils::isCharInsensitive(event, txt::deck_editor::kCopyShortcut)) {
                 if (_vm.getSelectedCount() > 0 || !_focusedCardId.empty()) { _isCopyingBulk = true; return true; }
             }
-            if (app::views::utils::isCharInsensitive(event, 'p')) {
+            if (app::views::utils::isCharInsensitive(event, txt::deck_editor::kMoveShortcut)) {
                 if (_vm.getSelectedCount() > 0 || !_focusedCardId.empty()) { _isMovingBulk = true; return true; }
             }
-            if (app::views::utils::isCharInsensitive(event, 'i')) {
+            if (app::views::utils::isCharInsensitive(event, txt::deck_editor::kImportShortcut)) {
                 _isImporting = true;
                 return true;
             }

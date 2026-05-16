@@ -279,7 +279,7 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
 
     menu_option.entries_option.transform = [](const ftxui::EntryState& state) {
         ftxui::Element elm = ftxui::text(state.label);
-        if (state.label.starts_with(txt::lists_browser::kDirectoryPrefix)) {
+        if (state.label.starts_with(txt::lists_browser::kDirectoryPrefix.str())) {
             elm = elm | ftxui::color(ftxui::Color::Cyan);
         } else {
             elm = elm | ftxui::color(ftxui::Color::GreenLight);
@@ -299,6 +299,15 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
     }
 
     auto custom_btn_style = buttonStyle();
+
+    auto rebuild_entries = [this]() {
+        _menuEntries.clear();
+        _menuEntries.reserve(_vm.items.size());
+        for (const auto& item : _vm.items) {
+            const std::string prefix = item.isDirectory ? txt::lists_browser::kDirectoryPrefix : txt::lists_browser::kFilePrefix;
+            _menuEntries.push_back(prefix + item.displayName);
+        }
+    };
 
     auto back_button = ftxui::Button(txt::common::kBackEscape, [this, &screen, &returnToController] {
         returnToController = true;
@@ -339,8 +348,14 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
         }
     }, custom_btn_style);
 
+    auto btn_language = ftxui::Button(txt::lists_browser::kLanguageButton, [this, &screen, rebuild_entries] {
+        app::localization::toggleLocale();
+        rebuild_entries();
+        screen.Exit();
+    }, custom_btn_style);
+
     auto buttons_container = ftxui::Container::Horizontal({
-        back_button, exit_button, btn_new_folder, btn_new_list, btn_rename, btn_delete
+        back_button, exit_button, btn_new_folder, btn_new_list, btn_rename, btn_delete, btn_language
     });
 
     auto container = ftxui::Container::Vertical({buttons_container, menu});
@@ -360,7 +375,7 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
         }) | ftxui::border | ftxui::bold | ftxui::color(ftxui::Color::BlueLight);
     });
 
-    return ftxui::CatchEvent(renderer, [this, &screen, &returnToController](ftxui::Event event) {
+    return ftxui::CatchEvent(renderer, [this, &screen, &returnToController, rebuild_entries](ftxui::Event event) {
         if (event.is_mouse() && event.mouse().button == ftxui::Mouse::None) {
             return true;
         }
@@ -371,25 +386,25 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
             screen.Exit();
             return true;
         }
-        if (app::views::utils::isCharInsensitive(event, 'q')) {
+        if (app::views::utils::isCharInsensitive(event, txt::common::kExitApp)) {
             returnToController = true;
             triggerExitAppRequested();
             screen.Exit();
             return true;
         }
-        if (app::views::utils::isCharInsensitive(event, 'n')) {
+        if (app::views::utils::isCharInsensitive(event, txt::lists_browser::kNewListShortcut)) {
             _isCreatingList = true;
             _vm.inputBuffer = "";
             screen.Exit();
             return true;
         }
-        if (app::views::utils::isCharInsensitive(event, 'f')) {
+        if (app::views::utils::isCharInsensitive(event, txt::lists_browser::kNewFolderShortcut)) {
             _isCreatingFolder = true;
             _vm.inputBuffer = "";
             screen.Exit();
             return true;
         }
-        if (app::views::utils::isCharInsensitive(event, 'r')) {
+        if (app::views::utils::isCharInsensitive(event, txt::lists_browser::kRenameShortcut)) {
             if (_vm.hasValidSelection()) {
                 _isRenaming = true;
                 _vm.prepareRename();
@@ -397,12 +412,18 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
                 return true;
             }
         }
-        if (app::views::utils::isCharInsensitive(event, 'u')) {
+        if (app::views::utils::isCharInsensitive(event, txt::lists_browser::kDeleteShortcut)) {
             if (_vm.hasValidSelection()) {
                 _isDeleting = true;
                 screen.Exit();
                 return true;
             }
+        }
+        if (app::views::utils::isCharInsensitive(event, txt::common::kLanguageShortcut)) {
+            app::localization::toggleLocale();
+            rebuild_entries();
+            screen.Exit();
+            return true;
         }
         return false;
     });

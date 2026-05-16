@@ -66,9 +66,9 @@ void FtxuiStudyConfigView::run() {
     auto custom_btn_style = buttonStyle();
 
     // Create buttons with custom styling
-    auto start_button = Button(txt::study_config::kStartButton, start_action, custom_btn_style);
+    auto start_button = Button(txt::common::kStartButton, start_action, custom_btn_style);
 
-    auto cancel_button = Button(txt::study_config::kCancelButton, [this, &screen] {
+    auto cancel_button = Button(txt::common::kBackEscape, [this, &screen] {
         triggerCancel();
         screen.ExitLoopClosure()();
     }, custom_btn_style);

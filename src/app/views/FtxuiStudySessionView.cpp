@@ -40,14 +40,6 @@ constexpr int kCopyListMaxHeight = 15;
 constexpr int kAnswerInputWidth = 80;
 
 constexpr const char* kInlineGap = "  ";
-constexpr char kShortcutUndo = 'b';
-constexpr char kShortcutResetAll = 'r';
-constexpr char kShortcutRateNew = '1';
-constexpr char kShortcutRateKnown = '2';
-constexpr char kShortcutRateMastered = '3';
-constexpr char kShortcutEdit = 'e';
-constexpr char kShortcutDelete = 'd';
-constexpr char kShortcutCopy = 'c';
 } // namespace
 
 void FtxuiStudySessionView::showCard(const core::Flashcard& card, bool showBack) {
@@ -343,7 +335,6 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
         _isCopying = true;
         screen.Exit();
     }, custom_btn_style);
-
     auto action_bar = Container::Horizontal({flip_button, rate_new_button, rate_known_button, rate_mastered_button});
 
     auto button_bar = Container::Horizontal({
@@ -447,14 +438,14 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
             screen.Exit();
             return true;
         }
-        if (is_alt_char(kShortcutUndo)) {
+        if (is_alt_char(txt::study_session::kUndoShortcut)) {
             focusedButtonIndex = toFocusIndex(FocusSlot::Undo);
             returnToController = true;
             triggerUndoRequested();
             screen.Exit();
             return true;
         }
-        if (is_alt_char(kShortcutResetAll)) {
+        if (is_alt_char(txt::study_session::kResetAllShortcut)) {
             focusedButtonIndex = toFocusIndex(FocusSlot::ResetAll);
             returnToController = true;
             triggerResetAllRequested();
@@ -462,23 +453,23 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
             return true;
         }
         
-        if (is_alt_char(kShortcutRateNew) || event == Event::ArrowLeft)  { return rate_card(toFocusIndex(FocusSlot::RateNew), core::CardState::New); }
-        if (is_alt_char(kShortcutRateKnown) || event == Event::ArrowDown)   { return rate_card(toFocusIndex(FocusSlot::RateKnown), core::CardState::Known); }
-        if (is_alt_char(kShortcutRateMastered) || event == Event::ArrowRight)  { return rate_card(toFocusIndex(FocusSlot::RateMastered), core::CardState::Mastered); }
+        if (is_alt_char(txt::study_session::kRateNewShortcut) || event == Event::ArrowLeft)  { return rate_card(toFocusIndex(FocusSlot::RateNew), core::CardState::New); }
+        if (is_alt_char(txt::study_session::kRateKnownShortcut) || event == Event::ArrowDown)   { return rate_card(toFocusIndex(FocusSlot::RateKnown), core::CardState::Known); }
+        if (is_alt_char(txt::study_session::kRateMasteredShortcut) || event == Event::ArrowRight)  { return rate_card(toFocusIndex(FocusSlot::RateMastered), core::CardState::Mastered); }
 
-        if (is_alt_char(kShortcutEdit)) {
+        if (is_alt_char(txt::study_session::kEditShortcut)) {
             focusedButtonIndex = toFocusIndex(FocusSlot::Edit);
             _isEditing = true;
             screen.Exit();
             return true;
         }
-        if (is_alt_char(kShortcutDelete)) {
+        if (is_alt_char(txt::study_session::kDeleteShortcut)) {
             focusedButtonIndex = toFocusIndex(FocusSlot::Delete);
             _isDeleting = true;
             screen.Exit();
             return true;
         }
-        if (is_alt_char(kShortcutCopy)) {
+        if (is_alt_char(txt::study_session::kCopyShortcut)) {
             focusedButtonIndex = toFocusIndex(FocusSlot::Copy);
             _isCopying = true;
             screen.Exit();
