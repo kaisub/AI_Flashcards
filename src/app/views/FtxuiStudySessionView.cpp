@@ -267,36 +267,44 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
         triggerUndoRequested();
         screen.Exit();
     }, custom_btn_style);
-    auto rate_new_button = Button(txt::study_session::kRateNewButton, [this, &screen, &returnToController, &focusedButtonIndex] {
+    auto reset_all_button = Button(txt::study_session::kHintResetAllButton, [this, &screen, &returnToController, &focusedButtonIndex] {
         focusedButtonIndex = 2;
+        returnToController = true;
+        triggerResetAllRequested();
+        screen.Exit();
+    }, custom_btn_style);
+    auto rate_new_button = Button(txt::study_session::kRateNewButton, [this, &screen, &returnToController, &focusedButtonIndex] {
+        focusedButtonIndex = 3;
         returnToController = true;
         triggerCardRated(core::CardState::New);
         screen.Exit();
     }, custom_btn_style);
     auto rate_known_button = Button(txt::study_session::kRateKnownButton, [this, &screen, &returnToController, &focusedButtonIndex] {
-        focusedButtonIndex = 3;
+        focusedButtonIndex = 4;
         returnToController = true;
         triggerCardRated(core::CardState::Known);
         screen.Exit();
     }, custom_btn_style);
     auto rate_mastered_button = Button(txt::study_session::kRateMasteredButton, [this, &screen, &returnToController, &focusedButtonIndex] {
-        focusedButtonIndex = 4;
+        focusedButtonIndex = 5;
         returnToController = true;
         triggerCardRated(core::CardState::Mastered);
         screen.Exit();
     }, custom_btn_style);
 
     auto button_bar = Container::Horizontal({
-        exit_button, undo_button, rate_new_button, rate_known_button, rate_mastered_button,
+        exit_button, undo_button, reset_all_button, rate_new_button, rate_known_button, rate_mastered_button,
     });
 
     if (focusedButtonIndex == 1) {
         button_bar->SetActiveChild(undo_button.get());
     } else if (focusedButtonIndex == 2) {
-        button_bar->SetActiveChild(rate_new_button.get());
+        button_bar->SetActiveChild(reset_all_button.get());
     } else if (focusedButtonIndex == 3) {
-        button_bar->SetActiveChild(rate_known_button.get());
+        button_bar->SetActiveChild(rate_new_button.get());
     } else if (focusedButtonIndex == 4) {
+        button_bar->SetActiveChild(rate_known_button.get());
+    } else if (focusedButtonIndex == 5) {
         button_bar->SetActiveChild(rate_mastered_button.get());
     } else {
         button_bar->SetActiveChild(exit_button.get());
@@ -408,10 +416,17 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
             screen.Exit();
             return true;
         }
+        if (is_alt_char('r')) {
+            focusedButtonIndex = 2;
+            returnToController = true;
+            triggerResetAllRequested();
+            screen.Exit();
+            return true;
+        }
         
-        if (is_alt_char('1') || event == Event::ArrowLeft)  { return rate_card(2, core::CardState::New); }
-        if (is_alt_char('2') || event == Event::ArrowDown)   { return rate_card(3, core::CardState::Known); }
-        if (is_alt_char('3') || event == Event::ArrowRight)  { return rate_card(4, core::CardState::Mastered); }
+        if (is_alt_char('1') || event == Event::ArrowLeft)  { return rate_card(3, core::CardState::New); }
+        if (is_alt_char('2') || event == Event::ArrowDown)   { return rate_card(4, core::CardState::Known); }
+        if (is_alt_char('3') || event == Event::ArrowRight)  { return rate_card(5, core::CardState::Mastered); }
 
         if (is_alt_char('e')) {
             _isEditing = true;

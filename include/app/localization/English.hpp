@@ -68,6 +68,7 @@ inline constexpr const char* kRateKnownButton = "KNOWN (DOWN | ALT+2)";
 inline constexpr const char* kRateMasteredButton = "MASTERED (RIGHT | ALT+3)";
 inline constexpr const char* kAnswerPlaceholder = "Type your answer...";
 inline constexpr const char* kHintFlipButton = "(UP / ENTER) Check answer and flip";
+inline constexpr const char* kHintResetAllButton = "(ALT+R) Reset all";
 inline constexpr const char* kHintEditButton = "[ALT+E] Edit";
 inline constexpr const char* kHintDeleteButton = "[ALT+D] Delete";
 inline constexpr const char* kHintCopyButton = "[ALT+C] Copy";

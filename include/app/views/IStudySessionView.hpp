@@ -11,6 +11,7 @@ namespace app {
         using CardRatedHandler = std::function<void(core::CardState newState)>;
         using ExitRequestedHandler = std::function<void()>;
         using UndoRequestedHandler = std::function<void()>;
+        using ResetAllRequestedHandler = std::function<void()>;
         using EditRequestedHandler = std::function<void(const std::string& newFront, const std::string& newBack)>;
         using DeleteRequestedHandler = std::function<void()>;
         using CopyRequestedHandler = std::function<void(int selectedListIndex)>;
@@ -25,6 +26,7 @@ namespace app {
         void setOnCardRated(CardRatedHandler handler) { onCardRated_ = std::move(handler); }
         void setOnExitRequested(ExitRequestedHandler handler) { onExitRequested_ = std::move(handler); }
         void setOnUndoRequested(UndoRequestedHandler handler) { onUndoRequested_ = std::move(handler); }
+        void setOnResetAllRequested(ResetAllRequestedHandler handler) { onResetAllRequested_ = std::move(handler); }
         void setOnEditRequested(EditRequestedHandler handler) { onEditRequested_ = std::move(handler); }
         void setOnDeleteRequested(DeleteRequestedHandler handler) { onDeleteRequested_ = std::move(handler); }
         void setOnCopyRequested(CopyRequestedHandler handler) { onCopyRequested_ = std::move(handler); }
@@ -50,6 +52,14 @@ namespace app {
                 return false;
             }
             onUndoRequested_();
+            return true;
+        }
+
+        bool triggerResetAllRequested() {
+            if (!onResetAllRequested_) {
+                return false;
+            }
+            onResetAllRequested_();
             return true;
         }
 
@@ -81,6 +91,7 @@ namespace app {
         CardRatedHandler onCardRated_;
         ExitRequestedHandler onExitRequested_;
         UndoRequestedHandler onUndoRequested_;
+        ResetAllRequestedHandler onResetAllRequested_;
         EditRequestedHandler onEditRequested_;
         DeleteRequestedHandler onDeleteRequested_;
         CopyRequestedHandler onCopyRequested_;

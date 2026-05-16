@@ -27,6 +27,7 @@ namespace app::presenters {
         std::unique_ptr<core::StudySession> _session;
         std::string _currentListName;
         std::filesystem::path _currentListPath;
+        core::SessionConfig _currentConfig;
         std::optional<core::ReviewItem> _currentReviewItem;
         std::vector<std::filesystem::path> _availableListPaths;
 

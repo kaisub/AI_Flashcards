@@ -11,6 +11,7 @@ namespace app::presenters {
     void StudySessionPresenter::start(const std::string& listName, const std::filesystem::path& listPath, const core::SessionConfig& config) {
         _currentListName = listName;
         _currentListPath = listPath;
+        _currentConfig = config;
         
         auto list = _deckManager->loadList(_currentListPath);
         if (!list || list->getAllCards().empty()) {
@@ -59,6 +60,25 @@ namespace app::presenters {
             if (_session) {
                 _session->undoLastAction();
             }
+        });
+
+        _view->setOnResetAllRequested([this]() {
+            auto list = _deckManager->getList(_currentListName);
+            if (!list) {
+                return;
+            }
+
+            for (const auto& card : list->getAllCards()) {
+                if (!card) {
+                    continue;
+                }
+                card->state_Front_to_Back = core::CardState::New;
+                card->state_Back_to_Front = core::CardState::New;
+            }
+
+            _deckManager->saveList(_currentListName);
+            _session = std::make_unique<core::StudySession>(list->getAllCards(), _currentConfig);
+            _currentReviewItem.reset();
         });
 
         _view->setOnExitRequested([this]() {

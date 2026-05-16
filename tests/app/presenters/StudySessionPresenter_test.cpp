@@ -343,4 +343,37 @@ TEST_F(StudySessionPresenterTest, OnDeleteRequestedWhenRemoveFailsKeepsCard) {
     EXPECT_NE(list->getCard("card-to-delete"), nullptr);
 }
 
+TEST_F(StudySessionPresenterTest, OnResetAllRequestedResetsCardStatesToNewAndSaves) {
+    auto card1 = std::make_shared<core::Flashcard>();
+    card1->id = "card-1";
+    card1->state_Front_to_Back = core::CardState::Known;
+    card1->state_Back_to_Front = core::CardState::Mastered;
+
+    auto card2 = std::make_shared<core::Flashcard>();
+    card2->id = "card-2";
+    card2->state_Front_to_Back = core::CardState::Mastered;
+    card2->state_Back_to_Front = core::CardState::Known;
+
+    deckManager->addList("MyDeck", "path/to/deck.json", {card1, card2});
+
+    core::SessionConfig config;
+    presenter->start("MyDeck", "path/to/deck.json", config);
+    presenter->handleStep();
+
+    ASSERT_TRUE(view->triggerResetAllRequested());
+
+    auto list = deckManager->getList("MyDeck");
+    ASSERT_NE(list, nullptr);
+    auto cards = list->getAllCards();
+    ASSERT_EQ(cards.size(), 2U);
+    for (const auto& card : cards) {
+        ASSERT_NE(card, nullptr);
+        EXPECT_EQ(card->state_Front_to_Back, core::CardState::New);
+        EXPECT_EQ(card->state_Back_to_Front, core::CardState::New);
+    }
+
+    ASSERT_FALSE(deckManager->savedLists.empty());
+    EXPECT_EQ(deckManager->savedLists.back(), "MyDeck");
+}
+
 } // namespace app
