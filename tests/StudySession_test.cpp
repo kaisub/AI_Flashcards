@@ -542,3 +542,63 @@ TEST(StudySessionTest, UndoAfterRemoveCard_SkipsRemovedCard) {
     EXPECT_TRUE(session.undoLastAction());
     EXPECT_EQ(deck[0]->state_Front_to_Back, CardState::New);
 }
+
+TEST(StudySessionTest, Undo_MakesLastSubmittedCardNext_WhenCardsWereNew) {
+    std::vector<std::shared_ptr<Flashcard>> deck;
+    deck.push_back(createTestFlashcard("1", "F1", "B1", CardState::New, CardState::New));
+    deck.push_back(createTestFlashcard("2", "F2", "B2", CardState::New, CardState::New));
+    deck.push_back(createTestFlashcard("3", "F3", "B3", CardState::New, CardState::New));
+    deck.push_back(createTestFlashcard("4", "F4", "B4", CardState::New, CardState::New));
+
+    SessionConfig config;
+    config.type = SessionType::Standard;
+    config.direction = TranslationDirection::Front_to_Back;
+    config.weightNew = 100;
+    config.weightKnown = 0;
+    config.weightMastered = 0;
+
+    StudySession session(deck, config, 123u);
+
+    std::string lastSubmittedId;
+    for (int i = 0; i < 4; ++i) {
+        auto item = session.getNextItem();
+        ASSERT_TRUE(item.has_value());
+        lastSubmittedId = item->card->id;
+        session.submitAnswer(item.value(), CardState::Mastered);
+    }
+
+    ASSERT_TRUE(session.undoLastAction());
+    auto replay = session.getNextItem();
+    ASSERT_TRUE(replay.has_value());
+    EXPECT_EQ(replay->card->id, lastSubmittedId);
+}
+
+TEST(StudySessionTest, Undo_MakesLastSubmittedCardNext_WhenCardsWereMastered) {
+    std::vector<std::shared_ptr<Flashcard>> deck;
+    deck.push_back(createTestFlashcard("1", "F1", "B1", CardState::Mastered, CardState::Mastered));
+    deck.push_back(createTestFlashcard("2", "F2", "B2", CardState::Mastered, CardState::Mastered));
+    deck.push_back(createTestFlashcard("3", "F3", "B3", CardState::Mastered, CardState::Mastered));
+    deck.push_back(createTestFlashcard("4", "F4", "B4", CardState::Mastered, CardState::Mastered));
+
+    SessionConfig config;
+    config.type = SessionType::Standard;
+    config.direction = TranslationDirection::Front_to_Back;
+    config.weightNew = 0;
+    config.weightKnown = 0;
+    config.weightMastered = 100;
+
+    StudySession session(deck, config, 456u);
+
+    std::string lastSubmittedId;
+    for (int i = 0; i < 4; ++i) {
+        auto item = session.getNextItem();
+        ASSERT_TRUE(item.has_value());
+        lastSubmittedId = item->card->id;
+        session.submitAnswer(item.value(), CardState::Mastered);
+    }
+
+    ASSERT_TRUE(session.undoLastAction());
+    auto replay = session.getNextItem();
+    ASSERT_TRUE(replay.has_value());
+    EXPECT_EQ(replay->card->id, lastSubmittedId);
+}

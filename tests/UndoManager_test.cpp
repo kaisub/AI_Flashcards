@@ -42,34 +42,16 @@ TEST(UndoManagerTest, PushAndPopRecord) {
     EXPECT_TRUE(undo.isEmpty());
 }
 
-TEST(UndoManagerTest, UpdateLastRecordState) {
+TEST(UndoManagerTest, ClearRemovesAllRecords) {
     UndoManager undo;
-    HistoryRecord record{"test-1", nullptr, CardState::New, CardState::New, TranslationDirection::Mixed, CardState::New};
-    undo.pushRecord(record);
+    undo.pushRecord(HistoryRecord{"test-1", nullptr, CardState::New, CardState::Known, TranslationDirection::Mixed, CardState::Known});
+    undo.pushRecord(HistoryRecord{"test-2", nullptr, CardState::Known, CardState::Mastered, TranslationDirection::Front_to_Back, CardState::Mastered});
+    EXPECT_FALSE(undo.isEmpty());
 
-    // Simulate updating the pushed queue state after a user action
-    undo.updateLastRecordState("test-1", CardState::Mastered);
+    undo.clear();
 
-    auto popped = undo.popRecord();
-    ASSERT_TRUE(popped.has_value());
-    EXPECT_EQ(popped->pushedToQueueState, CardState::Mastered);
-}
-
-TEST(UndoManagerTest, UpdateLastRecordStateIgnoresMismatchOrEmpty) {
-    UndoManager undo;
-    
-    // Empty stack update - should safely ignore
-    undo.updateLastRecordState("test-1", CardState::Mastered); 
     EXPECT_TRUE(undo.isEmpty());
-
-    // Mismatched ID update - should safely ignore
-    HistoryRecord record{"test-1", nullptr, CardState::New, CardState::New, TranslationDirection::Mixed, CardState::New};
-    undo.pushRecord(record);
-    undo.updateLastRecordState("different-id", CardState::Mastered);
-
-    auto popped = undo.popRecord();
-    ASSERT_TRUE(popped.has_value());
-    EXPECT_EQ(popped->pushedToQueueState, CardState::New); // Remains unchanged
+    EXPECT_FALSE(undo.popRecord().has_value());
 }
 
 TEST(UndoManagerTest, MultipleRecordsLIFO) {

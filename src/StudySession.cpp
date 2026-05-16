@@ -6,6 +6,20 @@
 
 namespace core {
 
+    namespace {
+
+    std::optional<ReviewItem> popItemFromQueue(std::deque<ReviewItem>* targetQueue) {
+        if (targetQueue == nullptr || targetQueue->empty()) {
+            return std::nullopt;
+        }
+
+        ReviewItem item = targetQueue->front();
+        targetQueue->pop_front();
+        return item;
+    }
+
+    } // namespace
+
     StudySession::StudySession(const std::vector<std::shared_ptr<Flashcard>>& deck, const SessionConfig& config, std::optional<unsigned int> seed)
         : currentConfig(config),
           randomEngine(seed.has_value() ? seed.value() : std::random_device{}()) {
@@ -113,7 +127,6 @@ namespace core {
         // Select a queue based on the distribution
         const CardState chosenState = weightedQueues[static_cast<size_t>(distrib(randomEngine))].first;
 
-        ReviewItem item;
         std::deque<ReviewItem>* targetQueue = nullptr;
 
         switch (chosenState) {
@@ -122,21 +135,8 @@ namespace core {
             case CardState::Mastered: targetQueue = &queueMastered; break;
         }
 
-        if (targetQueue != nullptr && !targetQueue->empty()) {
-            item = targetQueue->front();
-            targetQueue->pop_front();
-
-            // Store original card states before modification for undo
-            HistoryRecord record;
-            record.cardId = item.card->id;
-            record.cardPtr = item.card; // Store shared_ptr for direct access
-            record.previousFrontState = item.card->state_Front_to_Back;
-            record.previousBackState = item.card->state_Back_to_Front;
-            record.askedDirection = item.askedDirection;
-            // The `pushedToQueueState` will be set in submitAnswer
-
-            undoManager.pushRecord(record);
-            return item;
+        if (const auto nextItem = popItemFromQueue(targetQueue); nextItem.has_value()) {
+            return nextItem;
         }
 
         // This case should ideally not be reached due to weightedQueues check,
@@ -157,21 +157,8 @@ namespace core {
             case CardState::Mastered: targetQueue = &queueMastered; break;
         }
 
-        if (targetQueue != nullptr && !targetQueue->empty()) {
-            ReviewItem item = targetQueue->front();
-            targetQueue->pop_front();
-
-            // Store original card states before modification for undo
-            HistoryRecord record;
-            record.cardId = item.card->id;
-            record.cardPtr = item.card;
-            record.previousFrontState = item.card->state_Front_to_Back;
-            record.previousBackState = item.card->state_Back_to_Front;
-            record.askedDirection = item.askedDirection;
-            // pushedToQueueState set in submitAnswer
-
-            undoManager.pushRecord(record);
-            return item;
+        if (const auto nextItem = popItemFromQueue(targetQueue); nextItem.has_value()) {
+            return nextItem;
         }
 
         return std::nullopt; // No cards left in the focused queue
@@ -179,6 +166,16 @@ namespace core {
 
     void StudySession::submitAnswer(const ReviewItem& item, CardState newState) {
         if (!item.card) { return; }
+
+        // Undo should revert the last submitted answer, so record history here.
+        HistoryRecord record;
+        record.cardId = item.card->id;
+        record.cardPtr = item.card;
+        record.previousFrontState = item.card->state_Front_to_Back;
+        record.previousBackState = item.card->state_Back_to_Front;
+        record.askedDirection = item.askedDirection;
+        record.pushedToQueueState = newState;
+        undoManager.pushRecord(record);
 
         // Update card's state based on the direction it was asked in
         if (item.askedDirection == TranslationDirection::Front_to_Back) {
@@ -192,9 +189,6 @@ namespace core {
         // A more complex system might average or apply newState to both if Mixed.
         // For now, if Mixed, treat it as Front_to_Back for state update, or choose one consistently.
         // Let's stick to the direction it was *asked in* for the state update for now.
-
-        // If history stack is not empty, update the last record with the state it was pushed to
-        undoManager.updateLastRecordState(item.card->id, newState);
 
         // Re-queue the card
         TranslationDirection reQueueDirection = currentConfig.direction;
@@ -243,9 +237,46 @@ namespace core {
         }
         const HistoryRecord lastRecord = recordOpt.value();
 
+        if (!lastRecord.cardPtr) {
+            return false;
+        }
+
+        auto remove_last_matching = [&](std::deque<ReviewItem>& que, const std::string& cardId) {
+            for (auto it = que.end(); it != que.begin();) {
+                --it;
+                if (it->card && it->card->id == cardId) {
+                    que.erase(it);
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        std::deque<ReviewItem>* submittedQueue = nullptr;
+        switch (lastRecord.pushedToQueueState) {
+            case CardState::New:
+                submittedQueue = &queueNew;
+                break;
+            case CardState::Known:
+                submittedQueue = &queueKnown;
+                break;
+            case CardState::Mastered:
+                submittedQueue = &queueMastered;
+                break;
+        }
+
+        bool removedFromSubmittedQueue = false;
+        if (submittedQueue != nullptr) {
+            removedFromSubmittedQueue = remove_last_matching(*submittedQueue, lastRecord.cardId);
+        }
+        if (!removedFromSubmittedQueue) {
+            // Fallback: keep previous behavior if queue metadata drifted.
+            removedFromSubmittedQueue = removeCardFromAnyQueue(lastRecord.cardId);
+        }
+
         // The card was previously submitted and pushed to `lastRecord.pushedToQueueState` queue.
         // Find and remove it from there.
-        if (lastRecord.cardPtr && removeCardFromAnyQueue(lastRecord.cardId)) {
+        if (removedFromSubmittedQueue) {
             // Restore card's state
             lastRecord.cardPtr->state_Front_to_Back = lastRecord.previousFrontState;
             lastRecord.cardPtr->state_Back_to_Front = lastRecord.previousBackState;
@@ -255,25 +286,20 @@ namespace core {
             const CardState originalState = (lastRecord.askedDirection == TranslationDirection::Front_to_Back) ?
                                        lastRecord.previousFrontState : lastRecord.previousBackState;
 
-            // Re-add to the front of the queue to simulate "putting it back" to be reviewed again soon.
-            // Or to the back, if we want it to be reviewed later. Front is more common for undo.
-            // For now, let's just put it back at the end of the appropriate queue.
-            // This is a design decision. For simplicity and to avoid immediately drawing it again, back is safer.
-            // However, a true "undo" might mean putting it back where it was, potentially at the front.
-            // The prompt says "places it back in its previous queue", which often implies at the end.
+            // Put undone card at the front so "undo" immediately restores the previous review flow.
 
             // Restore the card exactly with the direction it was drawn with
             const ReviewItem restoredItem{lastRecord.cardPtr, lastRecord.askedDirection};
 
             switch (originalState) {
                 case CardState::New:
-                    queueNew.push_back(restoredItem);
+                    queueNew.push_front(restoredItem);
                     break;
                 case CardState::Known:
-                    queueKnown.push_back(restoredItem);
+                    queueKnown.push_front(restoredItem);
                     break;
                 case CardState::Mastered:
-                    queueMastered.push_back(restoredItem);
+                    queueMastered.push_front(restoredItem);
                     break;
             }
             return true;

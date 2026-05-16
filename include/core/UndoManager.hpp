@@ -23,12 +23,6 @@ namespace core {
             historyStack.push_back(record);
         }
 
-        void updateLastRecordState(const std::string& cardId, CardState newState) {
-            if (!historyStack.empty() && historyStack.back().cardId == cardId) {
-                historyStack.back().pushedToQueueState = newState;
-            }
-        }
-
         std::optional<HistoryRecord> popRecord() {
             if (historyStack.empty()) {
                 return std::nullopt;

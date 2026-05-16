@@ -321,7 +321,7 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
         auto card_area = vbox({
             text_content,
             answer_input->Render() | size(WIDTH, EQUAL, 80) | hcenter
-        }) | border | bold | color(Color::BlueLight) | flex;
+        }) | border | bold | color(Color::White) | flex;
 
         std::string status_text;
         switch (_vm.currentCardState) {
