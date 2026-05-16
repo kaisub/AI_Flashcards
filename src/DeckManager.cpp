@@ -82,11 +82,11 @@ namespace core {
     }
 
     std::shared_ptr<FlashcardList> DeckManager::getList(const std::string& listName) const {
-        auto it = decks.find(listName);
-        if (it == decks.end()) {
+        auto itr = decks.find(listName);
+        if (itr == decks.end()) {
             return nullptr;
         }
-        return it->second;
+        return itr->second;
     }
 
     bool DeckManager::addCardToList(const std::string& listName, std::shared_ptr<Flashcard> card) {
@@ -204,9 +204,9 @@ namespace core {
         }
 
         // Check and remove UTF-8 BOM if present
-        char bom[3] = {0};
-        file.read(bom, 3);
-        if (!(bom[0] == '\xEF' && bom[1] == '\xBB' && bom[2] == '\xBF')) {
+        std::array<char, 3> bom = {0};
+        file.read(bom.data(), 3);
+        if (bom[0] != '\xEF' || bom[1] != '\xBB' || bom[2] != '\xBF') {
             file.seekg(0);
             file.clear(); // Clear EOF or fail bits if file was very small
         }
@@ -216,11 +216,11 @@ namespace core {
         bool firstLine = true;
 
         auto trim = [](std::string& str) {
-            auto start = std::find_if_not(str.begin(), str.end(), [](unsigned char ch) {
-                return std::isspace(ch);
+            auto start = std::find_if_not(str.begin(), str.end(), [](unsigned char chr) {
+                return std::isspace(chr);
             });
-            auto end = std::find_if_not(str.rbegin(), str.rend(), [](unsigned char ch) {
-                return std::isspace(ch);
+            auto end = std::find_if_not(str.rbegin(), str.rend(), [](unsigned char chr) {
+                return std::isspace(chr);
             }).base();
             str = (start < end) ? std::string(start, end) : std::string();
         };
@@ -239,7 +239,7 @@ namespace core {
             std::string front;
             std::string back;
 
-            size_t pos = line.find(delimiter);
+            const size_t pos = line.find(delimiter);
             if (pos != std::string::npos) {
                 front = line.substr(0, pos);
                 back = line.substr(pos + 1);
@@ -256,7 +256,7 @@ namespace core {
             }
 
             static size_t cardIdCounter = 0;
-            std::string cardId = "import_" + std::to_string(++cardIdCounter) + "_" + std::to_string(std::hash<std::string>{}(front + back));
+            const std::string cardId = "import_" + std::to_string(++cardIdCounter) + "_" + std::to_string(std::hash<std::string>{}(front + back));
 
             auto card = std::make_shared<Flashcard>();
             card->id = cardId;

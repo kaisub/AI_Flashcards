@@ -1,7 +1,6 @@
 ---
 Checks: >
   -*,
-  bugprone-*,
   cert-*,
   clang-analyzer-*,
   cppcoreguidelines-*,
@@ -16,6 +15,7 @@ Checks: >
   -misc-include-cleaner,
   -modernize-use-trailing-return-type,
   -google-build-using-namespace,
+  -google-default-arguments,
   -readability-identifier-length,
   -cppcoreguidelines-avoid-magic-numbers,
   -readability-magic-numbers,

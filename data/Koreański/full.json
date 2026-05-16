@@ -1,0 +1,4737 @@
+{
+    "cards": [
+        {
+            "id": "import_133_3744850428865278851",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "znowu, ponownie",
+            "text_front": "다시"
+        },
+        {
+            "id": "import_541_10441849857404718946",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dobrze (świetnie)",
+            "text_front": "좋아요"
+        },
+        {
+            "id": "import_170_17049028194375857820",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ciepło",
+            "text_front": "따뜻"
+        },
+        {
+            "id": "import_11_6492699210390714252",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jesień",
+            "text_front": "가을"
+        },
+        {
+            "id": "import_37_12554159292415748454",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "rzecz",
+            "text_front": "것"
+        },
+        {
+            "id": "import_343_8773072945173516097",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "odrobić pracę domową",
+            "text_front": "숙제 하다"
+        },
+        {
+            "id": "import_325_13958391992447390960",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "nauczyciel",
+            "text_front": "선생님"
+        },
+        {
+            "id": "import_502_10921585904704643056",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "własne",
+            "text_front": "자기"
+        },
+        {
+            "id": "import_460_10954824876003113885",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "my / nasze",
+            "text_front": "우리"
+        },
+        {
+            "id": "import_430_6740812921937247122",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "angielski",
+            "text_front": "영어"
+        },
+        {
+            "id": "import_240_2678892324064692250",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "fryzjer",
+            "text_front": "미용실"
+        },
+        {
+            "id": "import_102_13120618953173464513",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kraj",
+            "text_front": "나라"
+        },
+        {
+            "id": "import_561_8773499615466988401",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ale",
+            "text_front": "지만"
+        },
+        {
+            "id": "import_276_15215133615613638423",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wiosna",
+            "text_front": "봄"
+        },
+        {
+            "id": "import_414_13412615924187331215",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kiedy",
+            "text_front": "언제"
+        },
+        {
+            "id": "import_61_1441553754344163129",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "przekąska",
+            "text_front": "과자"
+        },
+        {
+            "id": "import_40_812877407261769586",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "małżeństwo",
+            "text_front": "결혼"
+        },
+        {
+            "id": "import_534_14637030912692216817",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "troszkę",
+            "text_front": "조금,좀"
+        },
+        {
+            "id": "import_162_10230445674962045292",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przez, podczas",
+            "text_front": "동안"
+        },
+        {
+            "id": "import_497_16463828103017105246",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przeczytać",
+            "text_front": "읽다"
+        },
+        {
+            "id": "import_285_13181572483706786086",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pada deszcz",
+            "text_front": "비 내리다"
+        },
+        {
+            "id": "import_624_18107388790837807135",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kimchi z cebulką zieloną (dymka)",
+            "text_front": "파김치"
+        },
+        {
+            "id": "import_391_7765432202297693795",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "nie być",
+            "text_front": "않다"
+        },
+        {
+            "id": "import_222_15962854690370686056",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "nie wiem",
+            "text_front": "몰라요"
+        },
+        {
+            "id": "import_59_12144903429076880488",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "lotnisko",
+            "text_front": "공항"
+        },
+        {
+            "id": "import_469_3658732880589316113",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "miesiąc",
+            "text_front": "월"
+        },
+        {
+            "id": "import_274_2056671443436021479",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "smażona potrawa",
+            "text_front": "볶음"
+        },
+        {
+            "id": "import_124_5409677684842077892",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "śpiewać",
+            "text_front": "노래하다"
+        },
+        {
+            "id": "import_368_883341406148822571",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Mr/Ms",
+            "text_front": "씨"
+        },
+        {
+            "id": "import_320_9685654782905852982",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "nawzajem",
+            "text_front": "서로"
+        },
+        {
+            "id": "import_489_14701799824561641036",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "indonezja",
+            "text_front": "인도네시아"
+        },
+        {
+            "id": "import_374_12360013711790527271",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "o jejku",
+            "text_front": "아이고"
+        },
+        {
+            "id": "import_422_13798113090470188178",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "lato",
+            "text_front": "여름"
+        },
+        {
+            "id": "import_259_9752596346829825504",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "plecak",
+            "text_front": "배낭"
+        },
+        {
+            "id": "import_511_16962946197712391943",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "momencik, poczekaj chwilę",
+            "text_front": "잠깐만"
+        },
+        {
+            "id": "import_304_3840875501301056717",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "cukierki, lizak",
+            "text_front": "사탕"
+        },
+        {
+            "id": "import_241_15237236767569244165",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "podkreślona część",
+            "text_front": "밑줄 친 부분"
+        },
+        {
+            "id": "import_601_13720493872423652360",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "aparat fotograficzny",
+            "text_front": "카메라"
+        },
+        {
+            "id": "import_103_2882063569773770298",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "drzewo",
+            "text_front": "나무"
+        },
+        {
+            "id": "import_317_10974988106665184888",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "urodziny",
+            "text_front": "생일"
+        },
+        {
+            "id": "import_672_12443225915466700121",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "telefon komórkowy",
+            "text_front": "휴대폰"
+        },
+        {
+            "id": "import_661_5759739307288910580",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sam, samemu",
+            "text_front": "혼자"
+        },
+        {
+            "id": "import_265_3133608884346198117",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "numer",
+            "text_front": "번호"
+        },
+        {
+            "id": "import_115_10399615925944768136",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zimna woda",
+            "text_front": "냉수"
+        },
+        {
+            "id": "import_266_3778854718080246148",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "tygrys",
+            "text_front": "범"
+        },
+        {
+            "id": "import_142_3709965148792348035",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "marchewka, też portal typu olx",
+            "text_front": "당근"
+        },
+        {
+            "id": "import_568_2620868801038752606",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zawód",
+            "text_front": "직업"
+        },
+        {
+            "id": "import_47_12717780093592349515",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wybierz",
+            "text_front": "고르세요"
+        },
+        {
+            "id": "import_324_7800183524090025392",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "prezent",
+            "text_front": "선물"
+        },
+        {
+            "id": "import_41_16815905260344229386",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "uroczystość ślubna",
+            "text_front": "결혼식"
+        },
+        {
+            "id": "import_660_12922861109850143676",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Australia",
+            "text_front": "호주"
+        },
+        {
+            "id": "import_210_12140392180086751387",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wiadomość",
+            "text_front": "메시지"
+        },
+        {
+            "id": "import_295_8280556655584071764",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kupować",
+            "text_front": "사다"
+        },
+        {
+            "id": "import_309_12117220045187180699",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "boczek",
+            "text_front": "삼겹살"
+        },
+        {
+            "id": "import_161_15387228016706512298",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "młodsze rodzeństwo",
+            "text_front": "동생"
+        },
+        {
+            "id": "import_177_3144806864628710650",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "znowu, ponownie, również",
+            "text_front": "또"
+        },
+        {
+            "id": "import_322_17687505314858507963",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "księgarnia",
+            "text_front": "서점"
+        },
+        {
+            "id": "import_154_2278913208954595352",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "biblioteka",
+            "text_front": "도서관"
+        },
+        {
+            "id": "import_205_854692884443160910",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "codzienny",
+            "text_front": "매일"
+        },
+        {
+            "id": "import_356_4788472963297032599",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "śródmieście, rynek",
+            "text_front": "시내"
+        },
+        {
+            "id": "import_440_1276914628086327460",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "prawa strona",
+            "text_front": "오른쪽"
+        },
+        {
+            "id": "import_97_6356014873597543450",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zupa kimczi",
+            "text_front": "김치찌개"
+        },
+        {
+            "id": "import_446_13032161528746719380",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sklep odzieżowy",
+            "text_front": "옷가게"
+        },
+        {
+            "id": "import_668_12411661762321679395",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "obowiązek synowski",
+            "text_front": "효"
+        },
+        {
+            "id": "import_53_3457396428215609467",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "piłka",
+            "text_front": "공"
+        },
+        {
+            "id": "import_131_3900626794666317182",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "umiejętność, zdolność",
+            "text_front": "능력"
+        },
+        {
+            "id": "import_123_9016078084399213545",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "karaoke",
+            "text_front": "노래방"
+        },
+        {
+            "id": "import_6_15251397101565862317",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "torba/plecak",
+            "text_front": "가방"
+        },
+        {
+            "id": "import_579_2957662120635936409",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "okno",
+            "text_front": "창문"
+        },
+        {
+            "id": "import_437_17491889082863649678",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dzisiaj",
+            "text_front": "오늘"
+        },
+        {
+            "id": "import_474_10691863294677310086",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kalendarz księżycowy",
+            "text_front": "음력"
+        },
+        {
+            "id": "import_328_6342160189682631389",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przedstawienie (od przedstawiać kogoś/coś)",
+            "text_front": "소개"
+        },
+        {
+            "id": "import_21_4112902215467314128",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wdzięczność",
+            "text_front": "감사"
+        },
+        {
+            "id": "import_122_8451854111379686166",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "piosenka",
+            "text_front": "노래"
+        },
+        {
+            "id": "import_535_15361014898737576516",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ostrożność, przestroga",
+            "text_front": "조심"
+        },
+        {
+            "id": "import_98_11617519519036908510",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "głęboko",
+            "text_front": "깊"
+        },
+        {
+            "id": "import_655_3755851994023920221",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "razem (wyszukana forma)",
+            "text_front": "함께"
+        },
+        {
+            "id": "import_57_12168128799245077564",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "park",
+            "text_front": "공원"
+        },
+        {
+            "id": "import_16_11895098293311698204",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "mieć, posiadać, trzymać",
+            "text_front": "가지다"
+        },
+        {
+            "id": "import_345_11507365575410402590",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jest łatwe",
+            "text_front": "쉽다"
+        },
+        {
+            "id": "import_637_9493361503002745874",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Francja",
+            "text_front": "프랑스"
+        },
+        {
+            "id": "import_592_440864312784073310",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "piętro",
+            "text_front": "층"
+        },
+        {
+            "id": "import_171_6485226668963598288",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jest ciepło (przyjemnie)",
+            "text_front": "따뜻하다"
+        },
+        {
+            "id": "import_298_1909915413634017196",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ludzie (l.mnoga człowiek)",
+            "text_front": "사람들"
+        },
+        {
+            "id": "import_334_17870634739709492747",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "las sosnowy",
+            "text_front": "송림"
+        },
+        {
+            "id": "import_293_5524903309569175239",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pieczywo",
+            "text_front": "빵"
+        },
+        {
+            "id": "import_363_5691864554045690281",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "gazeta",
+            "text_front": "신문"
+        },
+        {
+            "id": "import_538_12425617377881735710",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zmiękczenie prośby (신문 좀 주세요 proszę gazete)",
+            "text_front": "좀"
+        },
+        {
+            "id": "import_38_3306915775359879564",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "gra",
+            "text_front": "게임"
+        },
+        {
+            "id": "import_344_14478340337866632389",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kolejność",
+            "text_front": "순서"
+        },
+        {
+            "id": "import_479_15187273432502259641",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "to/ten",
+            "text_front": "이거"
+        },
+        {
+            "id": "import_43_15402562488155707649",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jajko",
+            "text_front": "계란"
+        },
+        {
+            "id": "import_420_5448716588967760434",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przepraszam (do obsługi), proszę, tutaj",
+            "text_front": "여기요"
+        },
+        {
+            "id": "import_329_12165912779755368880",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wstęp",
+            "text_front": "소개"
+        },
+        {
+            "id": "import_323_2299885037532940749",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "okulary przeciwsłoneczne",
+            "text_front": "선글라스"
+        },
+        {
+            "id": "import_118_11300071581849064495",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zbyt",
+            "text_front": "너무"
+        },
+        {
+            "id": "import_121_15735383758884895781",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "rok",
+            "text_front": "년"
+        },
+        {
+            "id": "import_636_14050575108693322962",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wyrażenie",
+            "text_front": "표현"
+        },
+        {
+            "id": "import_406_5449945107307739578",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jest trudne",
+            "text_front": "어렵다"
+        },
+        {
+            "id": "import_331_6561423442533280660",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "stoliczek mały/tacka",
+            "text_front": "소반"
+        },
+        {
+            "id": "import_330_8288350936682262932",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "piwo z soju",
+            "text_front": "소맥"
+        },
+        {
+            "id": "import_169_17492176987797562324",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "posłuchaj",
+            "text_front": "들으세요"
+        },
+        {
+            "id": "import_443_10622418710428589580",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "popołudnie",
+            "text_front": "오후"
+        },
+        {
+            "id": "import_302_4949748546293836898",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "słownik",
+            "text_front": "사전"
+        },
+        {
+            "id": "import_299_1316567601229720944",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "miłość",
+            "text_front": "사랑"
+        },
+        {
+            "id": "import_429_5119759985036418584",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "UK",
+            "text_front": "영국"
+        },
+        {
+            "id": "import_113_1865781593488180743",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jutro",
+            "text_front": "내일"
+        },
+        {
+            "id": "import_253_3666229437562095066",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ryż (ugotowany), posiłek",
+            "text_front": "밥"
+        },
+        {
+            "id": "import_382_2082187464720697677",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wewnątrz, w środku",
+            "text_front": "안"
+        },
+        {
+            "id": "import_527_3262062477518628908",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "obiad",
+            "text_front": "점심"
+        },
+        {
+            "id": "import_62_2878467264147468339",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "związek, relacja",
+            "text_front": "관계"
+        },
+        {
+            "id": "import_94_8867685342142610327",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kimczi kimbap",
+            "text_front": "김치김밥"
+        },
+        {
+            "id": "import_444_15790043098051886581",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "online/w necie",
+            "text_front": "온라인"
+        },
+        {
+            "id": "import_435_14828848152860414593",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "prawa strona",
+            "text_front": "옆오른쪽"
+        },
+        {
+            "id": "import_485_415659952230226331",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zęby (u zwierząt, kły)",
+            "text_front": "이빨"
+        },
+        {
+            "id": "import_46_2779075590112324582",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wybierać",
+            "text_front": "고르다"
+        },
+        {
+            "id": "import_646_9936889588163011278",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "cały dzień",
+            "text_front": "하루 종일"
+        },
+        {
+            "id": "import_504_14779006120392206201",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jeśli chodzi o mnie",
+            "text_front": "자는"
+        },
+        {
+            "id": "import_130_8103003301079267534",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "bałwan ze śniegu",
+            "text_front": "눈사람"
+        },
+        {
+            "id": "import_264_11546448776719521123",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przystanek autobusowy",
+            "text_front": "버스 정류장"
+        },
+        {
+            "id": "import_93_5946716911315441352",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kimczi",
+            "text_front": "김치"
+        },
+        {
+            "id": "import_520_15039007877951872280",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "koreański naleśnik",
+            "text_front": "전"
+        },
+        {
+            "id": "import_560_11454531263185186488",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "mapa",
+            "text_front": "지도"
+        },
+        {
+            "id": "import_188_16024254929971990658",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "market, sklep",
+            "text_front": "마트"
+        },
+        {
+            "id": "import_260_12783895006250951018",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "uczyć się (ogólnie)",
+            "text_front": "배우다"
+        },
+        {
+            "id": "import_540_6016737861319321085",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "być dobrym, podobać się",
+            "text_front": "좋다"
+        },
+        {
+            "id": "import_279_8545655944095725129",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ogień",
+            "text_front": "불"
+        },
+        {
+            "id": "import_305_16807323341443421662",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "góra",
+            "text_front": "산"
+        },
+        {
+            "id": "import_316_16169016372451204055",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "woda butelkowana",
+            "text_front": "생수"
+        },
+        {
+            "id": "import_338_3288897534528484274",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dobra robota, podziękowanie za trud",
+            "text_front": "수고하다"
+        },
+        {
+            "id": "import_461_14198732772594661573",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "parasol",
+            "text_front": "우산"
+        },
+        {
+            "id": "import_310_2842171948703112649",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "gorąca zupa rozgrzewająca",
+            "text_front": "삼계탕"
+        },
+        {
+            "id": "import_179_12342406050040658038",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "być gorące/gorąco",
+            "text_front": "뜨겁다"
+        },
+        {
+            "id": "import_516_3793037213667676238",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ja",
+            "text_front": "저"
+        },
+        {
+            "id": "import_281_18004342369457734718",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "bulgogi",
+            "text_front": "불고기"
+        },
+        {
+            "id": "import_349_2730192895206317076",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sushi",
+            "text_front": "스시"
+        },
+        {
+            "id": "import_312_3495280148104329202",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "całkiem",
+            "text_front": "상당히"
+        },
+        {
+            "id": "import_86_9096816811712326852",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pamiątka",
+            "text_front": "기념품"
+        },
+        {
+            "id": "import_235_11282258563195003198",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kimczi wodne",
+            "text_front": "물김치"
+        },
+        {
+            "id": "import_143_15543482219698210670",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "duży, wielki",
+            "text_front": "대"
+        },
+        {
+            "id": "import_663_2771735696837102875",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "-obuwie (końcówka)",
+            "text_front": "화"
+        },
+        {
+            "id": "import_346_2724073936142499464",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "supermarket",
+            "text_front": "슈퍼마켓"
+        },
+        {
+            "id": "import_495_12644897238785495213",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "niedziela",
+            "text_front": "일요일"
+        },
+        {
+            "id": "import_433_11202588586705081207",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "oglądać film",
+            "text_front": "영화를 보다"
+        },
+        {
+            "id": "import_261_13762696204110284130",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "białe kimczi",
+            "text_front": "백김치"
+        },
+        {
+            "id": "import_647_8543768191075277340",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "szkoła",
+            "text_front": "학교"
+        },
+        {
+            "id": "import_197_17059131826668151137",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jest słonecznie, przejrzyście",
+            "text_front": "맑다"
+        },
+        {
+            "id": "import_112_12689603717616991489",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zawartość, treść",
+            "text_front": "내용"
+        },
+        {
+            "id": "import_262_9978138423960285655",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dom towarowy (droższa galeria)",
+            "text_front": "백화점"
+        },
+        {
+            "id": "import_173_5744105844562059323",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "truskawka",
+            "text_front": "딸기"
+        },
+        {
+            "id": "import_175_11114122662026105267",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ciasto ryżowe",
+            "text_front": "떡"
+        },
+        {
+            "id": "import_602_11346552347259983490",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kawiarnia",
+            "text_front": "카페"
+        },
+        {
+            "id": "import_398_17226206075710170655",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "apteka",
+            "text_front": "약국"
+        },
+        {
+            "id": "import_315_992727485318163029",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "data urodzenia",
+            "text_front": "생년월일"
+        },
+        {
+            "id": "import_83_334712960713202081",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "rysunek, obrazek",
+            "text_front": "그림"
+        },
+        {
+            "id": "import_371_10932155047594193017",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pod, dół",
+            "text_front": "아래 / 밑"
+        },
+        {
+            "id": "import_89_7848540087436939631",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "droga",
+            "text_front": "길"
+        },
+        {
+            "id": "import_402_13262169550341253636",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "parasol przeciwsłoneczny",
+            "text_front": "양산"
+        },
+        {
+            "id": "import_218_1863347224922433046",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "nie wiedzieć",
+            "text_front": "모른다"
+        },
+        {
+            "id": "import_397_8086894198032295233",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przed, z przodu",
+            "text_front": "앞"
+        },
+        {
+            "id": "import_33_8200131299989656711",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "lustro",
+            "text_front": "거울"
+        },
+        {
+            "id": "import_405_13136790479343847793",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "trudny",
+            "text_front": "어렵"
+        },
+        {
+            "id": "import_242_3039132128967460819",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Warszawa",
+            "text_front": "바르샤바"
+        },
+        {
+            "id": "import_148_4601207641769024541",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "uniwersytet (uczelnia)",
+            "text_front": "대학교"
+        },
+        {
+            "id": "import_580_11842541155347830665",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "książka",
+            "text_front": "책"
+        },
+        {
+            "id": "import_314_3716489985910319112",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "rok urodzenia",
+            "text_front": "생년"
+        },
+        {
+            "id": "import_263_10595030546315055938",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "walentynki",
+            "text_front": "밸런타인데이"
+        },
+        {
+            "id": "import_635_13791526438324128233",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Polska",
+            "text_front": "폴란드"
+        },
+        {
+            "id": "import_1_13283852980710067190",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kafejka internetowa",
+            "text_front": "PC방"
+        },
+        {
+            "id": "import_186_11743170692971862329",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pić",
+            "text_front": "마시다"
+        },
+        {
+            "id": "import_313_4921277839023915851",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kanapka",
+            "text_front": "샌드위치"
+        },
+        {
+            "id": "import_3_1172728153309164821",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "cena",
+            "text_front": "가격"
+        },
+        {
+            "id": "import_396_14789019457158356407",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wiem",
+            "text_front": "알아요"
+        },
+        {
+            "id": "import_108_13469530320916030607",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Namsan",
+            "text_front": "남산"
+        },
+        {
+            "id": "import_378_8994637459107950063",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "bardzo",
+            "text_front": "아주"
+        },
+        {
+            "id": "import_44_15993004381778867921",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pora roku",
+            "text_front": "계절"
+        },
+        {
+            "id": "import_509_4014407306941726827",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dobrze zrobione",
+            "text_front": "잘하다"
+        },
+        {
+            "id": "import_482_17959041437803770435",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "imię",
+            "text_front": "이름"
+        },
+        {
+            "id": "import_69_10339384141834823134",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "żołnierz",
+            "text_front": "군인"
+        },
+        {
+            "id": "import_163_6212751050940178454",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "monety",
+            "text_front": "동전"
+        },
+        {
+            "id": "import_150_12481028604973460090",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "więcej, bardziej",
+            "text_front": "더"
+        },
+        {
+            "id": "import_181_10982176208330451070",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zupka chińska",
+            "text_front": "라면"
+        },
+        {
+            "id": "import_576_15323883353176148576",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "obrządek dla przodków",
+            "text_front": "차례"
+        },
+        {
+            "id": "import_214_53873922776124049",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Myeongdong (dzielnica)",
+            "text_front": "명동"
+        },
+        {
+            "id": "import_466_18352160867345191008",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "buty sportowe",
+            "text_front": "운동화"
+        },
+        {
+            "id": "import_555_10670838228896898828",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "centrum, środek",
+            "text_front": "중앙"
+        },
+        {
+            "id": "import_238_5357652124518542082",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "USA",
+            "text_front": "미국"
+        },
+        {
+            "id": "import_550_6946228900574187792",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ryżowa",
+            "text_front": "죽"
+        },
+        {
+            "id": "import_12_11576225854657741962",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "chodźmy",
+            "text_front": "가자"
+        },
+        {
+            "id": "import_424_5781923525484913586",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dziewczyna/girlfriend",
+            "text_front": "여자친구"
+        },
+        {
+            "id": "import_208_12523263435329804132",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jeść",
+            "text_front": "먹다"
+        },
+        {
+            "id": "import_408_17890448335397045058",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "proszę, szybko",
+            "text_front": "어서"
+        },
+        {
+            "id": "import_8_5471459197925630594",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "piosenkarz",
+            "text_front": "가수"
+        },
+        {
+            "id": "import_620_4574889746300078373",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "tempura/smażone danie",
+            "text_front": "튀김"
+        },
+        {
+            "id": "import_417_9928713651214938586",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "nie znajdować się, nie mieć",
+            "text_front": "없다"
+        },
+        {
+            "id": "import_354_4495550756974817763",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "czas",
+            "text_front": "시간이"
+        },
+        {
+            "id": "import_626_5433977554041631215",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Pakistan",
+            "text_front": "파키스탄"
+        },
+        {
+            "id": "import_547_13871188672020537089",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "proszę",
+            "text_front": "주세요"
+        },
+        {
+            "id": "import_595_6117681012188618007",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "smażony kurczak, nuggetsy",
+            "text_front": "치킨"
+        },
+        {
+            "id": "import_146_17178713563482847936",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "New",
+            "text_back": "brama",
+            "text_front": "대문"
+        },
+        {
+            "id": "import_519_18097298993257304431",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przed, wcześniej, temu",
+            "text_front": "전"
+        },
+        {
+            "id": "import_226_1356522757235505048",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "co, który, jaki - pytanie o konkret",
+            "text_front": "무슨"
+        },
+        {
+            "id": "import_155_8486614995953963171",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pieczątka, dojo",
+            "text_front": "도장"
+        },
+        {
+            "id": "import_588_7624931277630304132",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "czekolada",
+            "text_front": "초콜릿"
+        },
+        {
+            "id": "import_528_4394533446382077902",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "naprawde",
+            "text_front": "정말"
+        },
+        {
+            "id": "import_610_15431334389203176451",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "cola",
+            "text_front": "콜라"
+        },
+        {
+            "id": "import_160_13781499949056487832",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pomagać",
+            "text_front": "돕다"
+        },
+        {
+            "id": "import_481_18048390624726832805",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "taki, tego rodzaju",
+            "text_front": "이런"
+        },
+        {
+            "id": "import_351_15006939791041110247",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "centrum sportowe",
+            "text_front": "스포츠센터"
+        },
+        {
+            "id": "import_522_7596237283899814112",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "słownik elektroniczny",
+            "text_front": "전자사전"
+        },
+        {
+            "id": "import_327_15150360480545277460",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pokłon noworoczny",
+            "text_front": "세배"
+        },
+        {
+            "id": "import_164_15863992178115577529",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "za, z tyłu",
+            "text_front": "뒤"
+        },
+        {
+            "id": "import_583_5621542965012040521",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przeczytać książkę",
+            "text_front": "책을 읽다"
+        },
+        {
+            "id": "import_604_10514434503562497999",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pić kawę",
+            "text_front": "커피를 마시다"
+        },
+        {
+            "id": "import_427_4693833963462355525",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ołówek",
+            "text_front": "연필"
+        },
+        {
+            "id": "import_258_12893882492565678621",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "siatkówka",
+            "text_front": "배구"
+        },
+        {
+            "id": "import_336_5280041744791589849",
+            "state_Back_to_Front": "Known",
+            "state_Front_to_Back": "Known",
+            "text_back": "robić zakupy (nie spożywcze)",
+            "text_front": "쇼핑하다"
+        },
+        {
+            "id": "import_149_8393229891654783999",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "rozmowa, dialog",
+            "text_front": "대화"
+        },
+        {
+            "id": "import_191_1499214389988496465",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "tworzyć, stworzyć, budować, produkować",
+            "text_front": "만들다"
+        },
+        {
+            "id": "import_615_2691039805580728671",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "naucz się taekwondo",
+            "text_front": "태권도를 배우다"
+        },
+        {
+            "id": "import_36_17471271015037054350",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "budynek",
+            "text_front": "건물"
+        },
+        {
+            "id": "import_612_11014835161024580685",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "duży, wielki",
+            "text_front": "큰"
+        },
+        {
+            "id": "import_248_7396466798877718551",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Miło mi cię poznać",
+            "text_front": "반가워요"
+        },
+        {
+            "id": "import_159_5247001468946904409",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Tonkatsu (kotlet schabowy)",
+            "text_front": "돈가스"
+        },
+        {
+            "id": "import_183_12809293132149292861",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "końcówka -> ulica",
+            "text_front": "로"
+        },
+        {
+            "id": "import_225_14876137364454989429",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jest ciężkie",
+            "text_front": "무겁다"
+        },
+        {
+            "id": "import_249_13117277292794790082",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Miło mi cię poznać (formalne)",
+            "text_front": "반갑습니다"
+        },
+        {
+            "id": "import_48_4342571785391641170",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dziękuję",
+            "text_front": "고마워요"
+        },
+        {
+            "id": "import_245_3885983816934156948",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "skrzynka/pudełko",
+            "text_front": "박스"
+        },
+        {
+            "id": "import_472_4534847772690318146",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "bank, drzewo (gatunek śmierdzący)",
+            "text_front": "은행"
+        },
+        {
+            "id": "import_229_2488995639938073712",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "drzwi",
+            "text_front": "문"
+        },
+        {
+            "id": "import_348_2730192895206317076",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sushi",
+            "text_front": "스시"
+        },
+        {
+            "id": "import_236_16789719430182677500",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pytanie",
+            "text_front": "물음"
+        },
+        {
+            "id": "import_523_14772840969300756994",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wojna",
+            "text_front": "전쟁"
+        },
+        {
+            "id": "import_484_14905771963352055679",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "w tym tygodniu",
+            "text_front": "이번주"
+        },
+        {
+            "id": "import_599_12919893012052371798",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "łóżko",
+            "text_front": "침대"
+        },
+        {
+            "id": "import_447_14513551375165042173",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kupować ubrania",
+            "text_front": "옷을 사다"
+        },
+        {
+            "id": "import_556_14271317935634772724",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "portfel",
+            "text_front": "지갑"
+        },
+        {
+            "id": "import_139_1950400371201827192",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "drób, kurczak",
+            "text_front": "닭고기"
+        },
+        {
+            "id": "import_9_13677148555418496914",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "na środku / w środku",
+            "text_front": "가운데"
+        },
+        {
+            "id": "import_411_16197147293490052796",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "starsza siostra",
+            "text_front": "언니"
+        },
+        {
+            "id": "import_611_11921383429371845544",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Boże Narodzenie",
+            "text_front": "크리스마스"
+        },
+        {
+            "id": "import_332_13091779478566337120",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "drink soju",
+            "text_front": "소주"
+        },
+        {
+            "id": "import_252_6906925031308988258",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "być powtarzalnym",
+            "text_front": "반복하다"
+        },
+        {
+            "id": "import_157_12009390207784778921",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Niemcy",
+            "text_front": "독일"
+        },
+        {
+            "id": "import_180_8115518601200946856",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "znaczenie",
+            "text_front": "뜻"
+        },
+        {
+            "id": "import_490_10909764725453099961",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pozdrowienia/zwroty grzecznościowe",
+            "text_front": "인사말"
+        },
+        {
+            "id": "import_303_3647457140223097448",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "zdjęcie",
+            "text_front": "사진"
+        },
+        {
+            "id": "import_184_10638206373092496744",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "współlokator",
+            "text_front": "룸메이트"
+        },
+        {
+            "id": "import_530_3310600663611775247",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "mój",
+            "text_front": "제"
+        },
+        {
+            "id": "import_120_3282405182924849137",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "holandia",
+            "text_front": "네덜란드"
+        },
+        {
+            "id": "import_499_236877116952107052",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "być (znajdować się), mieć",
+            "text_front": "있다 (있어요)"
+        },
+        {
+            "id": "import_643_14981714134007631340",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "piórnik",
+            "text_front": "필통"
+        },
+        {
+            "id": "import_587_6772350609961839259",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "najcieplejsze dni lata",
+            "text_front": "초복,중복,말복"
+        },
+        {
+            "id": "import_521_13490100138472306726",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "elektroniczny",
+            "text_front": "전자"
+        },
+        {
+            "id": "import_526_17042191484109085131",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "numer telefonu",
+            "text_front": "전화번호"
+        },
+        {
+            "id": "import_306_7248965984392631667",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "spacer",
+            "text_front": "산책"
+        },
+        {
+            "id": "import_347_6779235706784835567",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "smartphone",
+            "text_front": "스마트폰"
+        },
+        {
+            "id": "import_578_12513471631427501754",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "herbaciarnia",
+            "text_front": "찻집"
+        },
+        {
+            "id": "import_514_5203207680435092523",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "robić zakupy spożywcze",
+            "text_front": "장을 보다"
+        },
+        {
+            "id": "import_570_3051468167104494288",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dom",
+            "text_front": "집"
+        },
+        {
+            "id": "import_370_15793470895302823790",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "nie",
+            "text_front": "아니요"
+        },
+        {
+            "id": "import_412_13524265941102623754",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "język obcy",
+            "text_front": "언어"
+        },
+        {
+            "id": "import_221_12480867742705861897",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "mall (handlowy)",
+            "text_front": "몰"
+        },
+        {
+            "id": "import_292_11163136477495875331",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "szybko",
+            "text_front": "빨리"
+        },
+        {
+            "id": "import_549_178360927264091228",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sok",
+            "text_front": "주스"
+        },
+        {
+            "id": "import_194_5362339106464036378",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sklep z komiksami",
+            "text_front": "만화방"
+        },
+        {
+            "id": "import_243_15635985544143433826",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "głaz, kamień",
+            "text_front": "바위"
+        },
+        {
+            "id": "import_379_11586019284850205969",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "bardzo dobrze zrobione",
+            "text_front": "아주 잘했어요"
+        },
+        {
+            "id": "import_619_5533137745231507000",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pomidor",
+            "text_front": "토마토"
+        },
+        {
+            "id": "import_7_14932802956404727274",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jest lekkie",
+            "text_front": "가볍다"
+        },
+        {
+            "id": "import_589_10201699451016229938",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "추석 święto przodków",
+            "text_front": "추석"
+        },
+        {
+            "id": "import_603_13272659621485296946",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Kanada",
+            "text_front": "캐나다"
+        },
+        {
+            "id": "import_475_7540558477544400663",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jedzenie, posiłek",
+            "text_front": "음식"
+        },
+        {
+            "id": "import_198_2887415101073644513",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "smak",
+            "text_front": "맛"
+        },
+        {
+            "id": "import_508_14347758811352963783",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wysłuchaj uważnie",
+            "text_front": "잘 듣고"
+        },
+        {
+            "id": "import_536_4919295028983594861",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "absolwent",
+            "text_front": "졸업"
+        },
+        {
+            "id": "import_321_259021435196678362",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Seul",
+            "text_front": "서울"
+        },
+        {
+            "id": "import_671_13676217153349573741",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przenośny",
+            "text_front": "휴대"
+        },
+        {
+            "id": "import_652_18245159762444789958",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "koreańczyk",
+            "text_front": "한국 사람"
+        },
+        {
+            "id": "import_564_9237881335531574032",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "podziemie",
+            "text_front": "지하"
+        },
+        {
+            "id": "import_425_659824752891681880",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "stacja",
+            "text_front": "역"
+        },
+        {
+            "id": "import_220_9944214153412756049",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kapelusz/czapka",
+            "text_front": "모자"
+        },
+        {
+            "id": "import_158_14733184957318735830",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pieniądze",
+            "text_front": "돈"
+        },
+        {
+            "id": "import_271_16877839288724982736",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "spójrz/popatrz",
+            "text_front": "보세요"
+        },
+        {
+            "id": "import_410_8935940657246007477",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wczoraj",
+            "text_front": "어제"
+        },
+        {
+            "id": "import_515_10630127574619828007",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zabawa",
+            "text_front": "재미"
+        },
+        {
+            "id": "import_337_11486927443416520422",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wysiłek",
+            "text_front": "수고"
+        },
+        {
+            "id": "import_477_6879974294219949380",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "krzesło",
+            "text_front": "의자"
+        },
+        {
+            "id": "import_403_2118585819924633012",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "gdzie",
+            "text_front": "어디"
+        },
+        {
+            "id": "import_577_6100883460087381703",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "prawdziwie",
+            "text_front": "참"
+        },
+        {
+            "id": "import_390_3292767053203020928",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "siedzieć",
+            "text_front": "앉다"
+        },
+        {
+            "id": "import_512_8056398104697387494",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "spać",
+            "text_front": "잠을 자다"
+        },
+        {
+            "id": "import_616_12778348975580303464",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "tenis",
+            "text_front": "테니스"
+        },
+        {
+            "id": "import_212_8537183992551630879",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "melon",
+            "text_front": "멜론"
+        },
+        {
+            "id": "import_18_13802375576394474035",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pielęgniarka",
+            "text_front": "간호사"
+        },
+        {
+            "id": "import_471_14409422149242363544",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "gorąca zupa z wołowiną, ostra",
+            "text_front": "육개장"
+        },
+        {
+            "id": "import_533_17275068747546292886",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "trochę, nieco",
+            "text_front": "조금"
+        },
+        {
+            "id": "import_137_1272331945339985951",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jajko",
+            "text_front": "달걀"
+        },
+        {
+            "id": "import_117_15001009219261322299",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Ty (bardzo nieformalne)",
+            "text_front": "너"
+        },
+        {
+            "id": "import_487_10518092242291204704",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "końcówka -> osoba",
+            "text_front": "인"
+        },
+        {
+            "id": "import_621_14783020715525590366",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "być niepoprawnym",
+            "text_front": "틀리다"
+        },
+        {
+            "id": "import_140_3700406655021516637",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "rozwiązanie, wynik (odpowiedź)",
+            "text_front": "답"
+        },
+        {
+            "id": "import_307_4618185189938276599",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "tłuszcz",
+            "text_front": "살"
+        },
+        {
+            "id": "import_189_5781896825993945617",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Miło mi cię poznać",
+            "text_front": "만나서 반가워요"
+        },
+        {
+            "id": "import_404_6603776554951143726",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "skąd",
+            "text_front": "어디에서"
+        },
+        {
+            "id": "import_455_6619651087786530826",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "gotowanie, kuchnia, potrawa",
+            "text_front": "요리"
+        },
+        {
+            "id": "import_605_16930928519891079868",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kawiarnia",
+            "text_front": "커피숍"
+        },
+        {
+            "id": "import_176_615972094777904835",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zupa rodzaj",
+            "text_front": "떡국"
+        },
+        {
+            "id": "import_383_6340485587072583298",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "nie (coś)",
+            "text_front": "안 A/V"
+        },
+        {
+            "id": "import_470_17026561678623307341",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "na, nad",
+            "text_front": "위"
+        },
+        {
+            "id": "import_442_2933142349616159077",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kimczi z ogórka",
+            "text_front": "오이김치"
+        },
+        {
+            "id": "import_669_16994743693962011617",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "drapaczka",
+            "text_front": "효자손"
+        },
+        {
+            "id": "import_439_1397812503947349555",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pomarańcza",
+            "text_front": "오렌지"
+        },
+        {
+            "id": "import_200_9242063748205292918",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wybierz właściwą rzecz",
+            "text_front": "맞는 것을 고르세요"
+        },
+        {
+            "id": "import_239_3947907882504870156",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przepraszam",
+            "text_front": "미안"
+        },
+        {
+            "id": "import_219_5005276697007647963",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "spotkanie, zebranie",
+            "text_front": "모임"
+        },
+        {
+            "id": "import_228_8815230319387804187",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "bardzo",
+            "text_front": "무척"
+        },
+        {
+            "id": "import_630_15515540713245445082",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "convinient store",
+            "text_front": "편의점"
+        },
+        {
+            "id": "import_454_14868550882380898902",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "lewa strona",
+            "text_front": "왼쪽"
+        },
+        {
+            "id": "import_473_477224571676975976",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "hmm",
+            "text_front": "음"
+        },
+        {
+            "id": "import_463_3578404054900249519",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "poczta",
+            "text_front": "우체국"
+        },
+        {
+            "id": "import_244_1499414218529158337",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "spodnie",
+            "text_front": "바지"
+        },
+        {
+            "id": "import_494_10151592942992632517",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Japonia",
+            "text_front": "일본"
+        },
+        {
+            "id": "import_480_5911556872170386945",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "być (jest się czymś)",
+            "text_front": "이다"
+        },
+        {
+            "id": "import_87_14795598022847919883",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "akademik",
+            "text_front": "기숙사"
+        },
+        {
+            "id": "import_409_5637069317712268260",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "witamy (proszę wejść)",
+            "text_front": "어서 오세요"
+        },
+        {
+            "id": "import_75_5378774603792763623",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wtedy",
+            "text_front": "그때"
+        },
+        {
+            "id": "import_407_13571875380768998773",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "mama",
+            "text_front": "어머니"
+        },
+        {
+            "id": "import_524_1781752919225397401",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zupełnie, w ogóle",
+            "text_front": "전혀"
+        },
+        {
+            "id": "import_625_8051063950670723604",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ananas",
+            "text_front": "파인애플"
+        },
+        {
+            "id": "import_418_9686653664837016420",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "tutaj",
+            "text_front": "여기"
+        },
+        {
+            "id": "import_582_7894540332455526006",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "biurko",
+            "text_front": "책상"
+        },
+        {
+            "id": "import_100_15632303603587144953",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kwiat",
+            "text_front": "꽃"
+        },
+        {
+            "id": "import_617_508285496380689938",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "TV",
+            "text_front": "텔레비전"
+        },
+        {
+            "id": "import_518_15026969513062614206",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kolacja",
+            "text_front": "저녁"
+        },
+        {
+            "id": "import_381_17395353692800527875",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "śniadanie",
+            "text_front": "아침"
+        },
+        {
+            "id": "import_478_6241100748372363201",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zęby (potocznie)",
+            "text_front": "이"
+        },
+        {
+            "id": "import_539_8775251199211693202",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pracownik",
+            "text_front": "종업원"
+        },
+        {
+            "id": "import_453_16233930384708757222",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "obcokrajowiec",
+            "text_front": "외국인"
+        },
+        {
+            "id": "import_230_11708339711102337724",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sklep papierniczy",
+            "text_front": "문방구"
+        },
+        {
+            "id": "import_544_6096171099727512317",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "weekend",
+            "text_front": "주말"
+        },
+        {
+            "id": "import_301_81934775118328391",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pomiędzy",
+            "text_front": "사이"
+        },
+        {
+            "id": "import_558_9093265111969180804",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "w zeszłym tygodniu",
+            "text_front": "지난주"
+        },
+        {
+            "id": "import_136_9029506976143241115",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "słowo, wyraz",
+            "text_front": "단어"
+        },
+        {
+            "id": "import_27_382378843068150788",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zgodne, taki sam",
+            "text_front": "같"
+        },
+        {
+            "id": "import_85_12586748609188432927",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "poziom, stopień, klasa, level",
+            "text_front": "급"
+        },
+        {
+            "id": "import_31_12635286501326747163",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zupa z psiną",
+            "text_front": "개장국,보신탕"
+        },
+        {
+            "id": "import_195_4236917047789173800",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dużo",
+            "text_front": "많이"
+        },
+        {
+            "id": "import_280_18004342369457734718",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "bulgogi",
+            "text_front": "불고기"
+        },
+        {
+            "id": "import_436_8957109802287438365",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "lewa strona",
+            "text_front": "옆왼쪽"
+        },
+        {
+            "id": "import_207_14194153367265658436",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jest ostre(mocno pikantne)",
+            "text_front": "맵다"
+        },
+        {
+            "id": "import_283_1332495109929218494",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "blog",
+            "text_front": "블로그"
+        },
+        {
+            "id": "import_456_8005491022307999089",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kucharz",
+            "text_front": "요리사"
+        },
+        {
+            "id": "import_357_16794218619944080387",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jest rześko, orzeźwiająco, ulga",
+            "text_front": "시원하다"
+        },
+        {
+            "id": "import_662_17326515653517444442",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "czarna herbata",
+            "text_front": "홍차"
+        },
+        {
+            "id": "import_58_9559274180019689758",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zeszyt",
+            "text_front": "공책"
+        },
+        {
+            "id": "import_546_2216450139687995828",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "gospodyni domowa",
+            "text_front": "주부"
+        },
+        {
+            "id": "import_393_13104444088977701125",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wiedzieć",
+            "text_front": "알다"
+        },
+        {
+            "id": "import_649_12352395921116502787",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "stołówka studencka",
+            "text_front": "학생 식당"
+        },
+        {
+            "id": "import_532_17627087425226152020",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "najbardziej, naj-",
+            "text_front": "제일"
+        },
+        {
+            "id": "import_596_18017774223483817967",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kolega/koleżanka/znajomy",
+            "text_front": "친구"
+        },
+        {
+            "id": "import_644_5124307435739061873",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "robić",
+            "text_front": "하다"
+        },
+        {
+            "id": "import_35_1437907404991379829",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "\"uważaj na siebie\"",
+            "text_front": "건강하세요"
+        },
+        {
+            "id": "import_606_6464474872105109500",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "komputer",
+            "text_front": "컴퓨터"
+        },
+        {
+            "id": "import_500_951510824604492811",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jest",
+            "text_front": "있어요"
+        },
+        {
+            "id": "import_166_14168673597786397655",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "słuchaj",
+            "text_front": "듣고"
+        },
+        {
+            "id": "import_256_18232098827580333026",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "statek",
+            "text_front": "배"
+        },
+        {
+            "id": "import_413_11299198807613783400",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "instytut edukacji językowej",
+            "text_front": "언어교육원"
+        },
+        {
+            "id": "import_231_2296051964245755622",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wiadomość tekstowa",
+            "text_front": "문자 메시지"
+        },
+        {
+            "id": "import_574_16570269464035019307",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sauna koreańska",
+            "text_front": "찜질방"
+        },
+        {
+            "id": "import_416_12877467906030705775",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ile to kosztuje",
+            "text_front": "얼마예요"
+        },
+        {
+            "id": "import_432_13521632057177547700",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kino",
+            "text_front": "영화관"
+        },
+        {
+            "id": "import_600_17695144462011964787",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "karta",
+            "text_front": "카드"
+        },
+        {
+            "id": "import_645_2622880700326407586",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dzień",
+            "text_front": "하루"
+        },
+        {
+            "id": "import_627_2573259196583195821",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "impreza",
+            "text_front": "파티"
+        },
+        {
+            "id": "import_387_12370069655561619822",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dzień dobry (formalne)",
+            "text_front": "안녕하십니까"
+        },
+        {
+            "id": "import_384_6047027948624103210",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "okulary korekcyjne",
+            "text_front": "안경"
+        },
+        {
+            "id": "import_648_9651358763184541151",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "uczeń",
+            "text_front": "학생"
+        },
+        {
+            "id": "import_289_79854916840744743",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "szybki",
+            "text_front": "빠른"
+        },
+        {
+            "id": "import_119_4464839541469372214",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "tak",
+            "text_front": "네"
+        },
+        {
+            "id": "import_483_17057031223974355451",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zakład fryzjerski",
+            "text_front": "이발소"
+        },
+        {
+            "id": "import_586_12738787020791454160",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sushi",
+            "text_front": "초밥"
+        },
+        {
+            "id": "import_493_4915760249766018182",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "praca, dzień",
+            "text_front": "일"
+        },
+        {
+            "id": "import_56_12448343167979479166",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "uczyć się (z książek)",
+            "text_front": "공부하다"
+        },
+        {
+            "id": "import_510_10579244637314209523",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sen",
+            "text_front": "잠"
+        },
+        {
+            "id": "import_178_15327496798406752167",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "proszę wrócić",
+            "text_front": "또 오세요"
+        },
+        {
+            "id": "import_126_6707313135996328587",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "herbata zielona",
+            "text_front": "녹차"
+        },
+        {
+            "id": "import_107_1322377932709725189",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Południe",
+            "text_front": "남"
+        },
+        {
+            "id": "import_513_3237864594337628415",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "magazyn kolorowy, czasopismo",
+            "text_front": "잡지"
+        },
+        {
+            "id": "import_51_15320057020985455467",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "być ładnym, piękny, delikatny",
+            "text_front": "곱다"
+        },
+        {
+            "id": "import_623_18078982804278546751",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "cebula, szczypior",
+            "text_front": "파"
+        },
+        {
+            "id": "import_667_12404425865073244489",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pracownik biurowy",
+            "text_front": "회사원"
+        },
+        {
+            "id": "import_543_17320862174822207631",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dawać",
+            "text_front": "주다"
+        },
+        {
+            "id": "import_54_2143222142941934032",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "nauka",
+            "text_front": "공부"
+        },
+        {
+            "id": "import_506_12193515344252783703",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "często",
+            "text_front": "자주"
+        },
+        {
+            "id": "import_81_16161822144090502683",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "miska (też klasyfikator)",
+            "text_front": "그릇"
+        },
+        {
+            "id": "import_202_4515653510429090478",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "to prawda",
+            "text_front": "맞아요(맞다)"
+        },
+        {
+            "id": "import_67_6240944873962907128",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wywar",
+            "text_front": "국"
+        },
+        {
+            "id": "import_584_1123522619010028813",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "żelazo, pora roku/sezon",
+            "text_front": "철"
+        },
+        {
+            "id": "import_211_8414980585419535266",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Meksyk",
+            "text_front": "멕시코"
+        },
+        {
+            "id": "import_593_1088563521137350230",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kurczak i piwo (wyjście do knajpy na to)",
+            "text_front": "치맥"
+        },
+        {
+            "id": "import_566_10669486176822628317",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "stacja metra",
+            "text_front": "지하철역"
+        },
+        {
+            "id": "import_553_8655490375823505548",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "środek",
+            "text_front": "중"
+        },
+        {
+            "id": "import_613_6941416151831353536",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kiwi",
+            "text_front": "키위"
+        },
+        {
+            "id": "import_676_14518489586766861146",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "to trudne",
+            "text_front": "힘들어요"
+        },
+        {
+            "id": "import_132_16341684694800586501",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "całe, wszystko",
+            "text_front": "다"
+        },
+        {
+            "id": "import_572_13363142437980311684",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "strona",
+            "text_front": "쪽"
+        },
+        {
+            "id": "import_449_15227299409287875709",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "i, z",
+            "text_front": "와"
+        },
+        {
+            "id": "import_362_11377458810552127153",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "stół",
+            "text_front": "식탁"
+        },
+        {
+            "id": "import_531_3310600663611775247",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "mój",
+            "text_front": "제"
+        },
+        {
+            "id": "import_72_1661165890358106904",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "mandarynka",
+            "text_front": "귤"
+        },
+        {
+            "id": "import_639_15193539266362628166",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pizza",
+            "text_front": "피자"
+        },
+        {
+            "id": "import_22_7421011848387003137",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dziękuje grzeczne, formalne",
+            "text_front": "감사합니다"
+        },
+        {
+            "id": "import_545_17124268316132154893",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kieszeń",
+            "text_front": "주머니"
+        },
+        {
+            "id": "import_193_3293272751421909236",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wielki mur chiński",
+            "text_front": "만리장성"
+        },
+        {
+            "id": "import_333_1885260595729805853",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dłoń",
+            "text_front": "손"
+        },
+        {
+            "id": "import_597_15703572719345307565",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "widzieć się z przyjaciółmi",
+            "text_front": "친구를 보다"
+        },
+        {
+            "id": "import_629_81304364262487479",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "strona",
+            "text_front": "페이지"
+        },
+        {
+            "id": "import_350_4675323133951179806",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "spagetti",
+            "text_front": "스파게티"
+        },
+        {
+            "id": "import_426_3595765546105579231",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sztuka teatralna",
+            "text_front": "연극"
+        },
+        {
+            "id": "import_110_17412612020103558101",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "chłopak/boyfriend",
+            "text_front": "남자친구"
+        },
+        {
+            "id": "import_386_2110612636280170490",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dzień dobry / witam",
+            "text_front": "안녕하세요"
+        },
+        {
+            "id": "import_670_3736733001134954065",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "znacznie",
+            "text_front": "훨씬"
+        },
+        {
+            "id": "import_192_1260548281698245372",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "robić, przygotować",
+            "text_front": "만들다 (만드세요)"
+        },
+        {
+            "id": "import_451_7205499490110484025",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przybył (c.przeszły)",
+            "text_front": "왔어요"
+        },
+        {
+            "id": "import_28_13029789478545982739",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "razem (codzienne)",
+            "text_front": "같이"
+        },
+        {
+            "id": "import_234_15260912150813623281",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "rzecz",
+            "text_front": "물건"
+        },
+        {
+            "id": "import_607_7911551348280082400",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ciasto/tort",
+            "text_front": "케이크"
+        },
+        {
+            "id": "import_476_8729281387091656149",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "lekarz",
+            "text_front": "의사"
+        },
+        {
+            "id": "import_187_13798543230606552797",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "targowisko",
+            "text_front": "마트"
+        },
+        {
+            "id": "import_277_116509343194353817",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "widziałem, obejrzałem",
+            "text_front": "봤다"
+        },
+        {
+            "id": "import_269_8780581413636593550",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przykład",
+            "text_front": "보기"
+        },
+        {
+            "id": "import_111_10537629549293240856",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "schodzić, wysiadać, opuszczanie (ruch w dół)",
+            "text_front": "내리다"
+        },
+        {
+            "id": "import_458_11020006927254428007",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ostatnio",
+            "text_front": "요즘"
+        },
+        {
+            "id": "import_237_9716914627788972729",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "co",
+            "text_front": "뭐"
+        },
+        {
+            "id": "import_190_3598377925905132685",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pierogi koreańskie",
+            "text_front": "만두"
+        },
+        {
+            "id": "import_367_4369168204043318431",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zapisz/napisz",
+            "text_front": "쓰세요"
+        },
+        {
+            "id": "import_29_4983518070494956070",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pies",
+            "text_front": "개"
+        },
+        {
+            "id": "import_373_2366926410954399562",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ojciec",
+            "text_front": "아버지"
+        },
+        {
+            "id": "import_284_11261033877142202463",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "deszcz",
+            "text_front": "비"
+        },
+        {
+            "id": "import_359_3649970430852052127",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "test/egzamin",
+            "text_front": "시험"
+        },
+        {
+            "id": "import_147_17486448768265266733",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ambasada",
+            "text_front": "대사관"
+        },
+        {
+            "id": "import_204_3780749984082391461",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "bardzo",
+            "text_front": "매우"
+        },
+        {
+            "id": "import_517_11173325171910512675",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "hej - zwracamy się o uwagę",
+            "text_front": "저기요!"
+        },
+        {
+            "id": "import_377_8994637459107950063",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "bardzo",
+            "text_front": "아주"
+        },
+        {
+            "id": "import_79_8068411614442499175",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ale, jednakże",
+            "text_front": "그런데"
+        },
+        {
+            "id": "import_501_17477023451490792790",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "linijka",
+            "text_front": "자"
+        },
+        {
+            "id": "import_664_13732788546134330478",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "toaleta",
+            "text_front": "화장실"
+        },
+        {
+            "id": "import_464_11185575048418050853",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ćwiczenia",
+            "text_front": "운동"
+        },
+        {
+            "id": "import_174_2218054387451154933",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kiedy, podczas, w czasie",
+            "text_front": "때"
+        },
+        {
+            "id": "import_217_16905827845751830827",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wszystkie",
+            "text_front": "모두"
+        },
+        {
+            "id": "import_172_13267998970255177008",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "powtarzaj za mną",
+            "text_front": "따라 하세요"
+        },
+        {
+            "id": "import_529_2337678624890411727",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "naprawdę, szczerze, serio",
+            "text_front": "정말"
+        },
+        {
+            "id": "import_290_5190049840366936372",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pranie",
+            "text_front": "빨래"
+        },
+        {
+            "id": "import_273_8551782344489105903",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "powtórka",
+            "text_front": "복습"
+        },
+        {
+            "id": "import_365_17296853681860228699",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ryż surowy",
+            "text_front": "쌀"
+        },
+        {
+            "id": "import_641_4959198318960495334",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Filipiny",
+            "text_front": "필리핀"
+        },
+        {
+            "id": "import_638_86639850561468147",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zmęczony",
+            "text_front": "피곤"
+        },
+        {
+            "id": "import_15_4978353018117297331",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "rodzina",
+            "text_front": "가족"
+        },
+        {
+            "id": "import_287_15055387467527807221",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "bibimbap",
+            "text_front": "비빔밥"
+        },
+        {
+            "id": "import_581_10762968682175227634",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "czytelnia",
+            "text_front": "책방"
+        },
+        {
+            "id": "import_394_5746845679354280459",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "odpowiedni",
+            "text_front": "알맞"
+        },
+        {
+            "id": "import_392_17528983815720148884",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dobrze, w porządku, przyjąłem do wiadomości",
+            "text_front": "알겠어요"
+        },
+        {
+            "id": "import_372_4541716565920834799",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "praca dorywcza",
+            "text_front": "아르바이트하다"
+        },
+        {
+            "id": "import_498_7592247737760454825",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przeczytaj",
+            "text_front": "읽으세요"
+        },
+        {
+            "id": "import_673_11605154886915146939",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "chusteczki/papier toaletowy",
+            "text_front": "휴지"
+        },
+        {
+            "id": "import_206_18435082145758134899",
+            "state_Back_to_Front": "Known",
+            "state_Front_to_Back": "New",
+            "text_back": "piwo",
+            "text_front": "맥주"
+        },
+        {
+            "id": "import_215_17703786864614298506",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wizytówka",
+            "text_front": "명함"
+        },
+        {
+            "id": "import_441_4193157979565704084",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ogórek",
+            "text_front": "오이"
+        },
+        {
+            "id": "import_96_8329862620994319921",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "naleśnik kimczi",
+            "text_front": "김치전"
+        },
+        {
+            "id": "import_145_18177622751071857737",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "odpowiedź",
+            "text_front": "대답"
+        },
+        {
+            "id": "import_134_17714374030459797711",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "następny",
+            "text_front": "다음"
+        },
+        {
+            "id": "import_665_2792386337039706499",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "deseru arbuz/sprite/lód",
+            "text_front": "화채"
+        },
+        {
+            "id": "import_114_15366115164293927705",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "makaron na zimno",
+            "text_front": "냉면"
+        },
+        {
+            "id": "import_590_12463549481246726067",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "piłka nożna",
+            "text_front": "축구"
+        },
+        {
+            "id": "import_128_7284078272957542821",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "śnieg",
+            "text_front": "눈"
+        },
+        {
+            "id": "import_319_10763574554252720648",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "szuflada, komoda",
+            "text_front": "서랍"
+        },
+        {
+            "id": "import_674_18359386281037758864",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kosz na śmieci",
+            "text_front": "휴지통"
+        },
+        {
+            "id": "import_246_11997204625339835838",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "na zewnątrz",
+            "text_front": "밖"
+        },
+        {
+            "id": "import_376_14026063000133863820",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pan",
+            "text_front": "아저씨"
+        },
+        {
+            "id": "import_80_16840410431982559596",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "w takim razie",
+            "text_front": "그럼"
+        },
+        {
+            "id": "import_167_5671807002789183270",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "słuchać, słyszeć",
+            "text_front": "듣다 (들으세요)"
+        },
+        {
+            "id": "import_628_10234470147272333950",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sos z fasoli czerwonawej",
+            "text_front": "팥"
+        },
+        {
+            "id": "import_300_7031066004879095782",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "biuro",
+            "text_front": "사무실"
+        },
+        {
+            "id": "import_557_608718259422234920",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "teraz",
+            "text_front": "지금"
+        },
+        {
+            "id": "import_656_8630087783133001403",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "telefon komórkowy",
+            "text_front": "핸드폰"
+        },
+        {
+            "id": "import_640_2168166875003912591",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Finlandia",
+            "text_front": "핀란드"
+        },
+        {
+            "id": "import_633_17945949373210972583",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "winogrona",
+            "text_front": "포도"
+        },
+        {
+            "id": "import_99_6762626387208618700",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kimczi z rzodkwi",
+            "text_front": "깍두기"
+        },
+        {
+            "id": "import_675_5758871010952928151",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jest pochmurnie",
+            "text_front": "흐리다"
+        },
+        {
+            "id": "import_364_3313344964824332180",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "być mdłym",
+            "text_front": "싱겁다"
+        },
+        {
+            "id": "import_361_896441833379034722",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "restauracja",
+            "text_front": "식당"
+        },
+        {
+            "id": "import_468_14981088024141650133",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "won koreański",
+            "text_front": "원"
+        },
+        {
+            "id": "import_542_7507544283521393429",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "tydzień",
+            "text_front": "주"
+        },
+        {
+            "id": "import_88_11870948701553614261",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "reporter",
+            "text_front": "기자"
+        },
+        {
+            "id": "import_257_16049077378662766480",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "gruszki, brzuch",
+            "text_front": "배"
+        },
+        {
+            "id": "import_554_1341363867925220671",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Chiny",
+            "text_front": "중국"
+        },
+        {
+            "id": "import_614_10289735403552913951",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wieża",
+            "text_front": "타워"
+        },
+        {
+            "id": "import_30_17884100548597728277",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "liczba, ilość, sztuki",
+            "text_front": "개수"
+        },
+        {
+            "id": "import_340_18068480299942496721",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "arbuz",
+            "text_front": "수박"
+        },
+        {
+            "id": "import_385_13490012691229348038",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "cześć",
+            "text_front": "안녕"
+        },
+        {
+            "id": "import_2_2477888867558099386",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sklep",
+            "text_front": "가게"
+        },
+        {
+            "id": "import_227_3209185129364204990",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "co",
+            "text_front": "무엇"
+        },
+        {
+            "id": "import_199_16456854689913069155",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "prawidłowy",
+            "text_front": "맞"
+        },
+        {
+            "id": "import_591_12998260663260485477",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "hobby",
+            "text_front": "취미"
+        },
+        {
+            "id": "import_551_11262139761828502689",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "poduszka pleciona z bambusa",
+            "text_front": "죽부인"
+        },
+        {
+            "id": "import_642_14374746173988218831",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "niezbędny",
+            "text_front": "필요"
+        },
+        {
+            "id": "import_657_5346797978002960460",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "hamburger",
+            "text_front": "햄버거"
+        },
+        {
+            "id": "import_355_13844630988464830697",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zegar",
+            "text_front": "시계"
+        },
+        {
+            "id": "import_573_4673522918546819333",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "końcówka - zupa ze sporą wkładką",
+            "text_front": "찌개"
+        },
+        {
+            "id": "import_563_13904598933466393559",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "gumka do ścierania",
+            "text_front": "지우개"
+        },
+        {
+            "id": "import_369_5449402773890583158",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "z panem/panią",
+            "text_front": "씨랑"
+        },
+        {
+            "id": "import_503_3830784465634749759",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kochanie",
+            "text_front": "자기야"
+        },
+        {
+            "id": "import_465_16666373995744148427",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ćwiczyć fizycznie",
+            "text_front": "운동하다"
+        },
+        {
+            "id": "import_49_6771269605888707718",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dom rodzinny, rodzinne strony",
+            "text_front": "고향"
+        },
+        {
+            "id": "import_55_12448343167979479166",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "uczyć się (z książek)",
+            "text_front": "공부하다"
+        },
+        {
+            "id": "import_358_14592489346408231499",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "targ, ryneczek, bazar",
+            "text_front": "시장"
+        },
+        {
+            "id": "import_654_9241691263084653111",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "koreańskie jedzenie",
+            "text_front": "한정식"
+        },
+        {
+            "id": "import_467_16876392467778164310",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "prawo jazdy",
+            "text_front": "운전면허증"
+        },
+        {
+            "id": "import_598_2774897470368017687",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "tablica",
+            "text_front": "칠판"
+        },
+        {
+            "id": "import_571_12266763265609032281",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "w domu",
+            "text_front": "집에서"
+        },
+        {
+            "id": "import_138_9260721245156570050",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kalendarz",
+            "text_front": "달력"
+        },
+        {
+            "id": "import_618_17628191578614985270",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "królik",
+            "text_front": "토끼"
+        },
+        {
+            "id": "import_492_11903500110965304100",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "cal",
+            "text_front": "인치"
+        },
+        {
+            "id": "import_567_14333644335699459924",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "mądrość (życiowa)",
+            "text_front": "지혜"
+        },
+        {
+            "id": "import_399_4309151552653133557",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "obietnica, umówione spotkanie",
+            "text_front": "약속"
+        },
+        {
+            "id": "import_609_9001541609056921664",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "płaszcz",
+            "text_front": "코트"
+        },
+        {
+            "id": "import_486_2074736827081098525",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "włoski",
+            "text_front": "이타리아노"
+        },
+        {
+            "id": "import_60_12971123163812834382",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "rozdział",
+            "text_front": "과"
+        },
+        {
+            "id": "import_135_938401742050848948",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przyszły tydzień",
+            "text_front": "다음주"
+        },
+        {
+            "id": "import_105_5637627834847993965",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dzień",
+            "text_front": "날"
+        },
+        {
+            "id": "import_445_8328099654846703785",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ubranie",
+            "text_front": "옷"
+        },
+        {
+            "id": "import_562_14766515178609314226",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "nie - zaprzeczenie",
+            "text_front": "지않다"
+        },
+        {
+            "id": "import_388_5390466006140894550",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "do widzenia (rozmówca gdzieś idzie)",
+            "text_front": "안녕히 가세요"
+        },
+        {
+            "id": "import_401_18351436323770866259",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kalendarz słoneczny",
+            "text_front": "양력"
+        },
+        {
+            "id": "import_92_5334260824825525377",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kimchi",
+            "text_front": "김치"
+        },
+        {
+            "id": "import_71_7932483943525364154",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "być uroczym",
+            "text_front": "귀엽다"
+        },
+        {
+            "id": "import_109_17923016923629720909",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "mężczyzna",
+            "text_front": "남자"
+        },
+        {
+            "id": "import_14_811078818682438688",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "najbardziej",
+            "text_front": "가장"
+        },
+        {
+            "id": "import_537_15204067643042145728",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "uroczystość wręczenia dyplomów",
+            "text_front": "졸업식"
+        },
+        {
+            "id": "import_50_7084656549856405538",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dolina, wąwóz",
+            "text_front": "골"
+        },
+        {
+            "id": "import_594_119299816975672274",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zęby (formalnie, medycznie)",
+            "text_front": "치아"
+        },
+        {
+            "id": "import_125_5712468208744668744",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zielony",
+            "text_front": "녹색"
+        },
+        {
+            "id": "import_17_9061040101491454503",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "posiadający, mający",
+            "text_front": "가진"
+        },
+        {
+            "id": "import_423_11344314417702264998",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dziewczyna, kobieta",
+            "text_front": "여자"
+        },
+        {
+            "id": "import_201_605282070105707639",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "być prawidłowym, poprawnym, zgadzać się",
+            "text_front": "맞다"
+        },
+        {
+            "id": "import_4_11628047601152340964",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "czasami",
+            "text_front": "가끔"
+        },
+        {
+            "id": "import_296_9148702526794305436",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "drabina",
+            "text_front": "사다리"
+        },
+        {
+            "id": "import_659_8215261247069559296",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "siłownia",
+            "text_front": "헬스장"
+        },
+        {
+            "id": "import_272_15153486633446371106",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zazwyczaj",
+            "text_front": "보통"
+        },
+        {
+            "id": "import_151_5914928623508360586",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "upał, gorąc",
+            "text_front": "더위"
+        },
+        {
+            "id": "import_268_17872659480828534918",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "papier (kamień papier nożyce)",
+            "text_front": "보"
+        },
+        {
+            "id": "import_380_4647451538804934727",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pani w średnim wieku",
+            "text_front": "아주머니"
+        },
+        {
+            "id": "import_415_7497856347115129710",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ile",
+            "text_front": "얼마"
+        },
+        {
+            "id": "import_127_10553888221945899533",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kto, kogo",
+            "text_front": "누구"
+        },
+        {
+            "id": "import_95_15252692787757715340",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "smażony ryż kimchi",
+            "text_front": "김치볶음밥"
+        },
+        {
+            "id": "import_185_54058141409287776",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pilot do urządzenia",
+            "text_front": "리모컨"
+        },
+        {
+            "id": "import_216_1660043060665310633",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ile, kilka, parę",
+            "text_front": "몇"
+        },
+        {
+            "id": "import_209_8708889316974158038",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "menu",
+            "text_front": "메뉴"
+        },
+        {
+            "id": "import_525_10692213839244720750",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "telefon",
+            "text_front": "전화"
+        },
+        {
+            "id": "import_311_16303171321444025110",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "sambok - 3 najcieplejsze dni lata",
+            "text_front": "삼복,복날"
+        },
+        {
+            "id": "import_632_6546014761217453985",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "płuco",
+            "text_front": "폐"
+        },
+        {
+            "id": "import_254_9293482098423067407",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pokój",
+            "text_front": "방"
+        },
+        {
+            "id": "import_634_16797990100701948554",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "telefon",
+            "text_front": "폰"
+        },
+        {
+            "id": "import_552_13619696300004083208",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "linia",
+            "text_front": "줄"
+        },
+        {
+            "id": "import_232_14616742201757227368",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zdanie",
+            "text_front": "문장"
+        },
+        {
+            "id": "import_434_9972640890537234210",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "obok, przy",
+            "text_front": "옆"
+        },
+        {
+            "id": "import_152_8220525931534808335",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "mniej",
+            "text_front": "덜"
+        },
+        {
+            "id": "import_141_7628351072843216051",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "odpowiadać",
+            "text_front": "답하다"
+        },
+        {
+            "id": "import_360_11519361422189877217",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "członek rodziny",
+            "text_front": "식구"
+        },
+        {
+            "id": "import_318_10183836869621963242",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "prysznic",
+            "text_front": "샤워"
+        },
+        {
+            "id": "import_491_7607798657996829997",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wyrażenia powitalne",
+            "text_front": "인사말 표현"
+        },
+        {
+            "id": "import_19_18141840356086454314",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "żeberka",
+            "text_front": "갈비"
+        },
+        {
+            "id": "import_32_16521869600860403862",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "rzecz",
+            "text_front": "거"
+        },
+        {
+            "id": "import_10_4932997257273396799",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "nożyczki",
+            "text_front": "가위"
+        },
+        {
+            "id": "import_25_15306871250950941859",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Gangnam",
+            "text_front": "강남"
+        },
+        {
+            "id": "import_82_15958796964139663805",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "i (coś tam reszta zdania)",
+            "text_front": "그리고"
+        },
+        {
+            "id": "import_507_14246735432815804948",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dobrze",
+            "text_front": "잘"
+        },
+        {
+            "id": "import_78_404427633525131726",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "tak (zgadza się), oczywiście",
+            "text_front": "그래요"
+        },
+        {
+            "id": "import_106_15308804279859132587",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pogoda",
+            "text_front": "날씨"
+        },
+        {
+            "id": "import_68_13537520118303206068",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "narodowość",
+            "text_front": "국적"
+        },
+        {
+            "id": "import_91_14028327317765092525",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "kimbap",
+            "text_front": "김밥"
+        },
+        {
+            "id": "import_42_2266277474038266757",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "warstwa",
+            "text_front": "겹"
+        },
+        {
+            "id": "import_153_13395454504680060630",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "też (partykuła)",
+            "text_front": "도"
+        },
+        {
+            "id": "import_90_7173422659743065398",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jest korek drogowy",
+            "text_front": "길이 복잡해요"
+        },
+        {
+            "id": "import_45_8419894446135620376",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "mięso",
+            "text_front": "고기"
+        },
+        {
+            "id": "import_70_15002074301275199576",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "piec, grilować",
+            "text_front": "굽다"
+        },
+        {
+            "id": "import_419_12419770874201071597",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "tutaj/tam/tam",
+            "text_front": "여기/거기/저기"
+        },
+        {
+            "id": "import_548_8038178504124700583",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "adres",
+            "text_front": "주소"
+        },
+        {
+            "id": "import_286_6519722593343572194",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pada deszcz",
+            "text_front": "비가 온다"
+        },
+        {
+            "id": "import_375_11990681755653792837",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "lody",
+            "text_front": "아이스크림"
+        },
+        {
+            "id": "import_267_8795475372554898547",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "szpital",
+            "text_front": "병원"
+        },
+        {
+            "id": "import_505_7301606182196484324",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "spać",
+            "text_front": "자다"
+        },
+        {
+            "id": "import_288_11068044604616123239",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pusty",
+            "text_front": "빈칸"
+        },
+        {
+            "id": "import_342_8505869563388359192",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "praca domowa",
+            "text_front": "숙제"
+        },
+        {
+            "id": "import_66_12835577748986461617",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zwiedzanie, oglądanie",
+            "text_front": "구경"
+        },
+        {
+            "id": "import_23_11447359881927172673",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dziękuję",
+            "text_front": "감사합니다"
+        },
+        {
+            "id": "import_129_17683069874690745449",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pada śnieg",
+            "text_front": "눈 온다"
+        },
+        {
+            "id": "import_104_12016982690063286373",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "mój",
+            "text_front": "나의"
+        },
+        {
+            "id": "import_247_10172384106809230965",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "klasa (ludzie), pół",
+            "text_front": "반"
+        },
+        {
+            "id": "import_452_1285764943827184839",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dlaczego?",
+            "text_front": "왜"
+        },
+        {
+            "id": "import_116_287548581096585482",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "lodówka",
+            "text_front": "냉장고"
+        },
+        {
+            "id": "import_270_2558468247158961327",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "patrzeć, widzieć",
+            "text_front": "보다 (보세요)"
+        },
+        {
+            "id": "import_352_4332419414192416503",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "godzina",
+            "text_front": "시"
+        },
+        {
+            "id": "import_13_1867217615577163117",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "najbardziej, naj-",
+            "text_front": "가장"
+        },
+        {
+            "id": "import_165_12450834519837672700",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "TV drama",
+            "text_front": "드라마"
+        },
+        {
+            "id": "import_565_13908685424376779158",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "metro",
+            "text_front": "지하철"
+        },
+        {
+            "id": "import_400_5945315617250949187",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Yansa-dong (dzielnica)",
+            "text_front": "얀사동"
+        },
+        {
+            "id": "import_631_5493484061992290932",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "list",
+            "text_front": "편지"
+        },
+        {
+            "id": "import_291_17870862824794373780",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pralnia",
+            "text_front": "빨래방"
+        },
+        {
+            "id": "import_462_9302648261395799681",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "mleko",
+            "text_front": "우유"
+        },
+        {
+            "id": "import_223_16925984331883258225",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "ciało",
+            "text_front": "몸"
+        },
+        {
+            "id": "import_608_2386505977785125816",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "centrum handlowe COEX",
+            "text_front": "코엑스몰"
+        },
+        {
+            "id": "import_282_11372233575425324059",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Wrocław",
+            "text_front": "브러츠와프"
+        },
+        {
+            "id": "import_353_15251366323159879117",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "godzina, pora(czas na coś)",
+            "text_front": "시간"
+        },
+        {
+            "id": "import_76_11439030906422328711",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "więc, dlatego, zatem",
+            "text_front": "그래서"
+        },
+        {
+            "id": "import_63_16637439022246665410",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "klasa (miejsce)",
+            "text_front": "교실"
+        },
+        {
+            "id": "import_250_10125087228524170063",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przeciwny, sprzeczny",
+            "text_front": "반대되는"
+        },
+        {
+            "id": "import_65_17088612539438208496",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "karta transportowa / bilet okresowy",
+            "text_front": "교통카드"
+        },
+        {
+            "id": "import_233_3169281384622170459",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "woda",
+            "text_front": "물"
+        },
+        {
+            "id": "import_278_5507570785030571678",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "część, fragment",
+            "text_front": "부분"
+        },
+        {
+            "id": "import_658_12792637519496078658",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "\"życzę Ci szczęścia\"",
+            "text_front": "행복하세요"
+        },
+        {
+            "id": "import_203_2905390297812221805",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jeśli poprawne",
+            "text_front": "맞으면"
+        },
+        {
+            "id": "import_335_16863481676222585671",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "danie kluski",
+            "text_front": "송편"
+        },
+        {
+            "id": "import_156_16385148005567474818",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Tokyo",
+            "text_front": "도쿄"
+        },
+        {
+            "id": "import_569_11896835440209944859",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pytanie",
+            "text_front": "질문"
+        },
+        {
+            "id": "import_26_14503679279577114503",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "szczeniaczek / piesek",
+            "text_front": "강아지"
+        },
+        {
+            "id": "import_450_18403626742151014607",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wino",
+            "text_front": "와인"
+        },
+        {
+            "id": "import_251_16903990060323117655",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "być przeciwnym, być w sprzeczności, oponować",
+            "text_front": "반대되다"
+        },
+        {
+            "id": "import_326_3698561849670693667",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "nowy rok księżycowy/chiński",
+            "text_front": "설날"
+        },
+        {
+            "id": "import_366_9552864726982510007",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pisać",
+            "text_front": "쓰다"
+        },
+        {
+            "id": "import_24_1269047560015387333",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dziękuję od 감사합니다",
+            "text_front": "감삽니다"
+        },
+        {
+            "id": "import_168_13797917324402139388",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "słuchaj",
+            "text_front": "들어 보세요"
+        },
+        {
+            "id": "import_339_17484297282688577713",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dobrze zrobione, napracowałeś się",
+            "text_front": "수고했어요"
+        },
+        {
+            "id": "import_196_12547190310277631114",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wypowiedź",
+            "text_front": "말"
+        },
+        {
+            "id": "import_84_17073056412623077840",
+            "state_Back_to_Front": "Mastered",
+            "state_Front_to_Back": "Mastered",
+            "text_back": "kino, teatr",
+            "text_front": "극장"
+        },
+        {
+            "id": "import_653_17565784102071104335",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "hanok - tradycyjny dom koreański",
+            "text_front": "한옥"
+        },
+        {
+            "id": "import_488_4139400099300001765",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Indie",
+            "text_front": "인도"
+        },
+        {
+            "id": "import_650_10099607434641604630",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "legitymacja studencka",
+            "text_front": "학생증"
+        },
+        {
+            "id": "import_73_5483579404960271378",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "to",
+            "text_front": "그"
+        },
+        {
+            "id": "import_438_16484682663680522562",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "przychodzić/przybywać",
+            "text_front": "오다"
+        },
+        {
+            "id": "import_275_12599357196789338793",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "długopis",
+            "text_front": "볼펜"
+        },
+        {
+            "id": "import_395_11876557758763479743",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wybierz ten odpowiedni",
+            "text_front": "알맞은 것을 고르세요"
+        },
+        {
+            "id": "import_144_1278357656117582608",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "bardzo",
+            "text_front": "대단히"
+        },
+        {
+            "id": "import_428_12172526244241481342",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zero",
+            "text_front": "영/공"
+        },
+        {
+            "id": "import_448_4853071938865212958",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "szafa",
+            "text_front": "옷장"
+        },
+        {
+            "id": "import_213_11614254765976272363",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "który dzień",
+            "text_front": "며칠"
+        },
+        {
+            "id": "import_39_856955890992494839",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zima",
+            "text_front": "겨울"
+        },
+        {
+            "id": "import_5_14470090383103995097",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "iść",
+            "text_front": "가다"
+        },
+        {
+            "id": "import_651_4130879620260717496",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Korea Pd",
+            "text_front": "한국"
+        },
+        {
+            "id": "import_622_13666815690481684880",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jeśli niepoprawne",
+            "text_front": "틀리면"
+        },
+        {
+            "id": "import_559_13164580372830512782",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "radzić sobie/mieć się, mieszkać/przebywać",
+            "text_front": "지내다"
+        },
+        {
+            "id": "import_224_5406658952968694561",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "rzodkiew biała",
+            "text_front": "무"
+        },
+        {
+            "id": "import_666_1939657162074048258",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "firma",
+            "text_front": "회사"
+        },
+        {
+            "id": "import_74_275219490374642682",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "po prostu",
+            "text_front": "그냥"
+        },
+        {
+            "id": "import_34_12453068801717331320",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "zdrowie",
+            "text_front": "건강"
+        },
+        {
+            "id": "import_459_12208651861392767992",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "udon makaron",
+            "text_front": "우동"
+        },
+        {
+            "id": "import_101_11728459850342124018",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Ja",
+            "text_front": "나"
+        },
+        {
+            "id": "import_182_14317524839280189767",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "Rosja",
+            "text_front": "러시아"
+        },
+        {
+            "id": "import_431_3092425950264212125",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "film",
+            "text_front": "영화"
+        },
+        {
+            "id": "import_308_9360845593777530007",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "trzy",
+            "text_front": "삼"
+        },
+        {
+            "id": "import_585_5153388357954348600",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "tory",
+            "text_front": "철길"
+        },
+        {
+            "id": "import_255_10044941849332434559",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "wakacje",
+            "text_front": "방학"
+        },
+        {
+            "id": "import_457_18057896467204050631",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "dzień tygodnia",
+            "text_front": "요일"
+        },
+        {
+            "id": "import_294_7799215837561194994",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "jabłko",
+            "text_front": "사과"
+        },
+        {
+            "id": "import_20_17890003899866810458",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "żeberka zupa",
+            "text_front": "갈비탕"
+        },
+        {
+            "id": "import_77_8432749120334482960",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "co z tego?",
+            "text_front": "그래서?"
+        },
+        {
+            "id": "import_575_18301062553188864710",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "samochód, herbata",
+            "text_front": "차"
+        },
+        {
+            "id": "import_496_11666602812041848494",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pracować",
+            "text_front": "일하다"
+        },
+        {
+            "id": "import_389_13604654797564007994",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "do widzenia (rozmówca zostaje na miejscu)",
+            "text_front": "안녕히 계세요"
+        },
+        {
+            "id": "import_297_2938865870106114571",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "osoba/człowiek/ludzie",
+            "text_front": "사람"
+        },
+        {
+            "id": "import_64_17880800000401987480",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "edukacja",
+            "text_front": "교육"
+        },
+        {
+            "id": "import_52_14194988466518688957",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "miejsce",
+            "text_front": "곳"
+        },
+        {
+            "id": "import_341_3971356032285363274",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "pływanie",
+            "text_front": "수영"
+        },
+        {
+            "id": "import_421_15131261146135438020",
+            "state_Back_to_Front": "New",
+            "state_Front_to_Back": "New",
+            "text_back": "hej, wszyscy",
+            "text_front": "여러분"
+        }
+    ],
+    "name": "full"
+}

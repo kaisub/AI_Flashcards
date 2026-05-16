@@ -58,13 +58,13 @@ namespace storage {
         }
 
         try {
-            nlohmann::json j;
-            ifs >> j;
+            nlohmann::json jso;
+            ifs >> jso;
 
             // Create the FlashcardList directly, its name will be set by from_json.
             // Pass a temporary name as the constructor requires one.
             auto flashcardList = std::make_shared<core::FlashcardList>("temp_name_for_deserialization");
-            core::from_json(j, *flashcardList); // Explicit namespace to avoid ADL ambiguity
+            core::from_json(jso, *flashcardList); // Explicit namespace to avoid ADL ambiguity
 
             return flashcardList;
 
@@ -87,15 +87,15 @@ namespace storage {
         }
 
         try {
-            nlohmann::json j;
-            core::to_json(j, list); // Explicit namespace to avoid ADL ambiguity
+            nlohmann::json jso;
+            core::to_json(jso, list); // Explicit namespace to avoid ADL ambiguity
 
             // Write to a temporary file
             std::ofstream ofs(tempPath, std::ios::binary | std::ios::trunc);
             if (!ofs.is_open()) {
                 throw std::runtime_error("Failed to open temporary file for writing: " + tempPath.string());
             }
-            ofs << j.dump(4); // Pretty print with 4 spaces indent
+            ofs << jso.dump(4); // Pretty print with 4 spaces indent
 
             // Atomically replace the original file
             // std::filesystem::rename is atomic for same-filesystem moves on POSIX systems
@@ -121,9 +121,9 @@ namespace storage {
         if (!fs::is_regular_file(fullPath)) {
             return false;
         }
-        std::error_code ec;
-        const bool removed = fs::remove(fullPath, ec);
-        if (ec) {
+        std::error_code erc;
+        const bool removed = fs::remove(fullPath, erc);
+        if (erc) {
             return false;
         }
         return removed;
@@ -145,16 +145,16 @@ namespace storage {
             return false;
         }
 
-        std::error_code ec;
-        fs::rename(fullOldPath, fullNewPath, ec);
-        return !static_cast<bool>(ec);
+        std::error_code erc;
+        fs::rename(fullOldPath, fullNewPath, erc);
+        return !static_cast<bool>(erc);
     }
 
     bool JsonStorage::createFolder(const fs::path& folderPath) {
         const fs::path fullPath = getFullPath(folderPath);
-        std::error_code ec;
-        const bool created = fs::create_directories(fullPath, ec);
-        if (ec && ec != std::errc::file_exists) { // Ignore error if it's just that it already exists
+        std::error_code erc;
+        const bool created = fs::create_directories(fullPath, erc);
+        if (erc && erc != std::errc::file_exists) { // Ignore error if it's just that it already exists
             return false;
         }
         return created || fs::is_directory(fullPath); // Return true if it was created or already existed
@@ -166,9 +166,9 @@ namespace storage {
             return false; // Not a directory or does not exist
         }
 
-        std::error_code ec;
-        const std::uintmax_t removed = fs::remove_all(fullPath, ec);
-        if (ec) {
+        std::error_code erc;
+        const std::uintmax_t removed = fs::remove_all(fullPath, erc);
+        if (erc) {
             return false; // Other errors
         }
         return removed > 0;
@@ -190,9 +190,9 @@ namespace storage {
             return false;
         }
 
-        std::error_code ec;
-        fs::rename(fullOldPath, fullNewPath, ec);
-        return !static_cast<bool>(ec);
+        std::error_code erc;
+        fs::rename(fullOldPath, fullNewPath, erc);
+        return !static_cast<bool>(erc);
     }
 
     std::vector<fs::path> JsonStorage::getAllAvailableLists() const {

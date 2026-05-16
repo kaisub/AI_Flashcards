@@ -347,9 +347,9 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
     });
 
     return CatchEvent(renderer, [this, &screen, &returnToController, &focusedButtonIndex, button_bar](const Event& event) {
-        auto is_alt_char = [&](char c) {
-            const std::string lower = std::string("\x1B") + std::string(1, c);
-            const std::string upper = std::string("\x1B") + std::string(1, static_cast<char>(std::toupper(static_cast<unsigned char>(c))));
+        auto is_alt_char = [&](char cval) {
+            const std::string lower = std::string("\x1B") + std::string(1, cval);
+            const std::string upper = std::string("\x1B") + std::string(1, static_cast<char>(std::toupper(static_cast<unsigned char>(cval))));
             return event == Event::Special(lower) || event == Event::Special(upper);
         };
 

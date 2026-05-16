@@ -20,33 +20,37 @@ namespace app::presenters {
         std::map<std::filesystem::path, app::model::BrowserItem> items_map;
 
         for (const auto& path : all_lists_paths) {
-            std::error_code ec;
-            auto relative_path = std::filesystem::relative(path, _currentDirectory, ec);
-            if (ec || relative_path.empty() || relative_path == "." || relative_path.string().starts_with("..")) {
+            std::error_code erc;
+            auto relative_path = std::filesystem::relative(path, _currentDirectory, erc);
+            if (erc || relative_path.empty() || relative_path == "." || relative_path.string().starts_with("..")) {
                 continue;
             }
 
             auto first_component_it = relative_path.begin();
-            if (first_component_it == relative_path.end()) { continue; }
+            if (first_component_it == relative_path.end()) {
+                continue;
+            }
 
             auto first_component = *first_component_it;
             auto item_path = _currentDirectory / first_component;
 
             bool is_dir = (++first_component_it != relative_path.end());
-            if (!is_dir) { is_dir = (first_component.extension() != ".json"); }
-
-            if (items_map.find(item_path) == items_map.end()) {
-                 items_map[item_path] = {first_component.string(), item_path, is_dir};
+            if (!is_dir) {
+                is_dir = (first_component.extension() != ".json");
             }
+
+            items_map.try_emplace(item_path, app::model::BrowserItem{first_component.string(), item_path, is_dir});
         }
 
         std::vector<app::model::BrowserItem> items;
         items.reserve(items_map.size());
-        for (const auto& pair : items_map) { items.push_back(pair.second); }
+        for (const auto& pair : items_map) {
+            items.push_back(pair.second);
+        }
 
-        std::sort(items.begin(), items.end(), [](const auto& a, const auto& b) {
-            if (a.isDirectory != b.isDirectory) { return a.isDirectory > b.isDirectory; }
-            return a.displayName < b.displayName;
+        std::sort(items.begin(), items.end(), [](const auto& aval, const auto& bval) {
+            if (aval.isDirectory != bval.isDirectory) { return aval.isDirectory > bval.isDirectory; }
+            return aval.displayName < bval.displayName;
         });
 
         _view->updateList(_currentDirectory, items);

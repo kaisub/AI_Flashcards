@@ -1,5 +1,6 @@
 #include "app/presenters/DeckEditorPresenter.hpp"
 #include "app/utils/AppUtils.hpp"
+#include <iostream>
 
 namespace app::presenters {
 
@@ -136,7 +137,7 @@ namespace app::presenters {
                 _deckManager->saveList(list->getName());
                 _view->setDeck(list);
             } catch (...) {
-                // Handle import error silently or log if needed
+                std::cerr << "setOnImportRequested exception occurred." << '\n';
             }
         });
 

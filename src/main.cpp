@@ -5,9 +5,6 @@
 #include "app/views/FtxuiStudySessionView.hpp"
 #include "core/DeckManager.hpp"
 #include "storage/JsonStorage.hpp"
-#include <filesystem>
-#include <iostream>
-#include <memory>
 
 int main() {
     try {

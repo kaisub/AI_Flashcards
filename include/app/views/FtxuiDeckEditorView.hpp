@@ -32,6 +32,9 @@ private:
     bool _isCopyingBulk = false;
     bool _isImporting = false;
 
+    // Focus tracking
+    std::string _focusedCardId = "";
+
     // Import modal state
     std::string _importPath = "";
     int _importDelimIndex = 1; // Default to ';'

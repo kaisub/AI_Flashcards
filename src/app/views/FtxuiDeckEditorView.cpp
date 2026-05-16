@@ -31,21 +31,22 @@ void FtxuiDeckEditorView::refreshFilePicker() {
     _pickerFullPaths.clear();
 
     if (_pickerCurrentPath.has_parent_path() && _pickerCurrentPath != _pickerCurrentPath.parent_path()) {
-        _pickerMenuEntries.push_back("[DIR] ..");
+        _pickerMenuEntries.emplace_back("[DIR] ..");
         _pickerFullPaths.push_back(_pickerCurrentPath.parent_path());
     }
 
     std::vector<std::filesystem::path> dirs;
     std::vector<std::filesystem::path> files;
 
-    std::error_code ec;
-    for (const auto& entry : std::filesystem::directory_iterator(_pickerCurrentPath, ec)) {
+    std::error_code erc;
+    for (const auto& entry : std::filesystem::directory_iterator(_pickerCurrentPath, erc)) {
         std::string filename = entry.path().filename().string();
-        if (filename.empty() || filename.front() == '.') continue; // Skip hidden items
-
-        if (entry.is_directory(ec)) {
+        if (filename.empty() || filename.front() == '.') {
+            continue; // Skip hidden items
+        }
+        if (entry.is_directory(erc)) {
             dirs.push_back(entry.path());
-        } else if (entry.is_regular_file(ec)) {
+        } else if (entry.is_regular_file(erc)) {
             std::string ext = entry.path().extension().string();
             std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
             if (ext == ".csv" || ext == ".txt" || ext == ".tsv") {
@@ -57,13 +58,13 @@ void FtxuiDeckEditorView::refreshFilePicker() {
     std::sort(dirs.begin(), dirs.end());
     std::sort(files.begin(), files.end());
 
-    for (const auto& d : dirs) {
-        _pickerMenuEntries.push_back("[DIR] " + d.filename().string());
-        _pickerFullPaths.push_back(d);
+    for (const auto& dir : dirs) {
+        _pickerMenuEntries.emplace_back("[DIR] " + dir.filename().string());
+        _pickerFullPaths.push_back(dir);
     }
-    for (const auto& f : files) {
-        _pickerMenuEntries.push_back("[FILE] " + f.filename().string());
-        _pickerFullPaths.push_back(f);
+    for (const auto& file : files) {
+        _pickerMenuEntries.emplace_back("[FILE] " + file.filename().string());
+        _pickerFullPaths.push_back(file);
     }
     _pickerSelectedIndex = 0;
 }
@@ -76,8 +77,8 @@ ftxui::Component FtxuiDeckEditorView::buildFilePickerModal(const ftxui::ButtonOp
     menu_opt.on_enter = [this] {
         if (_pickerSelectedIndex >= 0 && _pickerSelectedIndex < static_cast<int>(_pickerFullPaths.size())) {
             auto selected = _pickerFullPaths[_pickerSelectedIndex];
-            std::error_code ec;
-            if (std::filesystem::is_directory(selected, ec)) {
+            std::error_code erc;
+            if (std::filesystem::is_directory(selected, erc)) {
                 _pickerCurrentPath = selected;
                 refreshFilePicker();
             } else {
@@ -166,9 +167,14 @@ ftxui::Component FtxuiDeckEditorView::buildDeleteModal(const ftxui::ButtonOption
     using namespace app::ui;
 
     auto delete_confirm_btn = Button(txt::deck_editor::kDeleteConfirmButton, [this] {
-        const std::vector<std::string> ids = _vm.getSelectedCardIds();
+        std::vector<std::string> ids = _vm.getSelectedCardIds();
+        // If no cards are selected, use the focused card if available
+        if (ids.empty() && !_focusedCardId.empty()) {
+            ids.push_back(_focusedCardId);
+        }
         if (!ids.empty() && triggerDeleteSelected(ids)) {
             _vm.clearSelectionFor(ids);
+            _focusedCardId = "";
             _isDeletingBulk = false;
         }
     }, btnStyle);
@@ -182,7 +188,11 @@ ftxui::Component FtxuiDeckEditorView::buildDeleteModal(const ftxui::ButtonOption
     });
 
     auto delete_renderer = Renderer(delete_container, [this, delete_confirm_btn, delete_cancel_btn] {
-        const size_t selected_count = _vm.getSelectedCount();
+        size_t selected_count = _vm.getSelectedCount();
+        // Include focused card if no cards are selected
+        if (selected_count == 0 && !_focusedCardId.empty()) {
+            selected_count = 1;
+        }
         return vbox({
             text(txt::deck_editor::kDeleteTitle) | bold | center,
             blueSep(),
@@ -209,9 +219,14 @@ ftxui::Component FtxuiDeckEditorView::buildMoveModal(const ftxui::ButtonOption& 
 
     auto do_move = [this] {
         if (_vm.selectedListIndex >= 0 && _vm.selectedListIndex < static_cast<int>(_vm.availableLists.size())) {
-            const std::vector<std::string> ids = _vm.getSelectedCardIds();
+            std::vector<std::string> ids = _vm.getSelectedCardIds();
+            // If no cards are selected, use the focused card if available
+            if (ids.empty() && !_focusedCardId.empty()) {
+                ids.push_back(_focusedCardId);
+            }
             if (!ids.empty() && triggerMoveSelected(ids, _vm.selectedListIndex)) {
                 _vm.clearSelectionFor(ids);
+                _focusedCardId = "";
                 _isMovingBulk = false;
             }
         }
@@ -226,7 +241,11 @@ ftxui::Component FtxuiDeckEditorView::buildMoveModal(const ftxui::ButtonOption& 
     });
 
     auto move_renderer = Renderer(move_container, [this, move_list_menu, move_confirm_btn, move_cancel_btn] {
-        const size_t selected_count = _vm.getSelectedCount();
+        size_t selected_count = _vm.getSelectedCount();
+        // Include focused card if no cards are selected
+        if (selected_count == 0 && !_focusedCardId.empty()) {
+            selected_count = 1;
+        }
         return vbox({
             text(txt::deck_editor::kMoveTitle) | bold | center,
             blueSep(),
@@ -259,9 +278,14 @@ ftxui::Component FtxuiDeckEditorView::buildCopyModal(const ftxui::ButtonOption& 
 
     auto do_copy = [this] {
         if (_vm.selectedListIndex >= 0 && _vm.selectedListIndex < static_cast<int>(_vm.availableLists.size())) {
-            const std::vector<std::string> ids = _vm.getSelectedCardIds();
+            std::vector<std::string> ids = _vm.getSelectedCardIds();
+            // If no cards are selected, use the focused card if available
+            if (ids.empty() && !_focusedCardId.empty()) {
+                ids.push_back(_focusedCardId);
+            }
             if (!ids.empty() && triggerCopySelected(ids, _vm.selectedListIndex)) {
                 _vm.clearSelectionFor(ids);
+                _focusedCardId = "";
                 _isCopyingBulk = false;
             }
         }
@@ -276,7 +300,11 @@ ftxui::Component FtxuiDeckEditorView::buildCopyModal(const ftxui::ButtonOption& 
     });
 
     auto copy_renderer = Renderer(copy_container, [this, copy_list_menu, copy_confirm_btn, copy_cancel_btn] {
-        const size_t selected_count = _vm.getSelectedCount();
+        size_t selected_count = _vm.getSelectedCount();
+        // Include focused card if no cards are selected
+        if (selected_count == 0 && !_focusedCardId.empty()) {
+            selected_count = 1;
+        }
         return vbox({
             text(txt::deck_editor::kCopyTitle) | bold | center,
             blueSep(),
@@ -312,14 +340,14 @@ ftxui::Component FtxuiDeckEditorView::buildImportModal(const ftxui::ButtonOption
 
     auto delimiter_radiobox = Radiobox(&_importDelimiterOptions, &_importDelimIndex);
 
-    ftxui::InputOption custom_delim_option;
+    ftxui::InputOption custom_delim_option; // NOLINT(misc-const-correctness)
     custom_delim_option.cursor_position = static_cast<int>(_importCustomDelim.size());
     auto custom_delim_input = Input(&_importCustomDelim, ";", custom_delim_option);
 
     auto ignore_header_checkbox = Checkbox(txt::deck_editor::kImportIgnoreHeader, &_importIgnoreHeader);
 
     auto do_import = [this] {
-        char resolved_delim = ';';
+        char resolved_delim = ';'; // NOLINT(misc-const-correctness)
         if (_importDelimIndex == 0) {
             resolved_delim = ',';
         } else if (_importDelimIndex == 1) {
@@ -390,10 +418,10 @@ void FtxuiDeckEditorView::run() {
 
     auto custom_btn_style = buttonStyle();
 
-    ftxui::ButtonOption inline_btn_style = ftxui::ButtonOption::Animated();
-    inline_btn_style.transform = [](const ftxui::EntryState& s) {
-        auto element = ftxui::text(std::string("[ ") + s.label + " ]") | ftxui::color(ftxui::Color::Cornsilk1);
-        if (s.focused) {
+    ftxui::ButtonOption inline_btn_style = ftxui::ButtonOption::Animated(); // NOLINT(misc-const-correctness)
+    inline_btn_style.transform = [](const ftxui::EntryState& state) {
+        auto element = ftxui::text(std::string("[ ") + state.label + " ]") | ftxui::color(ftxui::Color::Cornsilk1);
+        if (state.focused) {
             element = element | ftxui::inverted | ftxui::bold;
         }
         return element;
@@ -438,15 +466,15 @@ void FtxuiDeckEditorView::run() {
 
     // --- Bulk Action Buttons ---
     auto btn_delete_bulk = Button(txt::deck_editor::kDeleteToolbarButton, [this] {
-        if (_vm.getSelectedCount() > 0) { _isDeletingBulk = true; }
+        if (_vm.getSelectedCount() > 0 || !_focusedCardId.empty()) { _isDeletingBulk = true; }
     }, custom_btn_style);
 
     auto btn_copy_bulk = Button(txt::deck_editor::kCopyToolbarButton, [this] {
-        if (_vm.getSelectedCount() > 0) { _isCopyingBulk = true; }
+        if (_vm.getSelectedCount() > 0 || !_focusedCardId.empty()) { _isCopyingBulk = true; }
     }, custom_btn_style);
 
     auto btn_move_bulk = Button(txt::deck_editor::kMoveToolbarButton, [this] {
-        if (_vm.getSelectedCount() > 0) { _isMovingBulk = true; }
+        if (_vm.getSelectedCount() > 0 || !_focusedCardId.empty()) { _isMovingBulk = true; }
     }, custom_btn_style);
 
     auto btn_import = Button(txt::deck_editor::kImportToolbarButton, [this] {
@@ -463,9 +491,7 @@ void FtxuiDeckEditorView::run() {
         if (_vm.deck) {
             auto cards = _vm.deck->getAllCards();
             for (const auto& card : cards) {
-                if (_vm.cardSelectionState.find(card->id) == _vm.cardSelectionState.end()) {
-                    _vm.cardSelectionState[card->id] = false;
-                }
+                _vm.cardSelectionState.try_emplace(card->id, false);
 
                 auto checkbox = Checkbox("", &_vm.cardSelectionState[card->id]);
                 auto row_container = Container::Horizontal({checkbox});
@@ -479,8 +505,11 @@ void FtxuiDeckEditorView::run() {
                     return false;
                 });
 
-                auto row_renderer = Renderer(row_with_edit, [row_with_edit, checkbox, card] {
+                auto row_renderer = Renderer(row_with_edit, [this, row_with_edit, checkbox, card] {
                     const bool focused = row_with_edit->Focused();
+                    if (focused) {
+                        _focusedCardId = card->id;
+                    }
                     auto row = hbox({
                         checkbox->Render(),
                         text(" "),
@@ -623,13 +652,13 @@ void FtxuiDeckEditorView::run() {
                 return true;
             }
             if (event == Event::Character("u") || event == Event::Character("U")) {
-                if (_vm.getSelectedCount() > 0) { _isDeletingBulk = true; return true; }
+                if (_vm.getSelectedCount() > 0 || !_focusedCardId.empty()) { _isDeletingBulk = true; return true; }
             }
             if (event == Event::Character("k") || event == Event::Character("K")) {
-                if (_vm.getSelectedCount() > 0) { _isCopyingBulk = true; return true; }
+                if (_vm.getSelectedCount() > 0 || !_focusedCardId.empty()) { _isCopyingBulk = true; return true; }
             }
             if (event == Event::Character("p") || event == Event::Character("P")) {
-                if (_vm.getSelectedCount() > 0) { _isMovingBulk = true; return true; }
+                if (_vm.getSelectedCount() > 0 || !_focusedCardId.empty()) { _isMovingBulk = true; return true; }
             }
             if (event == Event::Character("i") || event == Event::Character("I")) {
                 _isImporting = true;

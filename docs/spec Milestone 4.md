@@ -27,6 +27,7 @@
         - `Input`: Własny separator (widoczne/aktywne tylko dla "Inny").
         - `Checkbox`: `[ ] Ignoruj pierwszy wiersz (nagłówki)`.
     - Po sukcesie powrót do edytora z odświeżoną listą. W razie błędu – Modal z błędem.
+    - Wpisywanie ścieżek z palca w konsoli to archaizm i proszenie się o błędy w literówkach. Potrzebujemy **TUI File Pickera** (wizualnego nawigatora po folderach).
 - **UI Backup'u (w `FtxuiListsBrowserView`):**
     - Nowe przyciski: `Kopia Zapasowa (B)` oraz `Przywróć (R)`.
     - Modal dla Kopii: `Input` ze ścieżką (domyślnie sugerowane np. `backup.zip`).

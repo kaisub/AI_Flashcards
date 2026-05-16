@@ -8,30 +8,30 @@ namespace core {
         if (!card) {
             return false; // Card is null
         }
-        auto [it, inserted] = cards.try_emplace(card->id, card);
+        auto [itr, inserted] = cards.try_emplace(card->id, card);
         return inserted;
     }
 
-    bool FlashcardList::removeCard(const std::string& id) {
-        return cards.erase(id) > 0;
+    bool FlashcardList::removeCard(const std::string& idx) {
+        return cards.erase(idx) > 0;
     }
 
-    bool FlashcardList::updateCard(const std::string& id, const std::string& newFront, const std::string& newBack) {
-        auto it = cards.find(id);
-        if (it == cards.end()) {
+    bool FlashcardList::updateCard(const std::string& idx, const std::string& newFront, const std::string& newBack) {
+        auto itr = cards.find(idx);
+        if (itr == cards.end()) {
             return false; // Card not found
         }
-        it->second->text_front = newFront;
-        it->second->text_back = newBack;
+        itr->second->text_front = newFront;
+        itr->second->text_back = newBack;
         return true;
     }
 
-    std::shared_ptr<Flashcard> FlashcardList::getCard(const std::string& id) const {
-        auto it = cards.find(id);
-        if (it == cards.end()) {
+    std::shared_ptr<Flashcard> FlashcardList::getCard(const std::string& idx) const {
+        auto itr = cards.find(idx);
+        if (itr == cards.end()) {
             return nullptr; // Card not found
         }
-        return it->second;
+        return itr->second;
     }
 
     std::vector<std::shared_ptr<Flashcard>> FlashcardList::getAllCards() const {
@@ -45,8 +45,8 @@ namespace core {
 
     size_t FlashcardList::removeCards(const std::vector<std::string>& ids) {
         size_t removedCount = 0;
-        for (const std::string& id : ids) {
-            if (removeCard(id)) {
+        for (const std::string& idx : ids) {
+            if (removeCard(idx)) {
                 removedCount++;
             }
         }
@@ -55,12 +55,12 @@ namespace core {
 
     size_t FlashcardList::importCardsFrom(const FlashcardList& sourceList) {
         size_t addedCount = 0;
-    for (const auto& [id, card_ptr] : sourceList.cards) {
+        for (const auto& [idx, card_ptr] : sourceList.cards) {
             // Create a new shared_ptr pointing to the same Flashcard object
             // This ensures both lists share ownership of the same card instance,
             // which is crucial for StudySession and state updates.
         if (addCard(card_ptr)) {
-                addedCount++;
+            addedCount++;
             }
         }
         return addedCount;

@@ -219,11 +219,11 @@ namespace core {
     bool StudySession::removeCardFromAnyQueue(const std::string& cardId) {
         bool removed = false;
 
-        auto remove_if_id = [&](std::deque<ReviewItem>& q) {
-            auto it = std::remove_if(q.begin(), q.end(),
+        auto remove_if_id = [&](std::deque<ReviewItem>& que) {
+            auto itr = std::remove_if(que.begin(), que.end(),
                                     [&](const ReviewItem& item) { return item.card && item.card->id == cardId; });
-            if (it != q.end()) {
-                q.erase(it, q.end());
+            if (itr != que.end()) {
+                que.erase(itr, que.end());
                 return true;
             }
             return false;

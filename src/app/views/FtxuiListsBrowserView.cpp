@@ -277,19 +277,19 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
     };
 
     menu_option.entries_option.transform = [](const ftxui::EntryState& state) {
-        ftxui::Element e = ftxui::text(state.label);
+        ftxui::Element elm = ftxui::text(state.label);
         if (state.label.starts_with(txt::lists_browser::kDirectoryPrefix)) {
-            e = e | ftxui::color(ftxui::Color::Cyan);
+            elm = elm | ftxui::color(ftxui::Color::Cyan);
         } else {
-            e = e | ftxui::color(ftxui::Color::GreenLight);
+            elm = elm | ftxui::color(ftxui::Color::GreenLight);
         }
         if (state.active) {
-            e = e | ftxui::bold;
+            elm = elm | ftxui::bold;
         }
         if (state.focused) {
-            e = e | ftxui::bgcolor(ftxui::Color::GrayDark) | ftxui::color(ftxui::Color::White) | ftxui::bold;
+            elm = elm | ftxui::bgcolor(ftxui::Color::GrayDark) | ftxui::color(ftxui::Color::White) | ftxui::bold;
         }
-        return e;
+        return elm;
     };
 
     auto menu = ftxui::Menu(&_menuEntries, &_vm.selectedIndex, menu_option);
