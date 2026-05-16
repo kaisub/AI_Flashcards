@@ -106,18 +106,17 @@ Notes for helper scripts:
 
 UI strings are organized in:
 
-- `include/app/localization/Polish.hpp`
-- `include/app/localization/English.hpp`
+- `include/app/localization/LocalizedText.hpp`
+- `include/app/localization/LocalizationData.hpp`
 - `include/app/localization/Localization.hpp`
 
-`Localization.hpp` selects the active language using compile definitions set from CMake.
+`LocalizationData.hpp` holds both languages in one table, while `Localization.hpp` keeps the runtime locale selector used by the UI.
 
 To add another language:
 
-1. Add a new header in `include/app/localization/`.
-2. Mirror the existing key structure.
-3. Extend `Localization.hpp` to expose the new language.
-4. Extend `CMakeLists.txt` to accept the new locale flag value.
+1. Extend `include/app/localization/LocalizationData.hpp` with the new translations.
+2. Update `include/app/localization/Localization.hpp` if the locale enum or default selection changes.
+3. Adjust the UI if you want a new language switch surface.
 
 ## Build Outputs
 
