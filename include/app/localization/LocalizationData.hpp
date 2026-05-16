@@ -34,6 +34,8 @@ namespace study_config {
 inline constexpr LocalizedCString kDirectionFrontToBack{"Front -> Back", "Przód -> Tył"};
 inline constexpr LocalizedCString kDirectionBackToFront{"Back -> Front", "Tył -> Przód"};
 inline constexpr LocalizedCString kDirectionMixed{"Mixed", "Mieszany"};
+inline constexpr LocalizedCString kOrderQueue{"Queue", "Kolejka"};
+inline constexpr LocalizedCString kOrderRandom{"Random", "Losowo"};
 inline constexpr LocalizedCString kModeStandard{"Standard", "Standardowy"};
 inline constexpr LocalizedCString kModeFocused{"Focused", "Skupiony (Focused)"};
 inline constexpr LocalizedCString kTargetNew{"New", "Nowe"};
@@ -41,9 +43,10 @@ inline constexpr LocalizedCString kTargetKnown{"Known", "Znane"};
 inline constexpr LocalizedCString kTargetMastered{"Mastered", "Umiem"};
 inline constexpr LocalizedCString kTitle{" Study Session Setup ", " Konfiguracja Sesji Nauki "};
 inline constexpr LocalizedCString kDirectionLabel{" Direction:", " Kierunek:"};
+inline constexpr LocalizedCString kOrderLabel{" Order:", " Porządek:"};
 inline constexpr LocalizedCString kModeLabel{" Mode:", " Tryb:"};
 inline constexpr LocalizedCString kTargetLabel{" Target (Focused only):", " Cel (Tylko Focused):"};
-inline constexpr LocalizedCString kWeightsLabel{" Sampling Weights:", " Proporcje Losowania (Wagi):"};
+inline constexpr LocalizedCString kWeightsLabel{" Sampling Weights:", " Proporcje Wyświetlania:"};
 
 inline std::string weightNewLabel(int weight) {
 	return isEnglishLocale() ? " New (" + std::to_string(weight) + "%): " : " Nowe (" + std::to_string(weight) + "%): ";

@@ -21,10 +21,16 @@ namespace core {
         Focused
     };
 
+    enum class SessionOrder {
+        Queue,
+        Random,
+    };
+
     struct SessionConfig {
         SessionType type{SessionType::Standard};
         std::optional<CardState> focusedTargetState{std::nullopt};
         TranslationDirection direction{TranslationDirection::Mixed};
+        SessionOrder order{SessionOrder::Random};
         
         unsigned int weightNew{70};
         unsigned int weightKnown{23};
@@ -34,6 +40,7 @@ namespace core {
             type = SessionType::Standard;
             focusedTargetState = std::nullopt;
             direction = TranslationDirection::Mixed;
+            order = SessionOrder::Random;
             weightNew = 70;
             weightKnown = 23;
             weightMastered = 7;
@@ -57,9 +64,19 @@ namespace core {
         bool removeCardFromSession(const std::string& cardId);
 
     private:
-        std::deque<ReviewItem> queueNew;
-        std::deque<ReviewItem> queueKnown;
-        std::deque<ReviewItem> queueMastered;
+        struct ShuffleCycleState {
+            size_t seenSinceShuffle{0};
+            size_t cycleSize{0};
+        };
+
+        struct QueueBucket {
+            std::deque<ReviewItem> queue;
+            ShuffleCycleState shuffle;
+        };
+
+        QueueBucket bucketNew;
+        QueueBucket bucketKnown;
+        QueueBucket bucketMastered;
         
         UndoManager undoManager;
         SessionConfig currentConfig;
@@ -68,6 +85,12 @@ namespace core {
         void initializeQueues(const std::vector<std::shared_ptr<Flashcard>>& deck);
         TranslationDirection getRandomDirection();
         bool removeCardFromAnyQueue(const std::string& cardId);
+        void resetShuffleCycles();
+        void maybeShuffleQueueAfterPass(CardState state);
+        QueueBucket& bucketForState(CardState state);
+        ShuffleCycleState& cycleStateFor(CardState state);
+        std::deque<ReviewItem>& queueForState(CardState state);
+        static CardState stateFromAskedDirection(const ReviewItem& item);
         
         std::optional<ReviewItem> drawStandard();
         std::optional<ReviewItem> drawFocused();

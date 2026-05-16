@@ -261,6 +261,7 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
 
     const int target_index = std::max(0, _vm.selectedIndex);
     _vm.selectedIndex = 0;
+    const std::string directory_prefix = txt::lists_browser::kDirectoryPrefix.str();
 
     ftxui::MenuOption menu_option;
     menu_option.on_enter = [this, &screen, &returnToController] {
@@ -277,9 +278,9 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
         screen.Exit();
     };
 
-    menu_option.entries_option.transform = [](const ftxui::EntryState& state) {
+    menu_option.entries_option.transform = [directory_prefix](const ftxui::EntryState& state) {
         ftxui::Element elm = ftxui::text(state.label);
-        if (state.label.starts_with(txt::lists_browser::kDirectoryPrefix.str())) {
+        if (state.label.starts_with(directory_prefix)) {
             elm = elm | ftxui::color(ftxui::Color::Cyan);
         } else {
             elm = elm | ftxui::color(ftxui::Color::GreenLight);

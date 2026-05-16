@@ -29,9 +29,9 @@ namespace core {
 
     void StudySession::initializeQueues(const std::vector<std::shared_ptr<Flashcard>>& deck) {
         // Clear existing queues if re-initializing
-        queueNew.clear();
-        queueKnown.clear();
-        queueMastered.clear();
+        bucketNew.queue.clear();
+        bucketKnown.queue.clear();
+        bucketMastered.queue.clear();
         undoManager.clear(); // Clear history on new session/deck
 
         for (const auto& card : deck) {
@@ -49,21 +49,23 @@ namespace core {
 
             switch (state) {
                 case CardState::New:
-                    queueNew.push_back(item);
+                    bucketNew.queue.push_back(item);
                     break;
                 case CardState::Known:
-                    queueKnown.push_back(item);
+                    bucketKnown.queue.push_back(item);
                     break;
                 case CardState::Mastered:
-                    queueMastered.push_back(item);
+                    bucketMastered.queue.push_back(item);
                     break;
             }
         }
 
-        // Shuffle all queues initially
-        std::shuffle(queueNew.begin(), queueNew.end(), randomEngine);
-        std::shuffle(queueKnown.begin(), queueKnown.end(), randomEngine);
-        std::shuffle(queueMastered.begin(), queueMastered.end(), randomEngine);
+        if (currentConfig.order == SessionOrder::Random) {
+            std::shuffle(bucketNew.queue.begin(), bucketNew.queue.end(), randomEngine);
+            std::shuffle(bucketKnown.queue.begin(), bucketKnown.queue.end(), randomEngine);
+            std::shuffle(bucketMastered.queue.begin(), bucketMastered.queue.end(), randomEngine);
+        }
+        resetShuffleCycles();
     }
 
     void StudySession::updateConfig(const SessionConfig& newConfig) {
@@ -71,14 +73,76 @@ namespace core {
         // It does not re-evaluate existing queues or re-initialize.
         // If a full re-initialization based on new config is needed (e.g., if focusedTargetState changes
         // dramatically and requires re-population), a separate method or constructor overload might be preferred.
+        const bool wasRandomOrder = (currentConfig.order == SessionOrder::Random);
         currentConfig = newConfig;
+
+        if (!wasRandomOrder && currentConfig.order == SessionOrder::Random) {
+            std::shuffle(bucketNew.queue.begin(), bucketNew.queue.end(), randomEngine);
+            std::shuffle(bucketKnown.queue.begin(), bucketKnown.queue.end(), randomEngine);
+            std::shuffle(bucketMastered.queue.begin(), bucketMastered.queue.end(), randomEngine);
+        }
+        resetShuffleCycles();
+    }
+
+    void StudySession::resetShuffleCycles() {
+        bucketNew.shuffle = ShuffleCycleState{0, bucketNew.queue.size()};
+        bucketKnown.shuffle = ShuffleCycleState{0, bucketKnown.queue.size()};
+        bucketMastered.shuffle = ShuffleCycleState{0, bucketMastered.queue.size()};
+    }
+
+    StudySession::QueueBucket& StudySession::bucketForState(CardState state) {
+        switch (state) {
+            case CardState::New:
+                return bucketNew;
+            case CardState::Known:
+                return bucketKnown;
+            case CardState::Mastered:
+                return bucketMastered;
+        }
+        return bucketNew;
+    }
+
+    StudySession::ShuffleCycleState& StudySession::cycleStateFor(CardState state) {
+        return bucketForState(state).shuffle;
+    }
+
+    std::deque<ReviewItem>& StudySession::queueForState(CardState state) {
+        return bucketForState(state).queue;
+    }
+
+    CardState StudySession::stateFromAskedDirection(const ReviewItem& item) {
+        if (item.askedDirection == TranslationDirection::Back_to_Front) {
+            return item.card->state_Back_to_Front;
+        }
+        return item.card->state_Front_to_Back;
+    }
+
+    void StudySession::maybeShuffleQueueAfterPass(CardState state) {
+        if (currentConfig.order != SessionOrder::Random) {
+            return;
+        }
+
+        auto& queue = queueForState(state);
+        auto& cycleState = cycleStateFor(state);
+
+        if (cycleState.cycleSize == 0) {
+            cycleState.cycleSize = queue.size();
+        }
+
+        if (cycleState.cycleSize > 0 && cycleState.seenSinceShuffle >= cycleState.cycleSize) {
+            if (queue.size() > 1) {
+                std::shuffle(queue.begin(), queue.end(), randomEngine);
+            }
+            cycleState.seenSinceShuffle = 0;
+            cycleState.cycleSize = queue.size();
+        }
     }
 
     size_t StudySession::getQueueSize(CardState state) const {
         switch (state) {
-            case CardState::New: return queueNew.size();
-            case CardState::Known: return queueKnown.size();
-            case CardState::Mastered: return queueMastered.size();
+            case CardState::New: return bucketNew.queue.size();
+            case CardState::Known: return bucketKnown.queue.size();
+            case CardState::Mastered: return bucketMastered.queue.size();
         }
         return 0; // Should not happen
     }
@@ -108,9 +172,9 @@ namespace core {
     std::optional<ReviewItem> StudySession::drawStandard() {
         std::vector<std::pair<CardState, unsigned int>> weightedQueues;
 
-        if (!queueNew.empty())      { weightedQueues.emplace_back(CardState::New, currentConfig.weightNew); }
-        if (!queueKnown.empty())    { weightedQueues.emplace_back(CardState::Known, currentConfig.weightKnown); }
-        if (!queueMastered.empty()) { weightedQueues.emplace_back(CardState::Mastered, currentConfig.weightMastered); }
+        if (!bucketNew.queue.empty())      { weightedQueues.emplace_back(CardState::New, currentConfig.weightNew); }
+        if (!bucketKnown.queue.empty())    { weightedQueues.emplace_back(CardState::Known, currentConfig.weightKnown); }
+        if (!bucketMastered.queue.empty()) { weightedQueues.emplace_back(CardState::Mastered, currentConfig.weightMastered); }
 
         if (weightedQueues.empty()) {
             return std::nullopt; // No cards left in any queue
@@ -130,12 +194,15 @@ namespace core {
         std::deque<ReviewItem>* targetQueue = nullptr;
 
         switch (chosenState) {
-            case CardState::New: targetQueue = &queueNew; break;
-            case CardState::Known: targetQueue = &queueKnown; break;
-            case CardState::Mastered: targetQueue = &queueMastered; break;
+            case CardState::New: targetQueue = &bucketNew.queue; break;
+            case CardState::Known: targetQueue = &bucketKnown.queue; break;
+            case CardState::Mastered: targetQueue = &bucketMastered.queue; break;
         }
 
         if (const auto nextItem = popItemFromQueue(targetQueue); nextItem.has_value()) {
+            if (currentConfig.order == SessionOrder::Random) {
+                ++cycleStateFor(chosenState).seenSinceShuffle;
+            }
             return nextItem;
         }
 
@@ -152,12 +219,15 @@ namespace core {
 
         std::deque<ReviewItem>* targetQueue = nullptr;
         switch (*currentConfig.focusedTargetState) {
-            case CardState::New: targetQueue = &queueNew; break;
-            case CardState::Known: targetQueue = &queueKnown; break;
-            case CardState::Mastered: targetQueue = &queueMastered; break;
+            case CardState::New: targetQueue = &bucketNew.queue; break;
+            case CardState::Known: targetQueue = &bucketKnown.queue; break;
+            case CardState::Mastered: targetQueue = &bucketMastered.queue; break;
         }
 
         if (const auto nextItem = popItemFromQueue(targetQueue); nextItem.has_value()) {
+            if (currentConfig.order == SessionOrder::Random) {
+                ++cycleStateFor(*currentConfig.focusedTargetState).seenSinceShuffle;
+            }
             return nextItem;
         }
 
@@ -166,6 +236,8 @@ namespace core {
 
     void StudySession::submitAnswer(const ReviewItem& item, CardState newState) {
         if (!item.card) { return; }
+
+        const CardState sourceState = stateFromAskedDirection(item);
 
         // Undo should revert the last submitted answer, so record history here.
         HistoryRecord record;
@@ -199,14 +271,23 @@ namespace core {
 
         switch (newState) {
             case CardState::New:
-                queueNew.push_back(newItem);
+                bucketNew.queue.push_back(newItem);
                 break;
             case CardState::Known:
-                queueKnown.push_back(newItem);
+                bucketKnown.queue.push_back(newItem);
                 break;
             case CardState::Mastered:
-                queueMastered.push_back(newItem);
+                bucketMastered.queue.push_back(newItem);
                 break;
+        }
+
+        if (currentConfig.order == SessionOrder::Random) {
+            maybeShuffleQueueAfterPass(sourceState);
+
+            auto& destinationCycle = cycleStateFor(newState);
+            if (destinationCycle.cycleSize == 0) {
+                destinationCycle.cycleSize = queueForState(newState).size();
+            }
         }
     }
 
@@ -223,9 +304,9 @@ namespace core {
             return false;
         };
 
-        if (remove_if_id(queueNew)) { removed = true; }
-        if (remove_if_id(queueKnown)) { removed = true; }
-        if (remove_if_id(queueMastered)) { removed = true; }
+        if (remove_if_id(bucketNew.queue)) { removed = true; }
+        if (remove_if_id(bucketKnown.queue)) { removed = true; }
+        if (remove_if_id(bucketMastered.queue)) { removed = true; }
 
         return removed;
     }
@@ -255,13 +336,13 @@ namespace core {
         std::deque<ReviewItem>* submittedQueue = nullptr;
         switch (lastRecord.pushedToQueueState) {
             case CardState::New:
-                submittedQueue = &queueNew;
+                submittedQueue = &bucketNew.queue;
                 break;
             case CardState::Known:
-                submittedQueue = &queueKnown;
+                submittedQueue = &bucketKnown.queue;
                 break;
             case CardState::Mastered:
-                submittedQueue = &queueMastered;
+                submittedQueue = &bucketMastered.queue;
                 break;
         }
 
@@ -293,14 +374,17 @@ namespace core {
 
             switch (originalState) {
                 case CardState::New:
-                    queueNew.push_front(restoredItem);
+                    bucketNew.queue.push_front(restoredItem);
                     break;
                 case CardState::Known:
-                    queueKnown.push_front(restoredItem);
+                    bucketKnown.queue.push_front(restoredItem);
                     break;
                 case CardState::Mastered:
-                    queueMastered.push_front(restoredItem);
+                    bucketMastered.queue.push_front(restoredItem);
                     break;
+            }
+            if (currentConfig.order == SessionOrder::Random) {
+                resetShuffleCycles();
             }
             return true;
         }
@@ -308,7 +392,11 @@ namespace core {
     }
 
     bool StudySession::removeCardFromSession(const std::string& cardId) {
-        return removeCardFromAnyQueue(cardId);
+        const bool removed = removeCardFromAnyQueue(cardId);
+        if (removed && currentConfig.order == SessionOrder::Random) {
+            resetShuffleCycles();
+        }
+        return removed;
     }
 
 } // namespace core

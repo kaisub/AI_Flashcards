@@ -23,6 +23,11 @@ void FtxuiStudyConfigView::run() {
         txt::study_config::kDirectionMixed
     };
 
+    const std::vector<std::string> order_entries = {
+        txt::study_config::kOrderQueue,
+        txt::study_config::kOrderRandom
+    };
+
     // Mode options
     const std::vector<std::string> mode_entries = {
         txt::study_config::kModeStandard,
@@ -37,6 +42,7 @@ void FtxuiStudyConfigView::run() {
     };
 
     auto direction_radiobox = Radiobox(&direction_entries, &_vm.directionSelected);
+    auto order_radiobox = Radiobox(&order_entries, &_vm.orderSelected);
     auto mode_radiobox = Radiobox(&mode_entries, &_vm.modeSelected);
     auto target_state_radiobox = Radiobox(&target_state_entries, &_vm.targetStateSelected);
 
@@ -48,6 +54,7 @@ void FtxuiStudyConfigView::run() {
         const core::SessionConfig config = [this] {
             core::SessionConfig cfg; // NOLINT(misc-const-correctness)
             cfg.direction = _vm.getSelectedDirection();
+            cfg.order = _vm.getSelectedOrder();
             cfg.type = _vm.getSelectedMode();
             cfg.focusedTargetState = (cfg.type == core::SessionType::Focused)
                 ? std::optional<core::CardState>(_vm.getSelectedTargetState())
@@ -81,6 +88,7 @@ void FtxuiStudyConfigView::run() {
     // Create the complete interactive container with ALL components including the 3 sliders
     auto component = Container::Vertical(Components{
         direction_radiobox,
+        order_radiobox,
         mode_radiobox,
         target_state_radiobox,
         slider_new,
@@ -111,6 +119,8 @@ void FtxuiStudyConfigView::run() {
             blueSep(),
             text(txt::study_config::kDirectionLabel) | bold | color(Color::CyanLight),
             direction_radiobox->Render() | color(Color::LightSeaGreen),
+            text(txt::study_config::kOrderLabel) | bold | color(Color::CyanLight),
+            order_radiobox->Render() | color(Color::LightSeaGreen),
             text(txt::study_config::kModeLabel) | bold | color(Color::CyanLight),
             mode_radiobox->Render() | color(Color::LightSeaGreen),
             text(txt::study_config::kTargetLabel) | bold | color(focused_label_color),

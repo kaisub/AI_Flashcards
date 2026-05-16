@@ -22,6 +22,7 @@ TEST(StudySessionTest, SessionConfig_ResetToDefaults) {
     config.type = SessionType::Focused;
     config.focusedTargetState = CardState::Mastered;
     config.direction = TranslationDirection::Front_to_Back;
+    config.order = SessionOrder::Queue;
     config.weightNew = 10;
     config.weightKnown = 10;
     config.weightMastered = 10;
@@ -31,6 +32,7 @@ TEST(StudySessionTest, SessionConfig_ResetToDefaults) {
     EXPECT_EQ(config.type, SessionType::Standard);
     EXPECT_FALSE(config.focusedTargetState.has_value());
     EXPECT_EQ(config.direction, TranslationDirection::Mixed);
+    EXPECT_EQ(config.order, SessionOrder::Random);
     EXPECT_EQ(config.weightNew, 70);
     EXPECT_EQ(config.weightKnown, 23);
     EXPECT_EQ(config.weightMastered, 7);

@@ -6,16 +6,27 @@
 namespace app::model {
 
     namespace StudyConfigUI {
-        constexpr int FrontToBack = 0;
-        constexpr int BackToFront = 1;
-        constexpr int Mixed = 2;
-        
-        constexpr int Standard = 0;
-        constexpr int Focused = 1;
-        
-        constexpr int New = 0;
-        constexpr int Known = 1;
-        constexpr int Mastered = 2;
+        enum DirectionOption : int {
+            FrontToBack = 0,
+            BackToFront = 1,
+            Mixed = 2,
+        };
+
+        enum OrderOption : int {
+            Queue = 0,
+            Random = 1,
+        };
+
+        enum ModeOption : int {
+            Standard = 0,
+            Focused = 1,
+        };
+
+        enum TargetOption : int {
+            New = 0,
+            Known = 1,
+            Mastered = 2,
+        };
 
         constexpr int kTotalWeight = 100;
         
@@ -28,6 +39,7 @@ namespace app::model {
     struct StudyConfigViewModel {
         // --- UI State ---
         int directionSelected = StudyConfigUI::Mixed;
+        int orderSelected = StudyConfigUI::Random;
         int modeSelected = StudyConfigUI::Standard;
         int targetStateSelected = StudyConfigUI::New;
 
@@ -80,6 +92,10 @@ namespace app::model {
 
         core::SessionType getSelectedMode() const {
             return modeSelected == StudyConfigUI::Standard ? core::SessionType::Standard : core::SessionType::Focused;
+        }
+
+        core::SessionOrder getSelectedOrder() const {
+            return orderSelected == StudyConfigUI::Queue ? core::SessionOrder::Queue : core::SessionOrder::Random;
         }
 
         core::CardState getSelectedTargetState() const {
