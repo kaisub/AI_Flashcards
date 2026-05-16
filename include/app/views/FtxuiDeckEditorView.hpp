@@ -49,6 +49,9 @@ private:
     std::vector<std::string> _pickerMenuEntries;
     int _pickerSelectedIndex = 0;
 
+    // Keep edit modal component persistent while open.
+    ftxui::Component _editModal;
+
     void refreshFilePicker();
     ftxui::Component buildFilePickerModal(const ftxui::ButtonOption& btnStyle);
 

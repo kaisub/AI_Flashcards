@@ -121,8 +121,13 @@ ftxui::Component FtxuiDeckEditorView::buildEditModal(const ftxui::ButtonOption& 
     using namespace ftxui;
     using namespace app::ui;
 
-    auto edit_front_input = Input(&_vm.editFront, txt::common::kFront);
-    auto edit_back_input = Input(&_vm.editBack, txt::common::kBack);
+    ftxui::InputOption edit_front_opt; // NOLINT(misc-const-correctness)
+    edit_front_opt.cursor_position = static_cast<int>(_vm.editFront.size());
+    auto edit_front_input = Input(&_vm.editFront, txt::common::kFront, edit_front_opt);
+
+    ftxui::InputOption edit_back_opt; // NOLINT(misc-const-correctness)
+    edit_back_opt.cursor_position = static_cast<int>(_vm.editBack.size());
+    auto edit_back_input = Input(&_vm.editBack, txt::common::kBack, edit_back_opt);
 
     auto edit_save_btn = Button(txt::common::kSaveEnter, [this] {
         if (!_vm.editFront.empty() && !_vm.editBack.empty()) {
@@ -434,8 +439,13 @@ void FtxuiDeckEditorView::run() {
         }
     };
 
-    auto input_front_base = Input(&_vm.newFront, txt::common::kFront);
-    auto input_back_base = Input(&_vm.newBack, txt::common::kBack);
+    ftxui::InputOption input_front_opt; // NOLINT(misc-const-correctness)
+    input_front_opt.cursor_position = static_cast<int>(_vm.newFront.size());
+    auto input_front_base = Input(&_vm.newFront, txt::common::kFront, input_front_opt);
+
+    ftxui::InputOption input_back_opt; // NOLINT(misc-const-correctness)
+    input_back_opt.cursor_position = static_cast<int>(_vm.newBack.size());
+    auto input_back_base = Input(&_vm.newBack, txt::common::kBack, input_back_opt);
 
     auto input_front = CatchEvent(input_front_base, [add_card_action](const Event& event) {
         if (event == Event::Return) {
@@ -485,7 +495,7 @@ void FtxuiDeckEditorView::run() {
 
     auto card_list_container = Container::Vertical({});
     
-    _onDeckChangedInternal = [this, card_list_container]() {
+    _onDeckChangedInternal = [this, card_list_container, custom_btn_style]() {
         card_list_container->DetachAllChildren();
 
         if (_vm.deck) {
@@ -496,10 +506,11 @@ void FtxuiDeckEditorView::run() {
                 auto checkbox = Checkbox("", &_vm.cardSelectionState[card->id]);
                 auto row_container = Container::Horizontal({checkbox});
 
-                auto row_with_edit = CatchEvent(row_container, [this, card](const Event& event) {
+                auto row_with_edit = CatchEvent(row_container, [this, card, custom_btn_style](const Event& event) {
                     if (event == Event::Character("e") || event == Event::Character("E")) {
                         _vm.startEditing(card);
                         _isEditing = true;
+                        _editModal = buildEditModal(custom_btn_style);
                         return true;
                     }
                     return false;
@@ -580,19 +591,22 @@ void FtxuiDeckEditorView::run() {
     });
 
     // --- Build modal components ---
-    auto edit_modal   = buildEditModal(custom_btn_style);
     auto delete_modal = buildDeleteModal(custom_btn_style);
     auto move_modal   = buildMoveModal(custom_btn_style);
     auto copy_modal   = buildCopyModal(custom_btn_style);
     auto file_picker_modal = buildFilePickerModal(custom_btn_style);
     auto import_modal = buildImportModal(custom_btn_style, inline_btn_style);
+    _editModal = buildEditModal(custom_btn_style);
 
     // --- Main Event Handler with Modal Overlay ---
-    auto final_renderer = Renderer(renderer, [this, renderer, edit_modal, delete_modal, move_modal, copy_modal, file_picker_modal, import_modal] {
+    auto final_renderer = Renderer(renderer, [this, renderer, delete_modal, move_modal, copy_modal, file_picker_modal, import_modal, custom_btn_style] {
         auto base = renderer->Render();
 
         if (_isEditing) {
-            return dbox({base | dim, edit_modal->Render() | clear_under | center});
+            if (!_editModal) {
+                _editModal = buildEditModal(custom_btn_style);
+            }
+            return dbox({base | dim, _editModal->Render() | clear_under | center});
         }
         if (_isDeletingBulk) {
             return dbox({base | dim, delete_modal->Render() | clear_under | center});
@@ -612,13 +626,17 @@ void FtxuiDeckEditorView::run() {
         return base;
     });
 
-    auto event_handler = CatchEvent(final_renderer, [this, &screen, edit_modal, delete_modal, move_modal, copy_modal, file_picker_modal, import_modal, input_front_base, input_back_base](Event event) {
+    auto event_handler = CatchEvent(final_renderer, [this, &screen, delete_modal, move_modal, copy_modal, file_picker_modal, import_modal, input_front, input_back, custom_btn_style](Event event) {
+
         if (event.is_mouse() && event.mouse().button == ftxui::Mouse::None) {
             return true;
         }
 
         if (_isEditing) {
-            edit_modal->OnEvent(event);
+            if (!_editModal) {
+                _editModal = buildEditModal(custom_btn_style);
+            }
+            _editModal->OnEvent(event);
             return true;
         }
         if (_isDeletingBulk) {
@@ -643,7 +661,7 @@ void FtxuiDeckEditorView::run() {
         }
 
         // Only allow single-character shortcuts if the user isn't typing in the Add Card inputs
-        const bool isTyping = input_front_base->Focused() || input_back_base->Focused();
+        const bool isTyping = input_front->Focused() || input_back->Focused();
         
         if (!isTyping) {
             if (event == Event::Character("s") || event == Event::Character("S")) {
