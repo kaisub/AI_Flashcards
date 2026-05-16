@@ -241,7 +241,7 @@ namespace core {
 
         // Undo should revert the last submitted answer, so record history here.
         HistoryRecord record;
-        record.cardId = item.card->id;
+        record.cardId = item.card->card_id;
         record.cardPtr = item.card;
         record.previousFrontState = item.card->state_Front_to_Back;
         record.previousBackState = item.card->state_Back_to_Front;
@@ -296,7 +296,7 @@ namespace core {
 
         auto remove_if_id = [&](std::deque<ReviewItem>& que) {
             auto itr = std::remove_if(que.begin(), que.end(),
-                                    [&](const ReviewItem& item) { return item.card && item.card->id == cardId; });
+                                    [&](const ReviewItem& item) { return item.card && item.card->card_id == cardId; });
             if (itr != que.end()) {
                 que.erase(itr, que.end());
                 return true;
@@ -325,7 +325,7 @@ namespace core {
         auto remove_last_matching = [&](std::deque<ReviewItem>& que, const std::string& cardId) {
             for (auto it = que.end(); it != que.begin();) {
                 --it;
-                if (it->card && it->card->id == cardId) {
+                if (it->card && it->card->card_id == cardId) {
                     que.erase(it);
                     return true;
                 }

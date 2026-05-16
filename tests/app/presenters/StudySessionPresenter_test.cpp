@@ -17,7 +17,7 @@ public:
 
     void showCard(const core::Flashcard& card, bool flipped) override {
         showCardCount++;
-        lastShownCardId = card.id;
+        lastShownCardId = card.card_id;
         lastShownFlipped = flipped;
     }
 
@@ -173,7 +173,7 @@ TEST_F(StudySessionPresenterTest, HandleStepWithoutStartRequestsExit) {
 
 TEST_F(StudySessionPresenterTest, HandleStepShowsCardWhenAvailable) {
     auto card = std::make_shared<core::Flashcard>();
-    card->id = "card-1";
+    card->card_id = "card-1";
     deckManager->addList("MyDeck", "path/to/deck.json", {card});
 
     core::SessionConfig config;
@@ -189,7 +189,7 @@ TEST_F(StudySessionPresenterTest, HandleStepShowsCardWhenAvailable) {
 
 TEST_F(StudySessionPresenterTest, OnExitRequestedSavesList) {
     auto card = std::make_shared<core::Flashcard>();
-    card->id = "card-1";
+    card->card_id = "card-1";
     deckManager->addList("MyDeck", "path/to/deck.json", {card});
 
     core::SessionConfig config;
@@ -207,7 +207,7 @@ TEST_F(StudySessionPresenterTest, OnExitRequestedSavesList) {
 
 TEST_F(StudySessionPresenterTest, OnEditRequestedUpdatesCard) {
     auto card = std::make_shared<core::Flashcard>();
-    card->id = "card-to-edit";
+    card->card_id = "card-to-edit";
     card->text_front = "old_front";
     card->text_back = "old_back";
     deckManager->addList("MyDeck", "path/to/deck.json", {card});
@@ -231,7 +231,7 @@ TEST_F(StudySessionPresenterTest, OnEditRequestedUpdatesCard) {
 
 TEST_F(StudySessionPresenterTest, OnDeleteRequestedRemovesCard) {
     auto card = std::make_shared<core::Flashcard>();
-    card->id = "card-to-delete";
+    card->card_id = "card-to-delete";
     deckManager->addList("MyDeck", "path/to/deck.json", {card});
 
     core::SessionConfig config;
@@ -249,7 +249,7 @@ TEST_F(StudySessionPresenterTest, OnDeleteRequestedRemovesCard) {
 
 TEST_F(StudySessionPresenterTest, OnCopyRequestedWithInvalidIndexDoesNothing) {
     auto card = std::make_shared<core::Flashcard>();
-    card->id = "card-to-copy";
+    card->card_id = "card-to-copy";
     card->text_front = "front";
     card->text_back = "back";
     deckManager->addList("Source", "path/to/source.json", {card});
@@ -269,7 +269,7 @@ TEST_F(StudySessionPresenterTest, OnCopyRequestedWithInvalidIndexDoesNothing) {
 
 TEST_F(StudySessionPresenterTest, OnCopyRequestedWithMissingTargetListDoesNothing) {
     auto card = std::make_shared<core::Flashcard>();
-    card->id = "card-to-copy";
+    card->card_id = "card-to-copy";
     deckManager->addList("Source", "path/to/source.json", {card});
     deckManager->addAvailablePath("path/to/missing_target.json");
 
@@ -286,7 +286,7 @@ TEST_F(StudySessionPresenterTest, OnCopyRequestedWithMissingTargetListDoesNothin
 
 TEST_F(StudySessionPresenterTest, OnCopyRequestedCopiesCardAndSavesTargetList) {
     auto card = std::make_shared<core::Flashcard>();
-    card->id = "card-to-copy";
+    card->card_id = "card-to-copy";
     deckManager->addList("Source", "path/to/source.json", {card});
     deckManager->addList("Target", "path/to/target.json");
 
@@ -305,7 +305,7 @@ TEST_F(StudySessionPresenterTest, OnCopyRequestedCopiesCardAndSavesTargetList) {
 
 TEST_F(StudySessionPresenterTest, OnEditRequestedWhenUpdateFailsDoesNotRefreshCard) {
     auto card = std::make_shared<core::Flashcard>();
-    card->id = "card-to-edit";
+    card->card_id = "card-to-edit";
     card->text_front = "old_front";
     card->text_back = "old_back";
     deckManager->addList("MyDeck", "path/to/deck.json", {card});
@@ -328,7 +328,7 @@ TEST_F(StudySessionPresenterTest, OnEditRequestedWhenUpdateFailsDoesNotRefreshCa
 
 TEST_F(StudySessionPresenterTest, OnDeleteRequestedWhenRemoveFailsKeepsCard) {
     auto card = std::make_shared<core::Flashcard>();
-    card->id = "card-to-delete";
+    card->card_id = "card-to-delete";
     deckManager->addList("MyDeck", "path/to/deck.json", {card});
 
     core::SessionConfig config;
@@ -345,12 +345,12 @@ TEST_F(StudySessionPresenterTest, OnDeleteRequestedWhenRemoveFailsKeepsCard) {
 
 TEST_F(StudySessionPresenterTest, OnResetAllRequestedResetsCardStatesToNewAndSaves) {
     auto card1 = std::make_shared<core::Flashcard>();
-    card1->id = "card-1";
+    card1->card_id = "card-1";
     card1->state_Front_to_Back = core::CardState::Known;
     card1->state_Back_to_Front = core::CardState::Mastered;
 
     auto card2 = std::make_shared<core::Flashcard>();
-    card2->id = "card-2";
+    card2->card_id = "card-2";
     card2->state_Front_to_Back = core::CardState::Mastered;
     card2->state_Back_to_Front = core::CardState::Known;
 

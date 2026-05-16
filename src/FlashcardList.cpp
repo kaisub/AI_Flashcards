@@ -8,12 +8,19 @@ namespace core {
         if (!card) {
             return false; // Card is null
         }
-        auto [itr, inserted] = cards.try_emplace(card->id, card);
+        auto [itr, inserted] = cards.try_emplace(card->card_id, card);
+        if (inserted) {
+            cardOrder.push_back(card->card_id);
+        }
         return inserted;
     }
 
     bool FlashcardList::removeCard(const std::string& idx) {
-        return cards.erase(idx) > 0;
+        if (cards.erase(idx) == 0) {
+            return false;
+        }
+        cardOrder.erase(std::remove(cardOrder.begin(), cardOrder.end(), idx), cardOrder.end());
+        return true;
     }
 
     bool FlashcardList::updateCard(const std::string& idx, const std::string& newFront, const std::string& newBack) {
@@ -36,9 +43,12 @@ namespace core {
 
     std::vector<std::shared_ptr<Flashcard>> FlashcardList::getAllCards() const {
         std::vector<std::shared_ptr<Flashcard>> allCards;
-        allCards.reserve(cards.size());
-    for (const auto& [id, card_ptr] : cards) {
-        allCards.push_back(card_ptr);
+        allCards.reserve(cardOrder.size());
+        for (const auto& id : cardOrder) {
+            auto itr = cards.find(id);
+            if (itr != cards.end()) {
+                allCards.push_back(itr->second);
+            }
         }
         return allCards;
     }
@@ -55,12 +65,12 @@ namespace core {
 
     size_t FlashcardList::importCardsFrom(const FlashcardList& sourceList) {
         size_t addedCount = 0;
-        for (const auto& [idx, card_ptr] : sourceList.cards) {
+        for (const auto& card_ptr : sourceList.getAllCards()) {
             // Create a new shared_ptr pointing to the same Flashcard object
             // This ensures both lists share ownership of the same card instance,
             // which is crucial for StudySession and state updates.
-        if (addCard(card_ptr)) {
-            addedCount++;
+            if (addCard(card_ptr)) {
+                addedCount++;
             }
         }
         return addedCount;
@@ -78,6 +88,7 @@ namespace core {
 
     void FlashcardList::clear() {
         cards.clear();
+        cardOrder.clear();
     }
 
     size_t FlashcardList::size() const {

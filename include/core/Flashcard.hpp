@@ -17,7 +17,7 @@ namespace core {
     };
 
     struct Flashcard {
-        std::string id;
+        std::string card_id;
         std::string text_front;
         std::string text_back;
         
@@ -28,7 +28,7 @@ namespace core {
 
         static Flashcard makeCloneAsNew(const Flashcard& source, const std::string& newId) {
             Flashcard cloned;
-            cloned.id = newId;
+            cloned.card_id = newId;
             cloned.text_front = source.text_front;
             cloned.text_back = source.text_back;
             cloned.state_Front_to_Back = CardState::New;

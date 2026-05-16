@@ -15,7 +15,7 @@ TEST(UndoManagerTest, InitialStateIsEmpty) {
 TEST(UndoManagerTest, PushAndPopRecord) {
     UndoManager undo;
     auto card = std::make_shared<Flashcard>();
-    card->id = "test-1";
+    card->card_id = "test-1";
 
     HistoryRecord record{
         "test-1",

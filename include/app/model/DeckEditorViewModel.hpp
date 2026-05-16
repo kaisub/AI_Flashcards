@@ -44,7 +44,7 @@ namespace app::model {
         
         void startEditing(const std::shared_ptr<core::Flashcard>& card) {
             if (card) {
-                editCardId = card->id;
+                editCardId = card->card_id;
                 editFront = card->text_front;
                 editBack = card->text_back;
             }

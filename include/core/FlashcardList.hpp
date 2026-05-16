@@ -34,6 +34,7 @@ namespace core {
     private:
         std::string listName;
         std::unordered_map<std::string, std::shared_ptr<Flashcard>> cards;
+        std::vector<std::string> cardOrder;
     };
 
 } // namespace core

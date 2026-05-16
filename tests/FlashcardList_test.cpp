@@ -23,7 +23,7 @@ TEST(FlashcardListTest, AddAndRetrieveCard) {
     ASSERT_NE(retrievedCard, nullptr);
     EXPECT_EQ(retrievedCard->text_front, "Hello");
     EXPECT_EQ(retrievedCard->text_back, "World");
-    EXPECT_EQ(retrievedCard->id, "1");
+    EXPECT_EQ(retrievedCard->card_id, "1");
 
     // Verify O(1) retrieval by checking pointer identity
     EXPECT_EQ(retrievedCard, card1);
@@ -57,7 +57,7 @@ TEST(FlashcardListTest, UpdateCardData) {
     ASSERT_NE(updatedCard, nullptr);
     EXPECT_EQ(updatedCard->text_front, "New Front");
     EXPECT_EQ(updatedCard->text_back, "New Back");
-    EXPECT_EQ(updatedCard->id, "101");
+    EXPECT_EQ(updatedCard->card_id, "101");
 
     // Verify the original shared_ptr also reflects the update
     EXPECT_EQ(card->text_front, "New Front");
@@ -156,8 +156,8 @@ TEST(FlashcardListTest, GetAllCards) {
     bool found1 = false;
     bool found2 = false;
     for (const auto& card : allCards) {
-        if (card->id == "1") found1 = true;
-        if (card->id == "2") found2 = true;
+        if (card->card_id == "1") found1 = true;
+        if (card->card_id == "2") found2 = true;
     }
     EXPECT_TRUE(found1);
     EXPECT_TRUE(found2);
@@ -166,4 +166,35 @@ TEST(FlashcardListTest, GetAllCards) {
     FlashcardList emptyList("Empty");
     std::vector<std::shared_ptr<Flashcard>> emptyCards = emptyList.getAllCards();
     EXPECT_TRUE(emptyCards.empty());
+}
+
+TEST(FlashcardListTest, GetAllCards_PreservesInsertionOrder) {
+    FlashcardList list("Ordered");
+    auto cardA = test_utils::createTestFlashcard("A", "Front A", "Back A");
+    auto cardB = test_utils::createTestFlashcard("B", "Front B", "Back B");
+    auto cardC = test_utils::createTestFlashcard("C", "Front C", "Back C");
+
+    ASSERT_TRUE(list.addCard(cardA));
+    ASSERT_TRUE(list.addCard(cardB));
+    ASSERT_TRUE(list.addCard(cardC));
+
+    auto cards = list.getAllCards();
+    ASSERT_EQ(cards.size(), 3u);
+    EXPECT_EQ(cards[0]->card_id, "A");
+    EXPECT_EQ(cards[1]->card_id, "B");
+    EXPECT_EQ(cards[2]->card_id, "C");
+
+    ASSERT_TRUE(list.removeCard("B"));
+    auto after_remove = list.getAllCards();
+    ASSERT_EQ(after_remove.size(), 2u);
+    EXPECT_EQ(after_remove[0]->card_id, "A");
+    EXPECT_EQ(after_remove[1]->card_id, "C");
+
+    auto cardD = test_utils::createTestFlashcard("D", "Front D", "Back D");
+    ASSERT_TRUE(list.addCard(cardD));
+    auto after_append = list.getAllCards();
+    ASSERT_EQ(after_append.size(), 3u);
+    EXPECT_EQ(after_append[0]->card_id, "A");
+    EXPECT_EQ(after_append[1]->card_id, "C");
+    EXPECT_EQ(after_append[2]->card_id, "D");
 }

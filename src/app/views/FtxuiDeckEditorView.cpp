@@ -510,9 +510,9 @@ void FtxuiDeckEditorView::run() {
         if (_vm.deck) {
             auto cards = _vm.deck->getAllCards();
             for (const auto& card : cards) {
-                _vm.cardSelectionState.try_emplace(card->id, false);
+                _vm.cardSelectionState.try_emplace(card->card_id, false);
 
-                auto checkbox = Checkbox("", &_vm.cardSelectionState[card->id]);
+                auto checkbox = Checkbox("", &_vm.cardSelectionState[card->card_id]);
                 auto row_container = Container::Horizontal({checkbox});
                 auto row_box = std::make_shared<ftxui::Box>();
 
@@ -529,7 +529,7 @@ void FtxuiDeckEditorView::run() {
                 auto row_renderer = Renderer(row_with_edit, [this, row_with_edit, checkbox, card, row_box] {
                     const bool focused = row_with_edit->Focused();
                     if (focused) {
-                        _focusedCardId = card->id;
+                        _focusedCardId = card->card_id;
                     }
                     auto row = hbox({
                         checkbox->Render(),
@@ -555,7 +555,7 @@ void FtxuiDeckEditorView::run() {
                     }
 
                     if (mouse.button == Mouse::Left && mouse.motion == Mouse::Pressed) {
-                        _focusedCardId = card->id;
+                        _focusedCardId = card->card_id;
                         card_list_container->SetActiveChild(row_with_edit.get());
                     }
 

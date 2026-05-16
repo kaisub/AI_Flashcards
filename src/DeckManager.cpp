@@ -259,7 +259,7 @@ namespace core {
             const std::string cardId = "import_" + std::to_string(++cardIdCounter) + "_" + std::to_string(std::hash<std::string>{}(front + back));
 
             auto card = std::make_shared<Flashcard>();
-            card->id = cardId;
+            card->card_id = cardId;
             card->text_front = front;
             card->text_back = back;
             card->state_Front_to_Back = CardState::New;

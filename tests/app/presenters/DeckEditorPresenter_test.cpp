@@ -210,7 +210,7 @@ TEST_F(DeckEditorPresenterTest, OnAddCardRefreshesView) {
 
 TEST_F(DeckEditorPresenterTest, OnUpdateCardRefreshesView) {
     auto card = std::make_shared<core::Flashcard>();
-    card->id = "card-1";
+    card->card_id = "card-1";
     card->text_front = "front";
     card->text_back = "back";
     deckManager->addList("MyDeck", "path/to/deck.json", {card});
@@ -231,9 +231,9 @@ TEST_F(DeckEditorPresenterTest, OnUpdateCardRefreshesView) {
 
 TEST_F(DeckEditorPresenterTest, OnDeleteSelectedRefreshesView) {
     auto card1 = std::make_shared<core::Flashcard>();
-    card1->id = "card-1";
+    card1->card_id = "card-1";
     auto card2 = std::make_shared<core::Flashcard>();
-    card2->id = "card-2";
+    card2->card_id = "card-2";
     deckManager->addList("MyDeck", "path/to/deck.json", {card1, card2});
     presenter->start("MyDeck", "path/to/deck.json");
 
@@ -251,7 +251,7 @@ TEST_F(DeckEditorPresenterTest, OnDeleteSelectedRefreshesView) {
 TEST_F(DeckEditorPresenterTest, OnCopySelectedCallsDeckManager) {
     auto sourceList = std::make_shared<core::FlashcardList>("SourceDeck");
     auto card = std::make_shared<core::Flashcard>();
-    card->id = "card-1";
+    card->card_id = "card-1";
     card->text_front = "front";
     card->text_back = "back";
     card->state_Front_to_Back = core::CardState::Known;
@@ -286,7 +286,7 @@ TEST_F(DeckEditorPresenterTest, StartWithMissingListDoesNotTouchView) {
 
 TEST_F(DeckEditorPresenterTest, OnCopySelectedWithInvalidIndexDoesNothing) {
     auto card = std::make_shared<core::Flashcard>();
-    card->id = "card-1";
+    card->card_id = "card-1";
     deckManager->addList("SourceDeck", "path/to/source.json", {card});
     deckManager->addList("TargetDeck", "path/to/target.json");
     presenter->start("SourceDeck", "path/to/source.json");
@@ -301,7 +301,7 @@ TEST_F(DeckEditorPresenterTest, OnCopySelectedWithInvalidIndexDoesNothing) {
 
 TEST_F(DeckEditorPresenterTest, OnCopySelectedWithMissingTargetListDoesNothing) {
     auto card = std::make_shared<core::Flashcard>();
-    card->id = "card-1";
+    card->card_id = "card-1";
     deckManager->addList("SourceDeck", "path/to/source.json", {card});
     deckManager->addAvailablePath("path/to/missing_target.json");
     presenter->start("SourceDeck", "path/to/source.json");
@@ -315,7 +315,7 @@ TEST_F(DeckEditorPresenterTest, OnCopySelectedWithMissingTargetListDoesNothing) 
 
 TEST_F(DeckEditorPresenterTest, OnMoveSelectedWithNoMovableCardsDoesNotRefresh) {
     auto sourceCard = std::make_shared<core::Flashcard>();
-    sourceCard->id = "source-card";
+    sourceCard->card_id = "source-card";
     deckManager->addList("SourceDeck", "path/to/source.json", {sourceCard});
     deckManager->addList("TargetDeck", "path/to/target.json");
     presenter->start("SourceDeck", "path/to/source.json");
@@ -334,7 +334,7 @@ TEST_F(DeckEditorPresenterTest, OnMoveSelectedWithNoMovableCardsDoesNotRefresh) 
 
 TEST_F(DeckEditorPresenterTest, OnMoveSelectedMovesCardsAndSavesBothLists) {
     auto sourceCard = std::make_shared<core::Flashcard>();
-    sourceCard->id = "card-1";
+    sourceCard->card_id = "card-1";
     deckManager->addList("SourceDeck", "path/to/source.json", {sourceCard});
     deckManager->addList("TargetDeck", "path/to/target.json");
     presenter->start("SourceDeck", "path/to/source.json");

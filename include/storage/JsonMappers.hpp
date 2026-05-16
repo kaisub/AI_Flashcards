@@ -38,7 +38,7 @@ namespace core {
     }
 
     inline void to_json(nlohmann::json& j, const Flashcard& card) {
-        j["id"] = card.id;
+        j["id"] = card.card_id;
         j["text_front"] = card.text_front;
         j["text_back"] = card.text_back;
         to_json(j["state_Front_to_Back"], card.state_Front_to_Back);
@@ -46,7 +46,7 @@ namespace core {
     }
 
     inline void from_json(const nlohmann::json& j, Flashcard& card) {
-        j.at("id").get_to(card.id);
+        j.at("id").get_to(card.card_id);
         j.at("text_front").get_to(card.text_front);
         j.at("text_back").get_to(card.text_back);
         from_json(j.at("state_Front_to_Back"), card.state_Front_to_Back);

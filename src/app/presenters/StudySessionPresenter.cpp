@@ -92,7 +92,7 @@ namespace app::presenters {
             if (!_currentReviewItem || !_currentReviewItem->card) {
                 return;
             }
-            if (_deckManager->updateCardInList(_currentListName, _currentReviewItem->card->id, newFront, newBack)) {
+            if (_deckManager->updateCardInList(_currentListName, _currentReviewItem->card->card_id, newFront, newBack)) {
                 _deckManager->saveList(_currentListName);
                 _view->showCard(*_currentReviewItem->card, false);
             }
@@ -102,7 +102,7 @@ namespace app::presenters {
             if (!_currentReviewItem || !_currentReviewItem->card) {
                 return;
             }
-            const std::string cardId = _currentReviewItem->card->id;
+            const std::string cardId = _currentReviewItem->card->card_id;
             if (_deckManager->removeCardFromList(_currentListName, cardId)) {
                 _deckManager->saveList(_currentListName);
                 _session->removeCardFromSession(cardId);

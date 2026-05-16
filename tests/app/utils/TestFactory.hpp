@@ -14,7 +14,7 @@ namespace test_utils {
         core::CardState b2f = core::CardState::New)
     {
         auto card = std::make_shared<core::Flashcard>();
-        card->id = id;
+        card->card_id = id;
         card->text_front = front;
         card->text_back = back;
         card->state_Front_to_Back = f2b;

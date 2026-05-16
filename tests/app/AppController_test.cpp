@@ -305,7 +305,7 @@ namespace app {
         const std::filesystem::path testListPath = "path/to/my_list.json";
         const std::string listName = "my_list";
         auto existingCard = std::make_shared<core::Flashcard>();
-        existingCard->id = "card-1";
+        existingCard->card_id = "card-1";
 
         auto list_in_dm = std::make_shared<core::FlashcardList>(listName);
         list_in_dm->addCard(existingCard);
@@ -331,7 +331,7 @@ namespace app {
         // Setup: select a list to get into DeckEditor
         const std::filesystem::path testListPath = "path/to/my_list.json";
         auto card1 = std::make_shared<core::Flashcard>();
-        card1->id = "1";
+        card1->card_id = "1";
         auto list_in_dm = std::make_shared<core::FlashcardList>("my_list");
         list_in_dm->addCard(card1);
 
@@ -376,7 +376,7 @@ namespace app {
 
         // A deck must have at least one card to transition to StudyConfig
         auto card1 = std::make_shared<core::Flashcard>();
-        card1->id = "1";
+        card1->card_id = "1";
         list_in_dm->addCard(card1);
 
         EXPECT_CALL(*mockDeckManager, loadList(testListPath)).WillRepeatedly(::testing::Return(list_in_dm));
@@ -400,7 +400,7 @@ namespace app {
         // Setup: select a list and start a study session
         const std::filesystem::path testListPath = "path/to/my_list.json";
         auto card1 = std::make_shared<core::Flashcard>();
-        card1->id = "1";
+        card1->card_id = "1";
         auto list_in_dm = std::make_shared<core::FlashcardList>("my_list");
         list_in_dm->addCard(card1);
 
@@ -433,9 +433,9 @@ namespace app {
         // Setup: List with two cards
         const std::filesystem::path testListPath = "path/to/my_list.json";
         auto card1 = std::make_shared<core::Flashcard>();
-        card1->id = "1";
+        card1->card_id = "1";
         auto card2 = std::make_shared<core::Flashcard>();
-        card2->id = "2";
+        card2->card_id = "2";
         auto list_in_dm = std::make_shared<core::FlashcardList>("my_list");
         list_in_dm->addCard(card1);
         list_in_dm->addCard(card2);
@@ -486,7 +486,7 @@ namespace app {
         const std::filesystem::path testListPath = "path/to/my_list.json";
         const std::string listName = "my_list";
         auto sourceCard = std::make_shared<core::Flashcard>();
-        sourceCard->id = "card-1";
+        sourceCard->card_id = "card-1";
         auto list_in_dm = std::make_shared<core::FlashcardList>(listName);
         list_in_dm->addCard(sourceCard);
 
@@ -531,7 +531,7 @@ namespace app {
         const std::string listName = "source";
 
         auto sourceCard = std::make_shared<core::Flashcard>();
-        sourceCard->id = "card-1";
+        sourceCard->card_id = "card-1";
         sourceCard->text_front = "front";
         sourceCard->text_back = "back";
         auto list_in_dm = std::make_shared<core::FlashcardList>(listName);
@@ -571,7 +571,7 @@ namespace app {
         const std::string listName = "source";
 
         auto sourceCard = std::make_shared<core::Flashcard>();
-        sourceCard->id = "card-1";
+        sourceCard->card_id = "card-1";
         sourceCard->text_front = "front";
         sourceCard->text_back = "back";
         sourceCard->state_Front_to_Back = core::CardState::Known;
@@ -671,7 +671,7 @@ namespace app {
     TEST_F(AppControllerTest, OnUndoRequestedCallsUndoInSession) {
         const std::filesystem::path testListPath = "path/to/my_list.json";
         auto card1 = std::make_shared<core::Flashcard>();
-        card1->id = "1";
+        card1->card_id = "1";
         auto list_in_dm = std::make_shared<core::FlashcardList>("my_list");
         list_in_dm->addCard(card1);
 
@@ -696,7 +696,7 @@ namespace app {
     TEST_F(AppControllerTest, OnEditRequestedInSessionUpdatesCard) {
         const std::filesystem::path testListPath = "path/to/my_list.json";
         auto card1 = std::make_shared<core::Flashcard>();
-        card1->id = "edit-card";
+        card1->card_id = "edit-card";
         auto list_in_dm = std::make_shared<core::FlashcardList>("my_list");
         list_in_dm->addCard(card1);
 
@@ -737,7 +737,7 @@ namespace app {
     TEST_F(AppControllerTest, OnDeleteRequestedInSessionRemovesCard) {
         const std::filesystem::path testListPath = "path/to/my_list.json";
         auto card1 = std::make_shared<core::Flashcard>();
-        card1->id = "del-card";
+        card1->card_id = "del-card";
         auto list_in_dm = std::make_shared<core::FlashcardList>("my_list");
         list_in_dm->addCard(card1);
 
@@ -780,7 +780,7 @@ namespace app {
         const std::filesystem::path testListPath = "path/to/my_list.json";
         const std::filesystem::path otherListPath = "path/to/other.json";
         auto card1 = std::make_shared<core::Flashcard>();
-        card1->id = "copy-card";
+        card1->card_id = "copy-card";
         card1->text_front = "front";
         card1->text_back = "back";
         auto list_in_dm = std::make_shared<core::FlashcardList>("my_list");

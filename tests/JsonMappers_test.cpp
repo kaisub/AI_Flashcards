@@ -80,7 +80,7 @@ TEST(JsonMappersTest, FlashcardDeserialization) {
     Flashcard card{};
     from_json(j, card);
 
-    EXPECT_EQ(card.id, "456");
+    EXPECT_EQ(card.card_id, "456");
     EXPECT_EQ(card.text_front, "Q");
     EXPECT_EQ(card.text_back, "A");
     EXPECT_EQ(card.state_Front_to_Back, CardState::Mastered);

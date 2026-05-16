@@ -72,13 +72,13 @@ TEST(StudySessionTest, StandardMode_RespectsDrawProbabilities) {
         CardState originalState = CardState::New;
         // Determine the originating bucket from immutable ID prefix.
         // Card state mutates after submitAnswer, so using state here biases counts.
-        if (item->card->id.rfind("new", 0) == 0) {
+        if (item->card->card_id.rfind("new", 0) == 0) {
             drawCounts[CardState::New]++;
             originalState = CardState::New;
-        } else if (item->card->id.rfind("known", 0) == 0) {
+        } else if (item->card->card_id.rfind("known", 0) == 0) {
             drawCounts[CardState::Known]++;
             originalState = CardState::Known;
-        } else if (item->card->id.rfind("mastered", 0) == 0) {
+        } else if (item->card->card_id.rfind("mastered", 0) == 0) {
             drawCounts[CardState::Mastered]++;
             originalState = CardState::Mastered;
         }
@@ -131,12 +131,12 @@ TEST(StudySessionTest, StandardMode_HandlesEmptyQueues) {
     // Exhaust the 'New' queue
     std::optional<ReviewItem> item1 = session.getNextItem(); // Should be N1 or N2
     ASSERT_TRUE(item1.has_value());
-    EXPECT_EQ(item1->card->id.substr(0,3), "new");
+    EXPECT_EQ(item1->card->card_id.substr(0,3), "new");
     session.submitAnswer(item1.value(), CardState::Mastered); // Move to Mastered, which is empty, but now has it
 
     std::optional<ReviewItem> item2 = session.getNextItem(); // Should be N1 or N2 (the other one)
     ASSERT_TRUE(item2.has_value());
-    EXPECT_EQ(item2->card->id.substr(0,3), "new");
+    EXPECT_EQ(item2->card->card_id.substr(0,3), "new");
     session.submitAnswer(item2.value(), CardState::Mastered);
 
     EXPECT_EQ(session.getQueueSize(CardState::New), 0u);
@@ -149,7 +149,7 @@ TEST(StudySessionTest, StandardMode_HandlesEmptyQueues) {
     ASSERT_TRUE(item3.has_value());
     // Due to the very low weight of 'Known' and 'Mastered' now having 2 cards with weight 0,
     // the dynamic weights will normalize. The K1 card from 'Known' should be drawn.
-    EXPECT_EQ(item3->card->id, "known1");
+    EXPECT_EQ(item3->card->card_id, "known1");
     session.submitAnswer(item3.value(), CardState::Mastered); // K1 now also in Mastered
 
     EXPECT_EQ(session.getQueueSize(CardState::New), 0u);
@@ -234,7 +234,7 @@ TEST(StudySessionTest, FocusedMode_FiniteExhaustion) {
     // Draw first new card
     std::optional<ReviewItem> item1 = session.getNextItem();
     ASSERT_TRUE(item1.has_value());
-    EXPECT_EQ(item1->card->id.substr(0,3), "new");
+    EXPECT_EQ(item1->card->card_id.substr(0,3), "new");
     EXPECT_EQ(session.getQueueSize(CardState::New), 1u);
     EXPECT_EQ(session.getTotalRemainingInFocusedMode(), 1u);
     session.submitAnswer(item1.value(), CardState::Known); // Move out of 'New' queue
@@ -242,7 +242,7 @@ TEST(StudySessionTest, FocusedMode_FiniteExhaustion) {
     // Draw second new card
     std::optional<ReviewItem> item2 = session.getNextItem();
     ASSERT_TRUE(item2.has_value());
-    EXPECT_EQ(item2->card->id.substr(0,3), "new");
+    EXPECT_EQ(item2->card->card_id.substr(0,3), "new");
     EXPECT_EQ(session.getQueueSize(CardState::New), 0u);
     EXPECT_EQ(session.getTotalRemainingInFocusedMode(), 0u);
     session.submitAnswer(item2.value(), CardState::Known); // Move out of 'New' queue
@@ -296,7 +296,7 @@ TEST(StudySessionTest, SubmitAnswer_UpdatesStateAndQueue) {
     ASSERT_TRUE(item1_opt.has_value());
     ReviewItem item1 = item1_opt.value();
 
-    EXPECT_EQ(item1.card->id, "c1");
+    EXPECT_EQ(item1.card->card_id, "c1");
     EXPECT_EQ(session.getQueueSize(CardState::New), 0u); // card1 removed from New
     EXPECT_EQ(card1->state_Front_to_Back, CardState::New); // State before submission
 
@@ -311,7 +311,7 @@ TEST(StudySessionTest, SubmitAnswer_UpdatesStateAndQueue) {
     ReviewItem item2 = item2_opt.value();
 
     // Verify it's the other card (c2 is at the front of the Known queue)
-    EXPECT_EQ(item2.card->id, "c2");
+    EXPECT_EQ(item2.card->card_id, "c2");
     EXPECT_EQ(card2->state_Front_to_Back, CardState::Known); // Still Known from initial state
 }
 
@@ -418,7 +418,7 @@ TEST(StudySessionTest, RemoveCard_SafelyEjectsCard) {
         if (!item.has_value()) {
             break;
         }
-        EXPECT_NE(item->card->id, "c2"); // Should never return card2
+        EXPECT_NE(item->card->card_id, "c2"); // Should never return card2
         session.submitAnswer(item.value(), CardState::Mastered); // Keep submitting to keep session active
         drawnCount++;
     }
@@ -513,6 +513,37 @@ TEST(StudySessionTest, ConfigUpdate_ChangesDirectionMidSession) {
     EXPECT_EQ(item_opt2->askedDirection, TranslationDirection::Back_to_Front);
 }
 
+TEST(StudySessionTest, QueueOrder_PreservesOrderWithinQueue) {
+    std::vector<std::shared_ptr<Flashcard>> deck;
+    deck.push_back(createTestFlashcard("n1", "F1", "B1", CardState::New, CardState::New));
+    deck.push_back(createTestFlashcard("n2", "F2", "B2", CardState::New, CardState::New));
+    deck.push_back(createTestFlashcard("n3", "F3", "B3", CardState::New, CardState::New));
+
+    SessionConfig config;
+    config.type = SessionType::Standard;
+    config.direction = TranslationDirection::Front_to_Back;
+    config.order = SessionOrder::Queue;
+    config.weightNew = 100;
+    config.weightKnown = 0;
+    config.weightMastered = 0;
+
+    StudySession session(deck, config, 123U);
+
+    auto first = session.getNextItem();
+    ASSERT_TRUE(first.has_value());
+    EXPECT_EQ(first->card->card_id, "n1");
+
+    auto second = session.getNextItem();
+    ASSERT_TRUE(second.has_value());
+    EXPECT_EQ(second->card->card_id, "n2");
+
+    auto third = session.getNextItem();
+    ASSERT_TRUE(third.has_value());
+    EXPECT_EQ(third->card->card_id, "n3");
+
+    EXPECT_FALSE(session.getNextItem().has_value());
+}
+
 TEST(StudySessionTest, UndoAfterRemoveCard_SkipsRemovedCard) {
     std::vector<std::shared_ptr<Flashcard>> deck;
     deck.push_back(createTestFlashcard("A", "F_A", "B_A", CardState::New, CardState::New));
@@ -565,14 +596,14 @@ TEST(StudySessionTest, Undo_MakesLastSubmittedCardNext_WhenCardsWereNew) {
     for (int i = 0; i < 4; ++i) {
         auto item = session.getNextItem();
         ASSERT_TRUE(item.has_value());
-        lastSubmittedId = item->card->id;
+        lastSubmittedId = item->card->card_id;
         session.submitAnswer(item.value(), CardState::Mastered);
     }
 
     ASSERT_TRUE(session.undoLastAction());
     auto replay = session.getNextItem();
     ASSERT_TRUE(replay.has_value());
-    EXPECT_EQ(replay->card->id, lastSubmittedId);
+    EXPECT_EQ(replay->card->card_id, lastSubmittedId);
 }
 
 TEST(StudySessionTest, Undo_MakesLastSubmittedCardNext_WhenCardsWereMastered) {
@@ -595,12 +626,12 @@ TEST(StudySessionTest, Undo_MakesLastSubmittedCardNext_WhenCardsWereMastered) {
     for (int i = 0; i < 4; ++i) {
         auto item = session.getNextItem();
         ASSERT_TRUE(item.has_value());
-        lastSubmittedId = item->card->id;
+        lastSubmittedId = item->card->card_id;
         session.submitAnswer(item.value(), CardState::Mastered);
     }
 
     ASSERT_TRUE(session.undoLastAction());
     auto replay = session.getNextItem();
     ASSERT_TRUE(replay.has_value());
-    EXPECT_EQ(replay->card->id, lastSubmittedId);
+    EXPECT_EQ(replay->card->card_id, lastSubmittedId);
 }

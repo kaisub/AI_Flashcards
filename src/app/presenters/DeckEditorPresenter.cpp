@@ -36,7 +36,7 @@ namespace app::presenters {
                 return;
             }
             auto newCard = std::make_shared<core::Flashcard>();
-            newCard->id = utils::generateUniqueCardId();
+            newCard->card_id = utils::generateUniqueCardId();
             newCard->text_front = front;
             newCard->text_back = back;
             if (_deckManager->addCardToList(list->getName(), newCard)) {
