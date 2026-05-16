@@ -1,6 +1,7 @@
 #include "app/views/FtxuiListsBrowserView.hpp"
 #include "app/localization/Localization.hpp"
 #include "app/views/ViewTheme.hpp"
+#include "app/views/ViewUtils.hpp"
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/event.hpp>
 #include <ftxui/component/screen_interactive.hpp>
@@ -84,7 +85,7 @@ ftxui::Component FtxuiListsBrowserView::buildCreateListModal(ftxui::ScreenIntera
     });
 
     return ftxui::CatchEvent(create_renderer, [this, &screen, create_action](const ftxui::Event& event) {
-        if (event == ftxui::Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             _isCreatingList = false;
             screen.Exit();
             return true;
@@ -139,7 +140,7 @@ ftxui::Component FtxuiListsBrowserView::buildCreateFolderModal(ftxui::ScreenInte
     });
 
     return ftxui::CatchEvent(create_renderer, [this, &screen, create_action](const ftxui::Event& event) {
-        if (event == ftxui::Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             _isCreatingFolder = false;
             screen.Exit();
             return true;
@@ -195,7 +196,7 @@ ftxui::Component FtxuiListsBrowserView::buildRenameModal(ftxui::ScreenInteractiv
     });
 
     return ftxui::CatchEvent(rename_renderer, [this, &screen, rename_action](const ftxui::Event& event) {
-        if (event == ftxui::Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             _isRenaming = false;
             screen.Exit();
             return true;
@@ -246,7 +247,7 @@ ftxui::Component FtxuiListsBrowserView::buildDeleteModal(ftxui::ScreenInteractiv
     });
 
     return ftxui::CatchEvent(delete_renderer, [this, &screen](const ftxui::Event& event) {
-        if (event == ftxui::Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             _isDeleting = false;
             screen.Exit();
             return true;
@@ -364,31 +365,31 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
             return true;
         }
 
-        if (event == ftxui::Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             returnToController = true;
             triggerBackRequested();
             screen.Exit();
             return true;
         }
-        if (event == ftxui::Event::Character("q") || event == ftxui::Event::Character("Q")) {
+        if (app::views::utils::isCharInsensitive(event, 'q')) {
             returnToController = true;
             triggerExitAppRequested();
             screen.Exit();
             return true;
         }
-        if (event == ftxui::Event::Character("n") || event == ftxui::Event::Character("N")) {
+        if (app::views::utils::isCharInsensitive(event, 'n')) {
             _isCreatingList = true;
             _vm.inputBuffer = "";
             screen.Exit();
             return true;
         }
-        if (event == ftxui::Event::Character("f") || event == ftxui::Event::Character("F")) {
+        if (app::views::utils::isCharInsensitive(event, 'f')) {
             _isCreatingFolder = true;
             _vm.inputBuffer = "";
             screen.Exit();
             return true;
         }
-        if (event == ftxui::Event::Character("r") || event == ftxui::Event::Character("R")) {
+        if (app::views::utils::isCharInsensitive(event, 'r')) {
             if (_vm.hasValidSelection()) {
                 _isRenaming = true;
                 _vm.prepareRename();
@@ -396,7 +397,7 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
                 return true;
             }
         }
-        if (event == ftxui::Event::Character("u") || event == ftxui::Event::Character("U")) {
+        if (app::views::utils::isCharInsensitive(event, 'u')) {
             if (_vm.hasValidSelection()) {
                 _isDeleting = true;
                 screen.Exit();

@@ -5,6 +5,8 @@
 namespace app::localization::pl {
 
 namespace common {
+inline constexpr char kStartSession = 's';
+inline constexpr const char* kStartButton = "Start (S)";
 inline constexpr const char* kFront = "Przód";
 inline constexpr const char* kBack = "Tył";
 inline constexpr const char* kFrontLabel = "Przód:";
@@ -33,7 +35,7 @@ inline constexpr const char* kModeFocused = "Skupiony (Focused)";
 inline constexpr const char* kTargetNew = "Nowe";
 inline constexpr const char* kTargetKnown = "Znane";
 inline constexpr const char* kTargetMastered = "Umiem";
-inline constexpr const char* kStartButton = "Start (S)";
+inline constexpr const char* kStartButton = common::kStartButton;
 inline constexpr const char* kCancelButton = "Wróć (ESC)";
 inline constexpr const char* kTitle = " Konfiguracja Sesji Nauki ";
 inline constexpr const char* kDirectionLabel = " Kierunek:";
@@ -82,7 +84,7 @@ inline constexpr const char* kMoveConfirmButton = "Przenieś";
 inline constexpr const char* kMoveTitle = "Przenieś zaznaczone fiszki";
 inline constexpr const char* kCopyTitle = "Kopiuj zaznaczone fiszki";
 inline constexpr const char* kAddCardButton = "Dodaj fiszkę [ENTER]";
-inline constexpr const char* kStartSessionButton = "Rozpocznij sesję (S)";
+inline constexpr const char* kStartSessionButton = common::kStartButton;
 inline constexpr const char* kDeleteToolbarButton = "Usuń (U)";
 inline constexpr const char* kCopyToolbarButton = "Kopiuj (K)";
 inline constexpr const char* kMoveToolbarButton = "Przenieś (P)";

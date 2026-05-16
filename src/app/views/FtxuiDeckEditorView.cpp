@@ -1,6 +1,7 @@
 #include "app/views/FtxuiDeckEditorView.hpp"
 #include "app/localization/Localization.hpp"
 #include "app/views/ViewTheme.hpp"
+#include "app/views/ViewUtils.hpp"
 #include <algorithm>
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/event.hpp>
@@ -109,7 +110,7 @@ ftxui::Component FtxuiDeckEditorView::buildFilePickerModal(const ftxui::ButtonOp
     });
 
     return CatchEvent(renderer, [this](const Event& event) {
-        if (event == Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             _isFilePickerActive = false;
             return true;
         }
@@ -159,7 +160,7 @@ ftxui::Component FtxuiDeckEditorView::buildEditModal(const ftxui::ButtonOption& 
     });
 
     return CatchEvent(edit_renderer, [this](const Event& event) {
-        if (event == Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             _isEditing = false;
             return true;
         }
@@ -208,7 +209,7 @@ ftxui::Component FtxuiDeckEditorView::buildDeleteModal(const ftxui::ButtonOption
     });
 
     return CatchEvent(delete_renderer, [this](const Event& event) {
-        if (event == Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             _isDeletingBulk = false;
             return true;
         }
@@ -263,7 +264,7 @@ ftxui::Component FtxuiDeckEditorView::buildMoveModal(const ftxui::ButtonOption& 
     });
 
     return CatchEvent(move_renderer, [this, do_move](const Event& event) {
-        if (event == Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             _isMovingBulk = false;
             return true;
         }
@@ -322,7 +323,7 @@ ftxui::Component FtxuiDeckEditorView::buildCopyModal(const ftxui::ButtonOption& 
     });
 
     return CatchEvent(copy_renderer, [this, do_copy](const Event& event) {
-        if (event == Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             _isCopyingBulk = false;
             return true;
         }
@@ -406,7 +407,7 @@ ftxui::Component FtxuiDeckEditorView::buildImportModal(const ftxui::ButtonOption
     });
 
     return CatchEvent(import_renderer, [this](const Event& event) {
-        if (event == Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             _isImporting = false;
             return true;
         }
@@ -507,7 +508,7 @@ void FtxuiDeckEditorView::run() {
                 auto row_container = Container::Horizontal({checkbox});
 
                 auto row_with_edit = CatchEvent(row_container, [this, card, custom_btn_style](const Event& event) {
-                    if (event == Event::Character("e") || event == Event::Character("E")) {
+                    if (app::views::utils::isCharInsensitive(event, 'e')) {
                         _vm.startEditing(card);
                         _isEditing = true;
                         _editModal = buildEditModal(custom_btn_style);
@@ -664,26 +665,26 @@ void FtxuiDeckEditorView::run() {
         const bool isTyping = input_front->Focused() || input_back->Focused();
         
         if (!isTyping) {
-            if (event == Event::Character("s") || event == Event::Character("S")) {
+            if (app::views::utils::isCharInsensitive(event, txt::common::kStartSession)) {
                 triggerStartStudy();
                 screen.Exit();
                 return true;
             }
-            if (event == Event::Character("u") || event == Event::Character("U")) {
+            if (app::views::utils::isCharInsensitive(event, 'u')) {
                 if (_vm.getSelectedCount() > 0 || !_focusedCardId.empty()) { _isDeletingBulk = true; return true; }
             }
-            if (event == Event::Character("k") || event == Event::Character("K")) {
+            if (app::views::utils::isCharInsensitive(event, 'k')) {
                 if (_vm.getSelectedCount() > 0 || !_focusedCardId.empty()) { _isCopyingBulk = true; return true; }
             }
-            if (event == Event::Character("p") || event == Event::Character("P")) {
+            if (app::views::utils::isCharInsensitive(event, 'p')) {
                 if (_vm.getSelectedCount() > 0 || !_focusedCardId.empty()) { _isMovingBulk = true; return true; }
             }
-            if (event == Event::Character("i") || event == Event::Character("I")) {
+            if (app::views::utils::isCharInsensitive(event, 'i')) {
                 _isImporting = true;
                 return true;
             }
         }
-        if (event == Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             triggerExitToBrowser();
             screen.Exit();
             return true;

@@ -16,6 +16,40 @@ namespace app {
 
 namespace txt = ::app::localization::selected;
 
+namespace {
+enum class FocusSlot : int {
+    Exit = 0,
+    Undo = 1,
+    ResetAll = 2,
+    RateNew = 3,
+    RateKnown = 4,
+    RateMastered = 5,
+    Edit = 6,
+    Delete = 7,
+    Copy = 8,
+};
+
+constexpr int toFocusIndex(FocusSlot slot) {
+    return static_cast<int>(slot);
+}
+
+constexpr int kDeleteModalMinWidth = 50;
+constexpr int kEditModalMinWidth = 60;
+constexpr int kCopyModalMinWidth = 50;
+constexpr int kCopyListMaxHeight = 15;
+constexpr int kAnswerInputWidth = 80;
+
+constexpr const char* kInlineGap = "  ";
+constexpr char kShortcutUndo = 'b';
+constexpr char kShortcutResetAll = 'r';
+constexpr char kShortcutRateNew = '1';
+constexpr char kShortcutRateKnown = '2';
+constexpr char kShortcutRateMastered = '3';
+constexpr char kShortcutEdit = 'e';
+constexpr char kShortcutDelete = 'd';
+constexpr char kShortcutCopy = 'c';
+} // namespace
+
 void FtxuiStudySessionView::showCard(const core::Flashcard& card, bool showBack) {
     _vm.setCard(card, showBack);
 }
@@ -26,13 +60,13 @@ void FtxuiStudySessionView::showSessionComplete() {
 
 void FtxuiStudySessionView::setAvailableLists(const std::vector<std::string>& listNames) {
     _availableLists = listNames;
-    _selectedListIndex = 0; // Reset selection
+    _selectedListIndex = toFocusIndex(FocusSlot::Exit); // Reset selection
 }
 
 void FtxuiStudySessionView::run() {
     using namespace ftxui;
     using namespace app::ui;
-    int focused_button_index = 0;
+    int focused_button_index = toFocusIndex(FocusSlot::Exit);
     auto screen = ScreenInteractive::Fullscreen();
     bool return_to_controller = false;
     while (!return_to_controller) {
@@ -97,14 +131,14 @@ ftxui::Component FtxuiStudySessionView::buildDeleteModal(ftxui::ScreenInteractiv
             text(""),
             hbox({
                 yes_button->Render() | flex,
-                text("  "),
+                text(kInlineGap),
                 no_button->Render() | flex
             }) | center
-        }) | border | bold | color(Color::BlueLight) | center | size(WIDTH, GREATER_THAN, 50);
+        }) | border | bold | color(Color::BlueLight) | center | size(WIDTH, GREATER_THAN, kDeleteModalMinWidth);
     });
 
     return CatchEvent(delete_renderer, [this, &screen](const Event& event) {
-        if (event == Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             _isDeleting = false;
             screen.Exit();
             return true;
@@ -158,14 +192,14 @@ ftxui::Component FtxuiStudySessionView::buildEditModal(ftxui::ScreenInteractive&
             blueSep(),
             hbox({
                 save_button->Render() | flex,
-                text("  "),
+                text(kInlineGap),
                 cancel_button->Render() | flex
             })
-        }) | border | bold | color(Color::BlueLight) | center | size(WIDTH, GREATER_THAN, 60);
+        }) | border | bold | color(Color::BlueLight) | center | size(WIDTH, GREATER_THAN, kEditModalMinWidth);
     });
 
     return CatchEvent(edit_renderer, [this, &screen, save_action](const Event& event) {
-        if (event == Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             _isEditing = false;
             screen.Exit();
             return true;
@@ -209,19 +243,19 @@ ftxui::Component FtxuiStudySessionView::buildCopyModal(ftxui::ScreenInteractive&
             blueSep(),
             text(""),
             text(txt::study_session::kChooseListLabel) | bold,
-            list_menu->Render() | frame | size(HEIGHT, LESS_THAN, 15),
+            list_menu->Render() | frame | size(HEIGHT, LESS_THAN, kCopyListMaxHeight),
             text(""),
             blueSep(),
             hbox({
                 copy_button->Render() | flex,
-                text("  "),
+                text(kInlineGap),
                 cancel_button->Render() | flex
             })
-        }) | border | bold | color(Color::BlueLight) | center | size(WIDTH, GREATER_THAN, 50);
+        }) | border | bold | color(Color::BlueLight) | center | size(WIDTH, GREATER_THAN, kCopyModalMinWidth);
     });
 
     return CatchEvent(copy_renderer, [this, &screen](const Event& event) {
-        if (event == Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             _isCopying = false;
             screen.Exit();
             return true;
@@ -256,59 +290,41 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
     };
 
     auto exit_button = Button(txt::study_session::kExitButton, [this, &screen, &returnToController, &focusedButtonIndex] {
-        focusedButtonIndex = 0;
+        focusedButtonIndex = toFocusIndex(FocusSlot::Exit);
         returnToController = true;
         triggerExitRequested();
         screen.Exit();
     }, custom_btn_style);
     auto undo_button = Button(txt::study_session::kUndoButton, [this, &screen, &returnToController, &focusedButtonIndex] {
-        focusedButtonIndex = 1;
+        focusedButtonIndex = toFocusIndex(FocusSlot::Undo);
         returnToController = true;
         triggerUndoRequested();
         screen.Exit();
     }, custom_btn_style);
     auto reset_all_button = Button(txt::study_session::kHintResetAllButton, [this, &screen, &returnToController, &focusedButtonIndex] {
-        focusedButtonIndex = 2;
+        focusedButtonIndex = toFocusIndex(FocusSlot::ResetAll);
         returnToController = true;
         triggerResetAllRequested();
         screen.Exit();
     }, custom_btn_style);
     auto rate_new_button = Button(txt::study_session::kRateNewButton, [this, &screen, &returnToController, &focusedButtonIndex] {
-        focusedButtonIndex = 3;
+        focusedButtonIndex = toFocusIndex(FocusSlot::RateNew);
         returnToController = true;
         triggerCardRated(core::CardState::New);
         screen.Exit();
     }, custom_btn_style);
     auto rate_known_button = Button(txt::study_session::kRateKnownButton, [this, &screen, &returnToController, &focusedButtonIndex] {
-        focusedButtonIndex = 4;
+        focusedButtonIndex = toFocusIndex(FocusSlot::RateKnown);
         returnToController = true;
         triggerCardRated(core::CardState::Known);
         screen.Exit();
     }, custom_btn_style);
     auto rate_mastered_button = Button(txt::study_session::kRateMasteredButton, [this, &screen, &returnToController, &focusedButtonIndex] {
-        focusedButtonIndex = 5;
+        focusedButtonIndex = toFocusIndex(FocusSlot::RateMastered);
         returnToController = true;
         triggerCardRated(core::CardState::Mastered);
         screen.Exit();
     }, custom_btn_style);
-
-    auto button_bar = Container::Horizontal({
-        exit_button, undo_button, reset_all_button, rate_new_button, rate_known_button, rate_mastered_button,
-    });
-
-    if (focusedButtonIndex == 1) {
-        button_bar->SetActiveChild(undo_button.get());
-    } else if (focusedButtonIndex == 2) {
-        button_bar->SetActiveChild(reset_all_button.get());
-    } else if (focusedButtonIndex == 3) {
-        button_bar->SetActiveChild(rate_new_button.get());
-    } else if (focusedButtonIndex == 4) {
-        button_bar->SetActiveChild(rate_known_button.get());
-    } else if (focusedButtonIndex == 5) {
-        button_bar->SetActiveChild(rate_mastered_button.get());
-    } else {
-        button_bar->SetActiveChild(exit_button.get());
-    }
 
     auto answer_input = Input(&_vm.userInput, txt::study_session::kAnswerPlaceholder, answer_option);
 
@@ -328,7 +344,32 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
         screen.Exit();
     }, custom_btn_style);
 
-    auto action_bar = Container::Horizontal({flip_button, edit_button, delete_button, copy_button});
+    auto action_bar = Container::Horizontal({flip_button, rate_new_button, rate_known_button, rate_mastered_button});
+
+    auto button_bar = Container::Horizontal({
+        exit_button, undo_button, reset_all_button, edit_button, delete_button, copy_button,
+    });
+
+    if (focusedButtonIndex == toFocusIndex(FocusSlot::Undo)) {
+        button_bar->SetActiveChild(undo_button.get());
+    } else if (focusedButtonIndex == toFocusIndex(FocusSlot::ResetAll)) {
+        button_bar->SetActiveChild(reset_all_button.get());
+    } else if (focusedButtonIndex == toFocusIndex(FocusSlot::RateNew)) {
+        action_bar->SetActiveChild(rate_new_button.get());
+    } else if (focusedButtonIndex == toFocusIndex(FocusSlot::RateKnown)) {
+        action_bar->SetActiveChild(rate_known_button.get());
+    } else if (focusedButtonIndex == toFocusIndex(FocusSlot::RateMastered)) {
+        action_bar->SetActiveChild(rate_mastered_button.get());
+    } else if (focusedButtonIndex == toFocusIndex(FocusSlot::Edit)) {
+        button_bar->SetActiveChild(edit_button.get());
+    } else if (focusedButtonIndex == toFocusIndex(FocusSlot::Delete)) {
+        button_bar->SetActiveChild(delete_button.get());
+    } else if (focusedButtonIndex == toFocusIndex(FocusSlot::Copy)) {
+        button_bar->SetActiveChild(copy_button.get());
+    } else {
+        button_bar->SetActiveChild(exit_button.get());
+    }
+
     auto bottom_container = Container::Vertical({answer_input, action_bar, button_bar});
 
     auto renderer = Renderer(bottom_container, [this, answer_input, action_bar, button_bar] {
@@ -351,12 +392,6 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
         text_content_elements.push_back(text(" "));
         text_content_elements.push_back(text(" "));
 
-        auto text_content = vbox(std::move(text_content_elements)) | vcenter | flex;
-        auto card_area = vbox({
-            text_content,
-            answer_input->Render() | size(WIDTH, EQUAL, 80) | hcenter
-        }) | border | bold | color(Color::White) | flex;
-
         std::string status_text;
         switch (_vm.currentCardState) {
             case core::CardState::New:      status_text = txt::common::kStatusNew; break;
@@ -364,10 +399,15 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
             case core::CardState::Mastered: status_text = txt::common::kStatusMastered; break;
         }
 
+        auto text_content = vbox(std::move(text_content_elements)) | vcenter | flex;
+        auto card_area = vbox({
+            text_content,
+            answer_input->Render() | size(WIDTH, EQUAL, kAnswerInputWidth) | hcenter,
+            text(status_text) | bold | color(Color::Cyan) | hcenter
+        }) | border | bold | color(Color::White) | flex;
+
         auto hint_text = hbox({
-            action_bar->Render(),
-            text("  "),
-            text(status_text) | bold | color(Color::Cyan)
+            action_bar->Render()
         }) | hcenter;
 
         return vbox({
@@ -381,9 +421,7 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
 
     return CatchEvent(renderer, [this, &screen, &returnToController, &focusedButtonIndex, action_bar, button_bar, flip_action](const Event& event) {
         auto is_alt_char = [&](char cval) {
-            const std::string lower = std::string("\x1B") + std::string(1, cval);
-            const std::string upper = std::string("\x1B") + std::string(1, static_cast<char>(std::toupper(static_cast<unsigned char>(cval))));
-            return event == Event::Special(lower) || event == Event::Special(upper);
+            return app::views::utils::isAltCharInsensitive(event, cval);
         };
 
         auto rate_card = [&](int focus_idx, core::CardState state) {
@@ -402,43 +440,46 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
             flip_action();
             return true;
         }
-        if (event == Event::Escape) {
-            focusedButtonIndex = 0;
+        if (app::views::utils::isEscape(event)) {
+            focusedButtonIndex = toFocusIndex(FocusSlot::Exit);
             returnToController = true;
             triggerExitRequested();
             screen.Exit();
             return true;
         }
-        if (is_alt_char('b')) {
-            focusedButtonIndex = 1;
+        if (is_alt_char(kShortcutUndo)) {
+            focusedButtonIndex = toFocusIndex(FocusSlot::Undo);
             returnToController = true;
             triggerUndoRequested();
             screen.Exit();
             return true;
         }
-        if (is_alt_char('r')) {
-            focusedButtonIndex = 2;
+        if (is_alt_char(kShortcutResetAll)) {
+            focusedButtonIndex = toFocusIndex(FocusSlot::ResetAll);
             returnToController = true;
             triggerResetAllRequested();
             screen.Exit();
             return true;
         }
         
-        if (is_alt_char('1') || event == Event::ArrowLeft)  { return rate_card(3, core::CardState::New); }
-        if (is_alt_char('2') || event == Event::ArrowDown)   { return rate_card(4, core::CardState::Known); }
-        if (is_alt_char('3') || event == Event::ArrowRight)  { return rate_card(5, core::CardState::Mastered); }
+        if (is_alt_char(kShortcutRateNew) || event == Event::ArrowLeft)  { return rate_card(toFocusIndex(FocusSlot::RateNew), core::CardState::New); }
+        if (is_alt_char(kShortcutRateKnown) || event == Event::ArrowDown)   { return rate_card(toFocusIndex(FocusSlot::RateKnown), core::CardState::Known); }
+        if (is_alt_char(kShortcutRateMastered) || event == Event::ArrowRight)  { return rate_card(toFocusIndex(FocusSlot::RateMastered), core::CardState::Mastered); }
 
-        if (is_alt_char('e')) {
+        if (is_alt_char(kShortcutEdit)) {
+            focusedButtonIndex = toFocusIndex(FocusSlot::Edit);
             _isEditing = true;
             screen.Exit();
             return true;
         }
-        if (is_alt_char('d')) {
+        if (is_alt_char(kShortcutDelete)) {
+            focusedButtonIndex = toFocusIndex(FocusSlot::Delete);
             _isDeleting = true;
             screen.Exit();
             return true;
         }
-        if (is_alt_char('c')) {
+        if (is_alt_char(kShortcutCopy)) {
+            focusedButtonIndex = toFocusIndex(FocusSlot::Copy);
             _isCopying = true;
             screen.Exit();
             return true;

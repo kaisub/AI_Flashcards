@@ -1,6 +1,7 @@
 #include "app/views/FtxuiStudyConfigView.hpp"
 #include "app/localization/Localization.hpp"
 #include "app/views/ViewTheme.hpp"
+#include "app/views/ViewUtils.hpp"
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/event.hpp>
 #include <ftxui/component/screen_interactive.hpp>
@@ -136,12 +137,12 @@ void FtxuiStudyConfigView::run() {
             return true;
         }
 
-        if (event == Event::Character("s") || event == Event::Character("S")) {
+        if (app::views::utils::isCharInsensitive(event, txt::common::kStartSession)) {
             start_action();
             return true;
         }
 
-        if (event == Event::Escape) {
+        if (app::views::utils::isEscape(event)) {
             triggerCancel();
             screen.ExitLoopClosure()();
             return true;
