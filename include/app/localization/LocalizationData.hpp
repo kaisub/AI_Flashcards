@@ -99,6 +99,8 @@ inline constexpr LocalizedCString kMoveConfirmButton{"Move", "Przenieś"};
 inline constexpr LocalizedCString kMoveTitle{"Move Selected Cards", "Przenieś zaznaczone fiszki"};
 inline constexpr LocalizedCString kCopyTitle{"Copy Selected Cards", "Kopiuj zaznaczone fiszki"};
 inline constexpr LocalizedCString kAddCardButton{"Add Card [ENTER]", "Dodaj fiszkę [ENTER]"};
+inline constexpr LocalizedCString kSelectAllToolbarButton{"Select [A]", "Zaznacz wszystko [A]"};
+inline constexpr LocalizedCString kDeselectAllToolbarButton{"Deselect [D]", "Odznacz wszystko [D]"};
 inline constexpr LocalizedCString kStartSessionButton{"Start [S]", "Start [S]"};
 inline constexpr LocalizedCString kDeleteToolbarButton{"Delete [U]", "Usuń [U]"};
 inline constexpr LocalizedCString kCopyToolbarButton{"Copy [K]", "Kopiuj [K]"};

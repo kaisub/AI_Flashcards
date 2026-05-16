@@ -476,6 +476,14 @@ void FtxuiDeckEditorView::run() {
     }, custom_btn_style);
 
     // --- Bulk Action Buttons ---
+    auto btn_select_all = Button(txt::deck_editor::kSelectAllToolbarButton, [this] {
+        _vm.selectAllCards();
+    }, custom_btn_style);
+
+    auto btn_deselect_all = Button(txt::deck_editor::kDeselectAllToolbarButton, [this] {
+        _vm.deselectAllCards();
+    }, custom_btn_style);
+
     auto btn_delete_bulk = Button(txt::deck_editor::kDeleteToolbarButton, [this] {
         if (_vm.getSelectedCount() > 0 || !_focusedCardId.empty()) { _isDeletingBulk = true; }
     }, custom_btn_style);
@@ -492,7 +500,7 @@ void FtxuiDeckEditorView::run() {
         _isImporting = true;
     }, custom_btn_style);
 
-    auto bulk_toolbar = Container::Horizontal({btn_delete_bulk, btn_copy_bulk, btn_move_bulk, btn_import});
+    auto bulk_toolbar = Container::Horizontal({btn_select_all, btn_deselect_all, btn_delete_bulk, btn_copy_bulk, btn_move_bulk, btn_import});
 
     auto card_list_container = Container::Vertical({});
     
@@ -506,6 +514,7 @@ void FtxuiDeckEditorView::run() {
 
                 auto checkbox = Checkbox("", &_vm.cardSelectionState[card->id]);
                 auto row_container = Container::Horizontal({checkbox});
+                auto row_box = std::make_shared<ftxui::Box>();
 
                 auto row_with_edit = CatchEvent(row_container, [this, card, custom_btn_style](const Event& event) {
                     if (app::views::utils::isCharInsensitive(event, txt::deck_editor::kEditShortcut)) {
@@ -517,7 +526,7 @@ void FtxuiDeckEditorView::run() {
                     return false;
                 });
 
-                auto row_renderer = Renderer(row_with_edit, [this, row_with_edit, checkbox, card] {
+                auto row_renderer = Renderer(row_with_edit, [this, row_with_edit, checkbox, card, row_box] {
                     const bool focused = row_with_edit->Focused();
                     if (focused) {
                         _focusedCardId = card->id;
@@ -532,10 +541,28 @@ void FtxuiDeckEditorView::run() {
                     if (focused) {
                         row = row | bgcolor(Color::GrayDark) | color(Color::White) | bold;
                     }
-                    return row;
+                    return row | reflect(*row_box);
                 });
 
-                card_list_container->Add(row_renderer);
+                auto row_mouse_focus = CatchEvent(row_renderer, [this, card, row_box, card_list_container, row_with_edit](Event event) {
+                    if (!event.is_mouse()) {
+                        return false;
+                    }
+
+                    const auto& mouse = event.mouse();
+                    if (!row_box->Contain(mouse.x, mouse.y)) {
+                        return false;
+                    }
+
+                    if (mouse.button == Mouse::Left && mouse.motion == Mouse::Pressed) {
+                        _focusedCardId = card->id;
+                        card_list_container->SetActiveChild(row_with_edit.get());
+                    }
+
+                    return false;
+                });
+
+                card_list_container->Add(row_mouse_focus);
             }
         }
 
@@ -627,7 +654,7 @@ void FtxuiDeckEditorView::run() {
         return base;
     });
 
-    auto event_handler = CatchEvent(final_renderer, [this, &screen, delete_modal, move_modal, copy_modal, file_picker_modal, import_modal, input_front, input_back, custom_btn_style](Event event) {
+    auto event_handler = CatchEvent(final_renderer, [this, &screen, delete_modal, move_modal, copy_modal, file_picker_modal, import_modal, input_front, input_back, card_list_container, main_container, custom_btn_style](Event event) {
 
         if (event.is_mouse() && event.mouse().button == ftxui::Mouse::None) {
             return true;
@@ -661,6 +688,11 @@ void FtxuiDeckEditorView::run() {
             return true;
         }
 
+        if (event.is_mouse() &&
+            (event.mouse().button == ftxui::Mouse::WheelUp || event.mouse().button == ftxui::Mouse::WheelDown)) {
+            main_container->SetActiveChild(card_list_container.get());
+        }
+
         // Only allow single-character shortcuts if the user isn't typing in the Add Card inputs
         const bool isTyping = input_front->Focused() || input_back->Focused();
         
@@ -681,6 +713,14 @@ void FtxuiDeckEditorView::run() {
             }
             if (app::views::utils::isCharInsensitive(event, txt::deck_editor::kImportShortcut)) {
                 _isImporting = true;
+                return true;
+            }
+            if (app::views::utils::isCharInsensitive(event, 'a')) {
+                _vm.selectAllCards();
+                return true;
+            }
+            if (app::views::utils::isCharInsensitive(event, 'd')) {
+                _vm.deselectAllCards();
                 return true;
             }
         }

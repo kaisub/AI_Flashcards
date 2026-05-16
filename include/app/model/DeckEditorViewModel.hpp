@@ -63,6 +63,20 @@ namespace app::model {
                 cardSelectionState.erase(id); // Effectively unselects them
             }
         }
+
+        void selectAllCards() {
+            for (auto& [id, selected] : cardSelectionState) {
+                (void)id;
+                selected = true;
+            }
+        }
+
+        void deselectAllCards() {
+            for (auto& [id, selected] : cardSelectionState) {
+                (void)id;
+                selected = false;
+            }
+        }
         
         size_t getSelectedCount() const {
             return static_cast<size_t>(std::count_if(
