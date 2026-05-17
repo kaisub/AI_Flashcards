@@ -159,6 +159,7 @@ inline constexpr LocalizedChar kNewFolderShortcut{'f', 'f'};
 inline constexpr LocalizedChar kNewListShortcut{'n', 'n'};
 inline constexpr LocalizedChar kRenameShortcut{'r', 'r'};
 inline constexpr LocalizedChar kDeleteShortcut{'u', 'u'};
+inline constexpr LocalizedChar kSettingsShortcut{'a', 'a'};
 inline constexpr LocalizedCString kDirectoryPrefix{"[DIR]  ", "[DIR]  "};
 inline constexpr LocalizedCString kFilePrefix{"[FILE] ", "[PLIK] "};
 inline constexpr LocalizedCString kListNamePlaceholder{"List name", "Nazwa listy"};
@@ -174,10 +175,23 @@ inline constexpr LocalizedCString kNewListButton{"New List [N]", "Nowa Lista [N]
 inline constexpr LocalizedCString kRenameToolbarButton{"Rename [R]", "Zmień nazwę [R]"};
 inline constexpr LocalizedCString kDeleteToolbarButton{"Delete [U]", "Usuń [U]"};
 inline constexpr LocalizedCString kLanguageButton{"Language [L]", "Język [L]"};
-inline constexpr LocalizedCString kSettingsButton{"Settings [L]", "Ustawienia [L]"};
+inline constexpr LocalizedCString kSettingsButton{"Settings [A]", "Ustawienia [A]"};
 inline constexpr LocalizedCString kSettingsDialogTitle{"Settings", "Ustawienia"};
 inline constexpr LocalizedCString kMakeCopyButton{"Make Copy [C]", "Zrób kopię [C]"};
 inline constexpr LocalizedCString kRestoreButton{"Restore [R]", "Przywróć [R]"};
+inline constexpr LocalizedCString kBackupDialogTitle{"Create data backup", "Utwórz kopię folderu data"};
+inline constexpr LocalizedCString kBackupTargetDirLabel{"Target folder:", "Folder docelowy:"};
+inline constexpr LocalizedCString kBackupFileNameLabel{"File name (.zip):", "Nazwa pliku (.zip):"};
+inline constexpr LocalizedCString kBackupFileNamePlaceholder{"flashcards_backup", "flashcards_backup"};
+inline constexpr LocalizedCString kBackupBrowseButton{"Browse...", "Przeglądaj..."};
+inline constexpr LocalizedCString kBackupPickerTitle{"Select backup folder", "Wybierz folder docelowy"};
+inline constexpr LocalizedCString kBackupSelectFolderButton{"Select this folder [S]", "Wybierz ten folder [S]"};
+inline constexpr LocalizedCString kBackupSaveButton{"Save backup [ENTER]", "Zapisz kopię [ENTER]"};
+inline constexpr LocalizedCString kBackupSaved{"Backup created successfully.", "Kopia została utworzona."};
+inline constexpr LocalizedCString kBackupSourceMissing{"Source folder 'data' does not exist.", "Folder źródłowy 'data' nie istnieje."};
+inline constexpr LocalizedCString kBackupPathEmpty{"Provide a file name.", "Podaj nazwę pliku."};
+inline constexpr LocalizedCString kBackupFailed{"Backup creation failed.", "Nie udało się utworzyć kopii."};
+inline constexpr LocalizedCString kBackupOverwriteQuestion{"File already exists. Overwrite?", "Plik już istnieje. Nadpisać?"};
 inline constexpr LocalizedCString kTitle{" AI Flashcards - Lists Browser ", " AI Flashcards - Przeglądarka List "};
 
 inline std::string currentPath(const std::string& path) {
