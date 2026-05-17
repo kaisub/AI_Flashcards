@@ -2,6 +2,8 @@
 #include "core/Flashcard.hpp" // Include Flashcard to use its enums and struct
 #include "storage/JsonMappers.hpp"
 
+#include <unordered_set>
+
 namespace storage {
     namespace fs = std::filesystem;
 
@@ -14,6 +16,34 @@ namespace storage {
             return fs::create_directories(parent);
         }
         return true;
+    }
+
+    bool cardsNeedNormalization(const nlohmann::json& root) {
+        if (!root.contains(core::json_keys::kCards) || !root.at(core::json_keys::kCards).is_array()) {
+            return false;
+        }
+
+        std::unordered_set<std::string> seenIds;
+        for (const auto& card : root.at(core::json_keys::kCards)) {
+            if (!card.is_object() || !card.contains(core::json_keys::kId) || !card.at(core::json_keys::kId).is_string()) {
+                return true;
+            }
+
+            if (!card.contains(core::json_keys::kStateFrontToBack) || !card.contains(core::json_keys::kStateBackToFront)) {
+                return true;
+            }
+
+            const std::string id = card.at(core::json_keys::kId).get<std::string>();
+            if (id.empty()) {
+                return true;
+            }
+
+            if (!seenIds.insert(id).second) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     } // end anonymous namespace
@@ -61,10 +91,18 @@ namespace storage {
             nlohmann::json jso;
             ifs >> jso;
 
+            const bool needsNormalization = cardsNeedNormalization(jso);
+
             // Create the FlashcardList directly, its name will be set by from_json.
             // Pass a temporary name as the constructor requires one.
             auto flashcardList = std::make_shared<core::FlashcardList>("temp_name_for_deserialization");
             core::from_json(jso, *flashcardList); // Explicit namespace to avoid ADL ambiguity
+
+            if (needsNormalization) {
+                if (!saveList(*flashcardList, relativePath)) {
+                    throw std::runtime_error("Failed to persist normalized card fields for list: " + fullPath.string());
+                }
+            }
 
             return flashcardList;
 

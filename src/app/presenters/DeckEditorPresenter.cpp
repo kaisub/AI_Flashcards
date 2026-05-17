@@ -1,5 +1,6 @@
 #include "app/presenters/DeckEditorPresenter.hpp"
 #include "app/utils/AppUtils.hpp"
+#include "core/CardId.hpp"
 #include <iostream>
 
 namespace app::presenters {
@@ -36,7 +37,7 @@ namespace app::presenters {
                 return;
             }
             auto newCard = std::make_shared<core::Flashcard>();
-            newCard->card_id = utils::generateUniqueCardId();
+            newCard->card_id = core::generateUniqueCardId();
             newCard->text_front = front;
             newCard->text_back = back;
             if (_deckManager->addCardToList(list->getName(), newCard)) {
@@ -119,7 +120,7 @@ namespace app::presenters {
                     continue;
                 }
                 auto copiedCard = std::make_shared<core::Flashcard>(
-                    core::Flashcard::makeCloneAsNew(*card, utils::generateUniqueCardId()));
+                    core::Flashcard::makeCloneAsNew(*card, core::generateUniqueCardId()));
                 copiedCards.push_back(copiedCard);
             }
             if (_deckManager->addCardsToList(targetList->getName(), copiedCards) > 0) {

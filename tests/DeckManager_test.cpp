@@ -233,6 +233,35 @@ TEST(DeckManagerTest, ImportCardsFromFile) {
     std::filesystem::remove(testFilePath);
 }
 
+TEST(DeckManagerTest, ImportCardsFromFile_ReimportSameContentAddsAgain) {
+    DeckManager dm(nullptr);
+    dm.createList("ImportRepeat");
+
+    std::filesystem::path testFilePath = std::filesystem::temp_directory_path() / "test_import_repeat.csv";
+    {
+        std::ofstream testFile(testFilePath, std::ios::binary);
+        ASSERT_TRUE(testFile.is_open());
+        testFile << "Word;Translation\n";
+        testFile << "Apple;Jablko\n";
+        testFile.close();
+    }
+
+    const size_t firstImport = dm.importCardsFromFile("ImportRepeat", testFilePath, ';', true);
+    const size_t secondImport = dm.importCardsFromFile("ImportRepeat", testFilePath, ';', true);
+
+    EXPECT_EQ(firstImport, 1u);
+    EXPECT_EQ(secondImport, 1u);
+    EXPECT_EQ(dm.getList("ImportRepeat")->size(), 2u);
+
+    auto cards = dm.getList("ImportRepeat")->getAllCards();
+    ASSERT_EQ(cards.size(), 2u);
+    EXPECT_EQ(cards[0]->text_front, "Apple");
+    EXPECT_EQ(cards[1]->text_front, "Apple");
+    EXPECT_NE(cards[0]->card_id, cards[1]->card_id);
+
+    std::filesystem::remove(testFilePath);
+}
+
 TEST(DeckManagerTest, ImportCardsFromFileSkipsMalformedLines) {
     DeckManager dm(nullptr);
     dm.createList("MalformedTest");

@@ -1,5 +1,6 @@
 #include "app/presenters/StudySessionPresenter.hpp"
 #include "app/utils/AppUtils.hpp"
+#include "core/CardId.hpp"
 
 namespace app::presenters {
 
@@ -126,7 +127,7 @@ namespace app::presenters {
             }
 
             auto copiedCard = std::make_shared<core::Flashcard>(
-                core::Flashcard::makeCloneAsNew(*_currentReviewItem->card, utils::generateUniqueCardId()));
+                core::Flashcard::makeCloneAsNew(*_currentReviewItem->card, core::generateUniqueCardId()));
 
             if (_deckManager->addCardToList(targetList->getName(), copiedCard)) {
                 _deckManager->saveList(targetList->getName());

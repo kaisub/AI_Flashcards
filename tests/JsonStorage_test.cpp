@@ -4,10 +4,13 @@
 #include "core/Flashcard.hpp"
 #include "utils/TestFactory.hpp"
 
+#include "storage/JsonSchema.hpp"
 #include <filesystem>
 #include <fstream>
 #include <memory>
+#include <nlohmann/json.hpp>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 namespace fs = std::filesystem;
@@ -162,6 +165,221 @@ TEST_F(JsonStorageTest, SaveAndLoadListWithUTF8) {
 TEST_F(JsonStorageTest, LoadNonExistentListReturnsNullptr) {
     fs::path listPath = "non_existent.json";
     EXPECT_EQ(storage->loadList(listPath), nullptr);
+}
+
+TEST_F(JsonStorageTest, LoadListMigratesMissingCardIds) {
+        fs::path listPath = "legacy_missing_ids.json";
+        fs::path fullPath = temp_dir / listPath;
+
+        std::ofstream ofs(fullPath);
+        ASSERT_TRUE(ofs.is_open());
+        const nlohmann::json legacy = {
+            {core::json_keys::kName, "Legacy"},
+            {core::json_keys::kCards, nlohmann::json::array({
+                {
+                    {core::json_keys::kTextFront, "Q1"},
+                    {core::json_keys::kTextBack, "A1"},
+                    {core::json_keys::kStateFrontToBack, core::json_values::kStateNew},
+                    {core::json_keys::kStateBackToFront, core::json_values::kStateKnown}
+                },
+                {
+                    {core::json_keys::kTextFront, "Q2"},
+                    {core::json_keys::kTextBack, "A2"},
+                    {core::json_keys::kStateFrontToBack, core::json_values::kStateKnown},
+                    {core::json_keys::kStateBackToFront, core::json_values::kStateMastered}
+                }
+            })}
+        };
+        ofs << legacy.dump(2);
+        ofs.close();
+
+        auto loaded = storage->loadList(listPath);
+        ASSERT_NE(loaded, nullptr);
+        ASSERT_EQ(loaded->size(), 2u);
+
+        auto cards = loaded->getAllCards();
+        ASSERT_EQ(cards.size(), 2u);
+        EXPECT_FALSE(cards[0]->card_id.empty());
+        EXPECT_FALSE(cards[1]->card_id.empty());
+        EXPECT_NE(cards[0]->card_id, cards[1]->card_id);
+}
+
+TEST_F(JsonStorageTest, LoadListPersistsMigratedIdsToFile) {
+        fs::path listPath = "legacy_persist_ids.json";
+        fs::path fullPath = temp_dir / listPath;
+
+        std::ofstream ofs(fullPath);
+        ASSERT_TRUE(ofs.is_open());
+        const nlohmann::json legacy = {
+            {core::json_keys::kName, "LegacyPersist"},
+            {core::json_keys::kCards, nlohmann::json::array({
+                {
+                    {core::json_keys::kTextFront, "Q1"},
+                    {core::json_keys::kTextBack, "A1"},
+                    {core::json_keys::kStateFrontToBack, core::json_values::kStateNew},
+                    {core::json_keys::kStateBackToFront, core::json_values::kStateKnown}
+                },
+                {
+                    {core::json_keys::kId, "dup"},
+                    {core::json_keys::kTextFront, "Q2"},
+                    {core::json_keys::kTextBack, "A2"},
+                    {core::json_keys::kStateFrontToBack, core::json_values::kStateKnown},
+                    {core::json_keys::kStateBackToFront, core::json_values::kStateMastered}
+                },
+                {
+                    {core::json_keys::kId, "dup"},
+                    {core::json_keys::kTextFront, "Q3"},
+                    {core::json_keys::kTextBack, "A3"},
+                    {core::json_keys::kStateFrontToBack, core::json_values::kStateMastered},
+                    {core::json_keys::kStateBackToFront, core::json_values::kStateNew}
+                }
+            })}
+        };
+        ofs << legacy.dump(2);
+        ofs.close();
+
+        auto loaded = storage->loadList(listPath);
+        ASSERT_NE(loaded, nullptr);
+        ASSERT_EQ(loaded->size(), 3u);
+
+        std::ifstream ifs(fullPath);
+        ASSERT_TRUE(ifs.is_open());
+        nlohmann::json persisted;
+        ifs >> persisted;
+        ifs.close();
+
+        ASSERT_TRUE(persisted.contains(core::json_keys::kCards));
+        ASSERT_TRUE(persisted.at(core::json_keys::kCards).is_array());
+
+        std::unordered_set<std::string> ids;
+        for (const auto& card : persisted.at(core::json_keys::kCards)) {
+                ASSERT_TRUE(card.contains(core::json_keys::kId));
+                ASSERT_TRUE(card.at(core::json_keys::kId).is_string());
+                const std::string id = card.at(core::json_keys::kId).get<std::string>();
+                EXPECT_FALSE(id.empty());
+                EXPECT_TRUE(ids.insert(id).second);
+        }
+}
+
+TEST_F(JsonStorageTest, LoadListPersistsMissingStateFieldsAsNew) {
+        fs::path listPath = "legacy_missing_states.json";
+        fs::path fullPath = temp_dir / listPath;
+
+        std::ofstream ofs(fullPath);
+        ASSERT_TRUE(ofs.is_open());
+        const nlohmann::json legacy = {
+            {core::json_keys::kName, "LegacyStates"},
+            {core::json_keys::kCards, nlohmann::json::array({
+                {
+                    {core::json_keys::kId, "c1"},
+                    {core::json_keys::kTextFront, "Q1"},
+                    {core::json_keys::kTextBack, "A1"}
+                },
+                {
+                    {core::json_keys::kId, "c2"},
+                    {core::json_keys::kTextFront, "Q2"},
+                    {core::json_keys::kTextBack, "A2"},
+                    {core::json_keys::kStateFrontToBack, core::json_values::kStateKnown}
+                }
+            })}
+        };
+        ofs << legacy.dump(2);
+        ofs.close();
+
+        auto loaded = storage->loadList(listPath);
+        ASSERT_NE(loaded, nullptr);
+        ASSERT_EQ(loaded->size(), 2u);
+
+        auto card1 = loaded->getCard("c1");
+        ASSERT_NE(card1, nullptr);
+        EXPECT_EQ(card1->state_Front_to_Back, core::CardState::New);
+        EXPECT_EQ(card1->state_Back_to_Front, core::CardState::New);
+
+        auto card2 = loaded->getCard("c2");
+        ASSERT_NE(card2, nullptr);
+        EXPECT_EQ(card2->state_Front_to_Back, core::CardState::Known);
+        EXPECT_EQ(card2->state_Back_to_Front, core::CardState::New);
+
+        std::ifstream ifs(fullPath);
+        ASSERT_TRUE(ifs.is_open());
+        nlohmann::json persisted;
+        ifs >> persisted;
+        ifs.close();
+
+        ASSERT_TRUE(persisted.contains(core::json_keys::kCards));
+        ASSERT_TRUE(persisted.at(core::json_keys::kCards).is_array());
+        ASSERT_EQ(persisted.at(core::json_keys::kCards).size(), 2u);
+
+        const auto& persistedCard1 = persisted.at(core::json_keys::kCards).at(0);
+        const auto& persistedCard2 = persisted.at(core::json_keys::kCards).at(1);
+        ASSERT_TRUE(persistedCard1.contains(core::json_keys::kStateFrontToBack));
+        ASSERT_TRUE(persistedCard1.contains(core::json_keys::kStateBackToFront));
+        ASSERT_TRUE(persistedCard2.contains(core::json_keys::kStateFrontToBack));
+        ASSERT_TRUE(persistedCard2.contains(core::json_keys::kStateBackToFront));
+        EXPECT_EQ(persistedCard1.at(core::json_keys::kStateFrontToBack), core::json_values::kStateNew);
+        EXPECT_EQ(persistedCard1.at(core::json_keys::kStateBackToFront), core::json_values::kStateNew);
+        EXPECT_EQ(persistedCard2.at(core::json_keys::kStateFrontToBack), core::json_values::kStateKnown);
+        EXPECT_EQ(persistedCard2.at(core::json_keys::kStateBackToFront), core::json_values::kStateNew);
+}
+
+TEST_F(JsonStorageTest, LoadListPersistsCombinedLegacyNormalization) {
+        fs::path listPath = "legacy_combined_normalization.json";
+        fs::path fullPath = temp_dir / listPath;
+
+        std::ofstream ofs(fullPath);
+        ASSERT_TRUE(ofs.is_open());
+        const nlohmann::json legacy = {
+            {core::json_keys::kName, "LegacyCombined"},
+            {core::json_keys::kCards, nlohmann::json::array({
+                {
+                    {core::json_keys::kTextFront, "Q1"},
+                    {core::json_keys::kTextBack, "A1"}
+                },
+                {
+                    {core::json_keys::kId, "dup"},
+                    {core::json_keys::kTextFront, "Q2"},
+                    {core::json_keys::kTextBack, "A2"},
+                    {core::json_keys::kStateFrontToBack, core::json_values::kStateKnown}
+                },
+                {
+                    {core::json_keys::kId, "dup"},
+                    {core::json_keys::kTextFront, "Q3"},
+                    {core::json_keys::kTextBack, "A3"},
+                    {core::json_keys::kStateBackToFront, core::json_values::kStateMastered}
+                }
+            })}
+        };
+        ofs << legacy.dump(2);
+        ofs.close();
+
+        auto loaded = storage->loadList(listPath);
+        ASSERT_NE(loaded, nullptr);
+        ASSERT_EQ(loaded->size(), 3u);
+
+        std::ifstream ifs(fullPath);
+        ASSERT_TRUE(ifs.is_open());
+        nlohmann::json persisted;
+        ifs >> persisted;
+        ifs.close();
+
+        ASSERT_TRUE(persisted.contains(core::json_keys::kCards));
+        const auto& cards = persisted.at(core::json_keys::kCards);
+        ASSERT_TRUE(cards.is_array());
+        ASSERT_EQ(cards.size(), 3u);
+
+        std::unordered_set<std::string> ids;
+        for (const auto& card : cards) {
+                ASSERT_TRUE(card.contains(core::json_keys::kId));
+                ASSERT_TRUE(card.at(core::json_keys::kId).is_string());
+                const std::string id = card.at(core::json_keys::kId).get<std::string>();
+                EXPECT_FALSE(id.empty());
+                EXPECT_TRUE(ids.insert(id).second);
+
+                ASSERT_TRUE(card.contains(core::json_keys::kStateFrontToBack));
+                ASSERT_TRUE(card.contains(core::json_keys::kStateBackToFront));
+                ASSERT_TRUE(card.at(core::json_keys::kStateFrontToBack).is_string());
+                ASSERT_TRUE(card.at(core::json_keys::kStateBackToFront).is_string());
+        }
 }
 
 TEST_F(JsonStorageTest, SaveListAtomicOperation) {

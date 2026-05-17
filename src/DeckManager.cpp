@@ -1,10 +1,13 @@
 #include "core/DeckManager.hpp"
+#include "core/CardId.hpp"
 
 #include <algorithm>
+#include <array>
 #include <fstream>
 #include <functional>
 #include <sstream>
 #include <stdexcept>
+#include <unordered_set>
 
 namespace core {
 
@@ -198,6 +201,13 @@ namespace core {
             return 0;
         }
 
+        std::unordered_set<std::string> usedIds;
+        for (const auto& card : list->getAllCards()) {
+            if (card) {
+                usedIds.insert(card->card_id);
+            }
+        }
+
         std::ifstream file(filePath);
         if (!file.is_open()) {
             throw std::runtime_error("Could not open file.");
@@ -255,8 +265,7 @@ namespace core {
                 continue;
             }
 
-            static size_t cardIdCounter = 0;
-            const std::string cardId = "import_" + std::to_string(++cardIdCounter) + "_" + std::to_string(std::hash<std::string>{}(front + back));
+            const std::string cardId = core::generateUniqueCardId(usedIds);
 
             auto card = std::make_shared<Flashcard>();
             card->card_id = cardId;
