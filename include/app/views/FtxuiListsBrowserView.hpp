@@ -67,6 +67,9 @@ private:
     ftxui::Component buildRestoreFilePicker(ftxui::ScreenInteractive& screen);
     void refreshBackupDirPicker();
     void refreshRestoreFilePicker();
+    void resetRestoreStatus();
+    void openBackupDialog(ftxui::ScreenInteractive& screen);
+    void openRestorePicker(ftxui::ScreenInteractive& screen);
     ftxui::Component buildBrowserView(ftxui::ScreenInteractive& screen, bool& returnToController);
 };
 

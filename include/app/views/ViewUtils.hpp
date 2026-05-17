@@ -4,8 +4,10 @@
 #include <algorithm>
 #include <cctype>
 #include <cstddef>
+#include <filesystem>
 #include <functional>
 #include <memory>
+#include <vector>
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/event.hpp>
 #include <ftxui/dom/elements.hpp>
@@ -95,6 +97,67 @@ namespace app::views::utils {
         }
 
         return false;
+    }
+
+    struct PickerBuildOptions {
+        std::string parentLabel = "[DIR] ..";
+        std::string dirLabelPrefix = "[DIR] ";
+        std::string fileLabelPrefix = "[FILE] ";
+        bool includeDirectories = true;
+        bool includeFiles = true;
+        bool includeParent = true;
+        bool skipHidden = true;
+        std::function<bool(const std::filesystem::path&)> fileFilter;
+    };
+
+    inline void buildPickerEntries(
+        const std::filesystem::path& currentPath,
+        std::vector<std::string>& labels,
+        std::vector<std::filesystem::path>& paths,
+        const PickerBuildOptions& options) {
+        labels.clear();
+        paths.clear();
+
+        if (options.includeParent && currentPath.has_parent_path() && currentPath != currentPath.parent_path()) {
+            labels.emplace_back(options.parentLabel);
+            paths.push_back(currentPath.parent_path());
+        }
+
+        std::vector<std::filesystem::path> dirs;
+        std::vector<std::filesystem::path> files;
+
+        std::error_code ec;
+        for (const auto& entry : std::filesystem::directory_iterator(currentPath, ec)) {
+            const auto path = entry.path();
+            const std::string name = path.filename().string();
+            if (options.skipHidden && !name.empty() && name.front() == '.') {
+                continue;
+            }
+
+            if (options.includeDirectories && entry.is_directory(ec)) {
+                dirs.push_back(path);
+                continue;
+            }
+
+            if (options.includeFiles && entry.is_regular_file(ec)) {
+                if (!options.fileFilter || options.fileFilter(path)) {
+                    files.push_back(path);
+                }
+            }
+        }
+
+        std::sort(dirs.begin(), dirs.end());
+        std::sort(files.begin(), files.end());
+
+        for (const auto& dir : dirs) {
+            labels.emplace_back(options.dirLabelPrefix + dir.filename().string());
+            paths.push_back(dir);
+        }
+
+        for (const auto& file : files) {
+            labels.emplace_back(options.fileLabelPrefix + file.filename().string());
+            paths.push_back(file);
+        }
     }
 
     // Helper function to trim whitespace from both ends of a string

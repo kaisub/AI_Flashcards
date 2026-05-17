@@ -12,6 +12,28 @@ namespace app {
 
 namespace txt = ::app::localization::selected;
 
+void FtxuiListsBrowserView::resetRestoreStatus() {
+    _restoreStatusMessage.clear();
+    _restoreLastSuccess = true;
+}
+
+void FtxuiListsBrowserView::openBackupDialog(ftxui::ScreenInteractive& screen) {
+    _backupTargetDir = std::filesystem::current_path();
+    _backupFileName = "flashcards_backup";
+    _backupStatusMessage.clear();
+    _backupLastSuccess = true;
+    _isBackupDialogOpen = true;
+    screen.Exit();
+}
+
+void FtxuiListsBrowserView::openRestorePicker(ftxui::ScreenInteractive& screen) {
+    resetRestoreStatus();
+    _restorePickerCurrentPath = std::filesystem::current_path();
+    refreshRestoreFilePicker();
+    _isRestorePickerOpen = true;
+    screen.Exit();
+}
+
 void FtxuiListsBrowserView::updateList(const std::filesystem::path& currentPath, const std::vector<app::model::BrowserItem>& items) {
     _vm.updateList(currentPath, items);
     
@@ -64,21 +86,11 @@ ftxui::Component FtxuiListsBrowserView::buildSettingsModal(ftxui::ScreenInteract
     }, custom_btn_style);
 
     auto copy_button = ftxui::Button(txt::lists_browser::kMakeCopyButton, [this, &screen] {
-        _backupTargetDir = std::filesystem::current_path();
-        _backupFileName = "flashcards_backup";
-        _backupStatusMessage.clear();
-        _backupLastSuccess = true;
-        _isBackupDialogOpen = true;
-        screen.Exit();
+        openBackupDialog(screen);
     }, custom_btn_style);
 
     auto restore_button = ftxui::Button(txt::lists_browser::kRestoreButton, [this, &screen] {
-        _restoreStatusMessage.clear();
-        _restoreLastSuccess = true;
-        _restorePickerCurrentPath = std::filesystem::current_path();
-        refreshRestoreFilePicker();
-        _isRestorePickerOpen = true;
-        screen.Exit();
+        openRestorePicker(screen);
     }, custom_btn_style);
 
     auto exit_button = ftxui::Button(txt::common::kBackEscape, [this, &screen] {
@@ -131,22 +143,12 @@ ftxui::Component FtxuiListsBrowserView::buildSettingsModal(ftxui::ScreenInteract
         }
 
         if (app::views::utils::isCharInsensitive(event, 'c')) {
-            _backupTargetDir = std::filesystem::current_path();
-            _backupFileName = "flashcards_backup";
-            _backupStatusMessage.clear();
-            _backupLastSuccess = true;
-            _isBackupDialogOpen = true;
-            screen.Exit();
+            openBackupDialog(screen);
             return true;
         }
 
         if (app::views::utils::isCharInsensitive(event, 'r')) {
-            _restoreStatusMessage.clear();
-            _restoreLastSuccess = true;
-            _restorePickerCurrentPath = std::filesystem::current_path();
-            refreshRestoreFilePicker();
-            _isRestorePickerOpen = true;
-            screen.Exit();
+            openRestorePicker(screen);
             return true;
         }
 
@@ -155,75 +157,36 @@ ftxui::Component FtxuiListsBrowserView::buildSettingsModal(ftxui::ScreenInteract
 }
 
 void FtxuiListsBrowserView::refreshBackupDirPicker() {
-    _backupPickerMenuEntries.clear();
-    _backupPickerDirPaths.clear();
-
-    if (_backupPickerCurrentPath.has_parent_path() &&
-        _backupPickerCurrentPath != _backupPickerCurrentPath.parent_path()) {
-        _backupPickerMenuEntries.emplace_back("[..] ..");
-        _backupPickerDirPaths.push_back(_backupPickerCurrentPath.parent_path());
-    }
-
-    std::vector<std::filesystem::path> dirs;
-    std::error_code erc;
-    for (const auto& entry : std::filesystem::directory_iterator(_backupPickerCurrentPath, erc)) {
-        const std::string fname = entry.path().filename().string();
-        if (!fname.empty() && fname.front() != '.' && entry.is_directory(erc)) {
-            dirs.push_back(entry.path());
-        }
-    }
-    std::sort(dirs.begin(), dirs.end());
-    for (const auto& dir : dirs) {
-        _backupPickerMenuEntries.emplace_back("[DIR] " + dir.filename().string());
-        _backupPickerDirPaths.push_back(dir);
-    }
+    app::views::utils::PickerBuildOptions options;
+    options.parentLabel = "[..] ..";
+    options.dirLabelPrefix = "[DIR] ";
+    options.includeDirectories = true;
+    options.includeFiles = false;
+    app::views::utils::buildPickerEntries(
+        _backupPickerCurrentPath,
+        _backupPickerMenuEntries,
+        _backupPickerDirPaths,
+        options);
     _backupPickerSelectedIndex = 0;
 }
 
 void FtxuiListsBrowserView::refreshRestoreFilePicker() {
-    _restorePickerMenuEntries.clear();
-    _restorePickerPaths.clear();
-
-    if (_restorePickerCurrentPath.has_parent_path() &&
-        _restorePickerCurrentPath != _restorePickerCurrentPath.parent_path()) {
-        _restorePickerMenuEntries.emplace_back("[..] ..");
-        _restorePickerPaths.push_back(_restorePickerCurrentPath.parent_path());
-    }
-
-    std::vector<std::filesystem::path> dirs;
-    std::vector<std::filesystem::path> zips;
-    std::error_code erc;
-    for (const auto& entry : std::filesystem::directory_iterator(_restorePickerCurrentPath, erc)) {
-        const std::string fname = entry.path().filename().string();
-        if (fname.empty() || fname.front() == '.') {
-            continue;
-        }
-
-        if (entry.is_directory(erc)) {
-            dirs.push_back(entry.path());
-            continue;
-        }
-
-        if (entry.is_regular_file(erc)) {
-            auto ext = entry.path().extension().string();
-            std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
-            if (ext == ".zip") {
-                zips.push_back(entry.path());
-            }
-        }
-    }
-
-    std::sort(dirs.begin(), dirs.end());
-    std::sort(zips.begin(), zips.end());
-
-    for (const auto& dir : dirs) {
-        _restorePickerMenuEntries.emplace_back("[DIR] " + dir.filename().string());
-        _restorePickerPaths.push_back(dir);
-    }
-    for (const auto& file : zips) {
-        _restorePickerMenuEntries.emplace_back("[ZIP] " + file.filename().string());
-        _restorePickerPaths.push_back(file);
-    }
+    app::views::utils::PickerBuildOptions options;
+    options.parentLabel = "[..] ..";
+    options.dirLabelPrefix = "[DIR] ";
+    options.fileLabelPrefix = "[ZIP] ";
+    options.includeDirectories = true;
+    options.includeFiles = true;
+    options.fileFilter = [](const std::filesystem::path& path) {
+        auto ext = path.extension().string();
+        std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
+        return ext == ".zip";
+    };
+    app::views::utils::buildPickerEntries(
+        _restorePickerCurrentPath,
+        _restorePickerMenuEntries,
+        _restorePickerPaths,
+        options);
 
     _restorePickerSelectedIndex = 0;
 }

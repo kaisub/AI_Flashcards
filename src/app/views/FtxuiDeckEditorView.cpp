@@ -28,45 +28,20 @@ void FtxuiDeckEditorView::refreshFilePicker() {
     if (_pickerCurrentPath.empty()) {
         _pickerCurrentPath = std::filesystem::current_path();
     }
-    _pickerMenuEntries.clear();
-    _pickerFullPaths.clear();
-
-    if (_pickerCurrentPath.has_parent_path() && _pickerCurrentPath != _pickerCurrentPath.parent_path()) {
-        _pickerMenuEntries.emplace_back("[DIR] ..");
-        _pickerFullPaths.push_back(_pickerCurrentPath.parent_path());
-    }
-
-    std::vector<std::filesystem::path> dirs;
-    std::vector<std::filesystem::path> files;
-
-    std::error_code erc;
-    for (const auto& entry : std::filesystem::directory_iterator(_pickerCurrentPath, erc)) {
-        std::string filename = entry.path().filename().string();
-        if (filename.empty() || filename.front() == '.') {
-            continue; // Skip hidden items
-        }
-        if (entry.is_directory(erc)) {
-            dirs.push_back(entry.path());
-        } else if (entry.is_regular_file(erc)) {
-            std::string ext = entry.path().extension().string();
-            std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
-            if (ext == ".csv" || ext == ".txt" || ext == ".tsv") {
-                files.push_back(entry.path());
-            }
-        }
-    }
-
-    std::sort(dirs.begin(), dirs.end());
-    std::sort(files.begin(), files.end());
-
-    for (const auto& dir : dirs) {
-        _pickerMenuEntries.emplace_back("[DIR] " + dir.filename().string());
-        _pickerFullPaths.push_back(dir);
-    }
-    for (const auto& file : files) {
-        _pickerMenuEntries.emplace_back("[FILE] " + file.filename().string());
-        _pickerFullPaths.push_back(file);
-    }
+    app::views::utils::PickerBuildOptions options;
+    options.parentLabel = "[DIR] ..";
+    options.dirLabelPrefix = "[DIR] ";
+    options.fileLabelPrefix = "[FILE] ";
+    options.fileFilter = [](const std::filesystem::path& path) {
+        std::string ext = path.extension().string();
+        std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
+        return ext == ".csv" || ext == ".txt" || ext == ".tsv";
+    };
+    app::views::utils::buildPickerEntries(
+        _pickerCurrentPath,
+        _pickerMenuEntries,
+        _pickerFullPaths,
+        options);
     _pickerSelectedIndex = 0;
 }
 
