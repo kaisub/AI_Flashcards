@@ -54,8 +54,18 @@ namespace core {
         } else {
             card.card_id.clear();
         }
-        j.at(json_keys::kTextFront).get_to(card.text_front);
-        j.at(json_keys::kTextBack).get_to(card.text_back);
+
+        if (j.contains(json_keys::kTextFront) && j.at(json_keys::kTextFront).is_string()) {
+            j.at(json_keys::kTextFront).get_to(card.text_front);
+        } else {
+            card.text_front = json_values::kMissingTextPlaceholder;
+        }
+
+        if (j.contains(json_keys::kTextBack) && j.at(json_keys::kTextBack).is_string()) {
+            j.at(json_keys::kTextBack).get_to(card.text_back);
+        } else {
+            card.text_back = json_values::kMissingTextPlaceholder;
+        }
 
         if (j.contains(json_keys::kStateFrontToBack)) {
             from_json(j.at(json_keys::kStateFrontToBack), card.state_Front_to_Back);

@@ -36,11 +36,84 @@ void FtxuiListsBrowserView::run() {
             main_component = buildRenameModal(screen, return_to_controller);
         } else if (_isDeleting) {
             main_component = buildDeleteModal(screen, return_to_controller);
+        } else if (_isSettingsOpen) {
+            main_component = buildSettingsModal(screen);
         } else {
             main_component = buildBrowserView(screen, return_to_controller);
         }
         screen.Loop(main_component);
     }
+}
+
+ftxui::Component FtxuiListsBrowserView::buildSettingsModal(ftxui::ScreenInteractive& screen) {
+    using namespace app::ui;
+
+    auto custom_btn_style = buttonStyle();
+    auto language_button = ftxui::Button(txt::lists_browser::kLanguageButton, [this, &screen] {
+        app::localization::toggleLocale();
+        screen.Exit();
+    }, custom_btn_style);
+
+    auto copy_button = ftxui::Button(txt::lists_browser::kMakeCopyButton, [] {
+        // Placeholder action for future implementation.
+    }, custom_btn_style);
+
+    auto restore_button = ftxui::Button(txt::lists_browser::kRestoreButton, [] {
+        // Placeholder action for future implementation.
+    }, custom_btn_style);
+
+    auto exit_button = ftxui::Button(txt::common::kBackEscape, [this, &screen] {
+        _isSettingsOpen = false;
+        screen.Exit();
+    }, custom_btn_style);
+
+    auto settings_container = ftxui::Container::Vertical({
+        language_button,
+        copy_button,
+        restore_button,
+        exit_button
+    });
+    settings_container->SetActiveChild(language_button.get());
+
+    auto settings_renderer = ftxui::Renderer(settings_container, [language_button, copy_button, restore_button, exit_button] {
+        return ftxui::vbox({
+            ftxui::text(txt::lists_browser::kSettingsDialogTitle) | ftxui::bold | ftxui::center,
+            blueSep(),
+            ftxui::text(""),
+            language_button->Render(),
+            ftxui::text(""),
+            copy_button->Render(),
+            ftxui::text(""),
+            restore_button->Render(),
+            ftxui::text(""),
+            blueSep(),
+            exit_button->Render(),
+        }) | ftxui::border | ftxui::bold | ftxui::color(ftxui::Color::BlueLight) | ftxui::center | ftxui::size(ftxui::WIDTH, ftxui::GREATER_THAN, 50);
+    });
+
+    return ftxui::CatchEvent(settings_renderer, [this, &screen](const ftxui::Event& event) {
+        if (app::views::utils::isEscape(event)) {
+            _isSettingsOpen = false;
+            screen.Exit();
+            return true;
+        }
+
+        if (app::views::utils::isCharInsensitive(event, txt::common::kLanguageShortcut)) {
+            app::localization::toggleLocale();
+            screen.Exit();
+            return true;
+        }
+
+        if (app::views::utils::isCharInsensitive(event, 'c')) {
+            return true;
+        }
+
+        if (app::views::utils::isCharInsensitive(event, 'r')) {
+            return true;
+        }
+
+        return false;
+    });
 }
 
 ftxui::Component FtxuiListsBrowserView::buildCreateListModal(ftxui::ScreenInteractive& screen, bool& returnToController) {
@@ -301,15 +374,6 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
 
     auto custom_btn_style = buttonStyle();
 
-    auto rebuild_entries = [this]() {
-        _menuEntries.clear();
-        _menuEntries.reserve(_vm.items.size());
-        for (const auto& item : _vm.items) {
-            const std::string prefix = item.isDirectory ? txt::lists_browser::kDirectoryPrefix : txt::lists_browser::kFilePrefix;
-            _menuEntries.push_back(prefix + item.displayName);
-        }
-    };
-
     auto back_button = ftxui::Button(txt::common::kBackEscape, [this, &screen, &returnToController] {
         returnToController = true;
         triggerBackRequested();
@@ -349,14 +413,13 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
         }
     }, custom_btn_style);
 
-    auto btn_language = ftxui::Button(txt::lists_browser::kLanguageButton, [this, &screen, rebuild_entries] {
-        app::localization::toggleLocale();
-        rebuild_entries();
+    auto btn_settings = ftxui::Button(txt::lists_browser::kSettingsButton, [this, &screen] {
+        _isSettingsOpen = true;
         screen.Exit();
     }, custom_btn_style);
 
     auto buttons_container = ftxui::Container::Horizontal({
-        back_button, exit_button, btn_new_folder, btn_new_list, btn_rename, btn_delete, btn_language
+        back_button, exit_button, btn_new_folder, btn_new_list, btn_rename, btn_delete, btn_settings
     });
 
     auto container = ftxui::Container::Vertical({buttons_container, menu});
@@ -376,7 +439,7 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
         }) | ftxui::border | ftxui::bold | ftxui::color(ftxui::Color::BlueLight);
     });
 
-    return ftxui::CatchEvent(renderer, [this, &screen, &returnToController, rebuild_entries](ftxui::Event event) {
+    return ftxui::CatchEvent(renderer, [this, &screen, &returnToController](ftxui::Event event) {
         if (event.is_mouse() && event.mouse().button == ftxui::Mouse::None) {
             return true;
         }
@@ -421,8 +484,7 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
             }
         }
         if (app::views::utils::isCharInsensitive(event, txt::common::kLanguageShortcut)) {
-            app::localization::toggleLocale();
-            rebuild_entries();
+            _isSettingsOpen = true;
             screen.Exit();
             return true;
         }

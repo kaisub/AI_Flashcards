@@ -111,6 +111,19 @@ TEST(JsonMappersTest, FlashcardDeserializationMissingFields) {
     EXPECT_TRUE(card.card_id.empty());
 }
 
+TEST(JsonMappersTest, FlashcardDeserializationMissingTextDefaultsToPlaceholder) {
+    json jMissingText = {
+        {json_keys::kId, "x3"},
+        {json_keys::kStateFrontToBack, json_values::kStateKnown},
+        {json_keys::kStateBackToFront, json_values::kStateMastered}
+    };
+
+    Flashcard card{};
+    ASSERT_NO_THROW(from_json(jMissingText, card));
+    EXPECT_EQ(card.text_front, json_values::kMissingTextPlaceholder);
+    EXPECT_EQ(card.text_back, json_values::kMissingTextPlaceholder);
+}
+
 TEST(JsonMappersTest, FlashcardDeserializationMissingStateDefaultsToNew) {
     json jMissingStates = {
         {json_keys::kId, "x1"},
@@ -163,12 +176,20 @@ TEST(JsonMappersTest, FlashcardListDeserializationErrors) {
     };
     EXPECT_THROW(from_json(jCardsNotArray, list), std::runtime_error);
     
-    // Edge case: card inside array is missing fields
+    // Edge case: card inside array can be missing fields and should be normalized.
     json jMalformedCard = {
         {json_keys::kName, "List"},
         {json_keys::kCards, json::array({ json::object() })} // Empty object instead of full flashcard map
     };
-    EXPECT_THROW(from_json(jMalformedCard, list), json::out_of_range);
+    ASSERT_NO_THROW(from_json(jMalformedCard, list));
+    ASSERT_EQ(list.size(), 1u);
+    auto cards = list.getAllCards();
+    ASSERT_EQ(cards.size(), 1u);
+    EXPECT_FALSE(cards[0]->card_id.empty());
+    EXPECT_EQ(cards[0]->text_front, json_values::kMissingTextPlaceholder);
+    EXPECT_EQ(cards[0]->text_back, json_values::kMissingTextPlaceholder);
+    EXPECT_EQ(cards[0]->state_Front_to_Back, CardState::New);
+    EXPECT_EQ(cards[0]->state_Back_to_Front, CardState::New);
 }
 
 TEST(JsonMappersTest, FlashcardListDeserializationGeneratesIdsForMissingId) {

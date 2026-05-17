@@ -31,12 +31,14 @@ private:
     bool _isCreatingFolder = false;
     bool _isRenaming = false;
     bool _isDeleting = false;
+    bool _isSettingsOpen = false;
 
     // Modal / view builders
     ftxui::Component buildCreateListModal(ftxui::ScreenInteractive& screen, bool& returnToController);
     ftxui::Component buildCreateFolderModal(ftxui::ScreenInteractive& screen, bool& returnToController);
     ftxui::Component buildRenameModal(ftxui::ScreenInteractive& screen, bool& returnToController);
     ftxui::Component buildDeleteModal(ftxui::ScreenInteractive& screen, bool& returnToController);
+    ftxui::Component buildSettingsModal(ftxui::ScreenInteractive& screen);
     ftxui::Component buildBrowserView(ftxui::ScreenInteractive& screen, bool& returnToController);
 };
 

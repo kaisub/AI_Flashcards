@@ -29,6 +29,14 @@ namespace storage {
                 return true;
             }
 
+            if (!card.contains(core::json_keys::kTextFront) || !card.at(core::json_keys::kTextFront).is_string()) {
+                return true;
+            }
+
+            if (!card.contains(core::json_keys::kTextBack) || !card.at(core::json_keys::kTextBack).is_string()) {
+                return true;
+            }
+
             if (!card.contains(core::json_keys::kStateFrontToBack) || !card.contains(core::json_keys::kStateBackToFront)) {
                 return true;
             }

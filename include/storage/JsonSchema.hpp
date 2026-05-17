@@ -14,4 +14,5 @@ namespace core::json_values {
     inline constexpr const char* kStateNew = "New";
     inline constexpr const char* kStateKnown = "Known";
     inline constexpr const char* kStateMastered = "Mastered";
+    inline constexpr const char* kMissingTextPlaceholder = "<>";
 } // namespace core::json_values

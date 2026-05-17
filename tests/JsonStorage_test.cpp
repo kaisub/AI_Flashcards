@@ -322,6 +322,58 @@ TEST_F(JsonStorageTest, LoadListPersistsMissingStateFieldsAsNew) {
         EXPECT_EQ(persistedCard2.at(core::json_keys::kStateBackToFront), core::json_values::kStateNew);
 }
 
+TEST_F(JsonStorageTest, LoadListPersistsMissingTextFieldsAsPlaceholder) {
+        fs::path listPath = "legacy_missing_text.json";
+        fs::path fullPath = temp_dir / listPath;
+
+        std::ofstream ofs(fullPath);
+        ASSERT_TRUE(ofs.is_open());
+        const nlohmann::json legacy = {
+            {core::json_keys::kName, "LegacyText"},
+            {core::json_keys::kCards, nlohmann::json::array({
+                {
+                    {core::json_keys::kId, "t1"},
+                    {core::json_keys::kTextFront, "Q1"},
+                    {core::json_keys::kStateFrontToBack, core::json_values::kStateKnown}
+                },
+                {
+                    {core::json_keys::kId, "t2"},
+                    {core::json_keys::kTextBack, "A2"},
+                    {core::json_keys::kStateBackToFront, core::json_values::kStateMastered}
+                }
+            })}
+        };
+        ofs << legacy.dump(2);
+        ofs.close();
+
+        auto loaded = storage->loadList(listPath);
+        ASSERT_NE(loaded, nullptr);
+        ASSERT_EQ(loaded->size(), 2u);
+
+        auto card1 = loaded->getCard("t1");
+        ASSERT_NE(card1, nullptr);
+        EXPECT_EQ(card1->text_front, "Q1");
+        EXPECT_EQ(card1->text_back, core::json_values::kMissingTextPlaceholder);
+
+        auto card2 = loaded->getCard("t2");
+        ASSERT_NE(card2, nullptr);
+        EXPECT_EQ(card2->text_front, core::json_values::kMissingTextPlaceholder);
+        EXPECT_EQ(card2->text_back, "A2");
+
+        std::ifstream ifs(fullPath);
+        ASSERT_TRUE(ifs.is_open());
+        nlohmann::json persisted;
+        ifs >> persisted;
+        ifs.close();
+
+        ASSERT_TRUE(persisted.contains(core::json_keys::kCards));
+        ASSERT_EQ(persisted.at(core::json_keys::kCards).size(), 2u);
+        const auto& persistedCard1 = persisted.at(core::json_keys::kCards).at(0);
+        const auto& persistedCard2 = persisted.at(core::json_keys::kCards).at(1);
+        EXPECT_EQ(persistedCard1.at(core::json_keys::kTextBack), core::json_values::kMissingTextPlaceholder);
+        EXPECT_EQ(persistedCard2.at(core::json_keys::kTextFront), core::json_values::kMissingTextPlaceholder);
+}
+
 TEST_F(JsonStorageTest, LoadListPersistsCombinedLegacyNormalization) {
         fs::path listPath = "legacy_combined_normalization.json";
         fs::path fullPath = temp_dir / listPath;

@@ -95,6 +95,8 @@ inline constexpr LocalizedChar kDeleteShortcut{'u', 'u'};
 inline constexpr LocalizedChar kCopyShortcut{'k', 'k'};
 inline constexpr LocalizedChar kMoveShortcut{'p', 'p'};
 inline constexpr LocalizedChar kImportShortcut{'i', 'i'};
+inline constexpr LocalizedChar kSelectAllShortcut{'a', 'a'};
+inline constexpr LocalizedChar kDeselectAllShortcut{'d', 'd'};
 inline constexpr LocalizedCString kEditTitle{"Edit Card", "Edytuj Fiszkę"};
 inline constexpr LocalizedCString kDeleteConfirmButton{"Yes, Delete", "Tak, usuń"};
 inline constexpr LocalizedCString kDeleteTitle{"Delete Selected Cards", "Usuń zaznaczone fiszki"};
@@ -172,6 +174,10 @@ inline constexpr LocalizedCString kNewListButton{"New List [N]", "Nowa Lista [N]
 inline constexpr LocalizedCString kRenameToolbarButton{"Rename [R]", "Zmień nazwę [R]"};
 inline constexpr LocalizedCString kDeleteToolbarButton{"Delete [U]", "Usuń [U]"};
 inline constexpr LocalizedCString kLanguageButton{"Language [L]", "Język [L]"};
+inline constexpr LocalizedCString kSettingsButton{"Settings [L]", "Ustawienia [L]"};
+inline constexpr LocalizedCString kSettingsDialogTitle{"Settings", "Ustawienia"};
+inline constexpr LocalizedCString kMakeCopyButton{"Make Copy [C]", "Zrób kopię [C]"};
+inline constexpr LocalizedCString kRestoreButton{"Restore [R]", "Przywróć [R]"};
 inline constexpr LocalizedCString kTitle{" AI Flashcards - Lists Browser ", " AI Flashcards - Przeglądarka List "};
 
 inline std::string currentPath(const std::string& path) {

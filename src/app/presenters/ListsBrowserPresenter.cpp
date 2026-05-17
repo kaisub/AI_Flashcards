@@ -1,5 +1,6 @@
 #include "app/presenters/ListsBrowserPresenter.hpp"
 #include "app/utils/AppUtils.hpp"
+#include "core/FileTypeConstants.hpp"
 #include <algorithm>
 #include <map>
 
@@ -36,7 +37,7 @@ namespace app::presenters {
 
             bool is_dir = (++first_component_it != relative_path.end());
             if (!is_dir) {
-                is_dir = (first_component.extension() != ".json");
+                is_dir = (first_component.extension() != core::constants::kJsonExtension);
             }
 
             items_map.try_emplace(item_path, app::model::BrowserItem{first_component.string(), item_path, is_dir});

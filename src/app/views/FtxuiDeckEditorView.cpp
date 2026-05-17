@@ -715,11 +715,11 @@ void FtxuiDeckEditorView::run() {
                 _isImporting = true;
                 return true;
             }
-            if (app::views::utils::isCharInsensitive(event, 'a')) {
+            if (app::views::utils::isCharInsensitive(event, txt::deck_editor::kSelectAllShortcut)) {
                 _vm.selectAllCards();
                 return true;
             }
-            if (app::views::utils::isCharInsensitive(event, 'd')) {
+            if (app::views::utils::isCharInsensitive(event, txt::deck_editor::kDeselectAllShortcut)) {
                 _vm.deselectAllCards();
                 return true;
             }
