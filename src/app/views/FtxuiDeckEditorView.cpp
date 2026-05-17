@@ -74,8 +74,7 @@ ftxui::Component FtxuiDeckEditorView::buildFilePickerModal(const ftxui::ButtonOp
     using namespace ftxui;
     using namespace app::ui;
 
-    ftxui::MenuOption menu_opt;
-    menu_opt.on_enter = [this] {
+    auto activate_selected = [this] {
         if (_pickerSelectedIndex >= 0 && _pickerSelectedIndex < static_cast<int>(_pickerFullPaths.size())) {
             auto selected = _pickerFullPaths[_pickerSelectedIndex];
             std::error_code erc;
@@ -89,6 +88,9 @@ ftxui::Component FtxuiDeckEditorView::buildFilePickerModal(const ftxui::ButtonOp
         }
     };
 
+    ftxui::MenuOption menu_opt;
+    menu_opt.on_enter = activate_selected;
+
     auto menu = Menu(&_pickerMenuEntries, &_pickerSelectedIndex, menu_opt);
     auto cancel_btn = Button(txt::common::kCancelEscape, [this]{ _isFilePickerActive = false; }, btnStyle);
 
@@ -96,20 +98,51 @@ ftxui::Component FtxuiDeckEditorView::buildFilePickerModal(const ftxui::ButtonOp
         menu,
         cancel_btn
     });
+    container->SetActiveChild(menu.get());
+    auto menu_box = std::make_shared<Box>();
+    auto last_clicked_index = std::make_shared<int>(-1);
 
-    auto renderer = Renderer(container, [this, menu, cancel_btn] {
+    auto renderer = Renderer(container, [this, menu, cancel_btn, menu_box] {
         return vbox({
             text(txt::deck_editor::kFilePickerTitle) | bold | color(Color::CyanLight) | center,
             blueSep(),
             text(" " + _pickerCurrentPath.string() + " ") | color(Color::White) | center,
             blueSep(),
-            menu->Render() | vscroll_indicator | frame | size(HEIGHT, LESS_THAN, 15),
+            menu->Render() | vscroll_indicator | frame | size(HEIGHT, LESS_THAN, 15) | reflect(*menu_box),
             blueSep(),
             cancel_btn->Render() | center
         }) | border | bold | color(Color::BlueLight) | center | size(WIDTH, LESS_THAN, 80);
     });
 
-    return CatchEvent(renderer, [this](const Event& event) {
+    return CatchEvent(renderer, [this, menu, menu_box, last_clicked_index, activate_selected](Event event) {
+        if (event.is_mouse() && event.mouse().button == Mouse::None) {
+            return true;
+        }
+
+        if (event.is_mouse() && event.mouse().button == Mouse::Left && event.mouse().motion == Mouse::Pressed) {
+            const auto& mouse = event.mouse();
+            if (menu_box->Contain(mouse.x, mouse.y)) {
+                menu->OnEvent(event);
+
+                const int local_y = mouse.y - menu_box->y_min;
+                const int visible_rows = menu_box->y_max - menu_box->y_min + 1;
+                const int used_rows = std::min<int>(visible_rows, static_cast<int>(_pickerMenuEntries.size()));
+                const bool clicked_item_row = local_y >= 0 && local_y < used_rows;
+
+                if (clicked_item_row) {
+                    if (*last_clicked_index == _pickerSelectedIndex) {
+                        *last_clicked_index = -1;
+                        activate_selected();
+                    } else {
+                        *last_clicked_index = _pickerSelectedIndex;
+                    }
+                }
+                return true;
+            }
+
+            *last_clicked_index = -1;
+        }
+
         if (app::views::utils::isEscape(event)) {
             _isFilePickerActive = false;
             return true;

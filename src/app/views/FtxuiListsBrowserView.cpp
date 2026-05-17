@@ -261,6 +261,14 @@ ftxui::Component FtxuiListsBrowserView::buildBackupDialog(ftxui::ScreenInteracti
 ftxui::Component FtxuiListsBrowserView::buildBackupDirPicker(ftxui::ScreenInteractive& screen) {
     using namespace app::ui;
 
+    auto activate_selected = [this] {
+        if (_backupPickerSelectedIndex >= 0 &&
+            _backupPickerSelectedIndex < static_cast<int>(_backupPickerDirPaths.size())) {
+            _backupPickerCurrentPath = _backupPickerDirPaths[_backupPickerSelectedIndex];
+            refreshBackupDirPicker();
+        }
+    };
+
     ftxui::MenuOption menu_opt;
 
     auto menu = ftxui::Menu(&_backupPickerMenuEntries, &_backupPickerSelectedIndex, menu_opt);
@@ -281,8 +289,8 @@ ftxui::Component FtxuiListsBrowserView::buildBackupDirPicker(ftxui::ScreenIntera
         ftxui::Container::Horizontal({select_btn, cancel_btn})
     });
     container->SetActiveChild(menu.get());
-
     auto menu_box = std::make_shared<ftxui::Box>();
+    auto last_clicked_index = std::make_shared<int>(-1);
 
     auto renderer = ftxui::Renderer(container, [this, menu, select_btn, cancel_btn, menu_box] {
         return ftxui::vbox({
@@ -300,7 +308,7 @@ ftxui::Component FtxuiListsBrowserView::buildBackupDirPicker(ftxui::ScreenIntera
         }) | ftxui::border | ftxui::bold | ftxui::color(ftxui::Color::BlueLight) | ftxui::center | ftxui::size(ftxui::WIDTH, ftxui::LESS_THAN, 80);
     });
 
-    return ftxui::CatchEvent(renderer, [this, &screen, menu, menu_box](ftxui::Event event) {
+    return ftxui::CatchEvent(renderer, [this, &screen, menu, menu_box, last_clicked_index, activate_selected](ftxui::Event event) {
         if (event.is_mouse() && event.mouse().button == ftxui::Mouse::None) {
             return true;
         }
@@ -308,26 +316,30 @@ ftxui::Component FtxuiListsBrowserView::buildBackupDirPicker(ftxui::ScreenIntera
         if (event.is_mouse() && event.mouse().button == ftxui::Mouse::Left && event.mouse().motion == ftxui::Mouse::Pressed) {
             const auto& mouse = event.mouse();
             if (menu_box->Contain(mouse.x, mouse.y)) {
-                const int clicked_index = mouse.y - menu_box->y_min;
-                if (clicked_index >= 0 && clicked_index < static_cast<int>(_backupPickerDirPaths.size())) {
-                    if (clicked_index == _backupPickerSelectedIndex) {
-                        _backupPickerCurrentPath = _backupPickerDirPaths[_backupPickerSelectedIndex];
-                        refreshBackupDirPicker();
+                menu->OnEvent(event);
+
+                const int local_y = mouse.y - menu_box->y_min;
+                const int visible_rows = menu_box->y_max - menu_box->y_min + 1;
+                const int used_rows = std::min<int>(visible_rows, static_cast<int>(_backupPickerMenuEntries.size()));
+                const bool clicked_item_row = local_y >= 0 && local_y < used_rows;
+
+                if (clicked_item_row) {
+                    if (*last_clicked_index == _backupPickerSelectedIndex) {
+                        *last_clicked_index = -1;
+                        activate_selected();
                     } else {
-                        _backupPickerSelectedIndex = clicked_index;
+                        *last_clicked_index = _backupPickerSelectedIndex;
                     }
                 }
                 return true;
             }
+
+            *last_clicked_index = -1;
         }
 
         if (event == ftxui::Event::Return && menu->Focused()) {
-            if (_backupPickerSelectedIndex >= 0 &&
-                _backupPickerSelectedIndex < static_cast<int>(_backupPickerDirPaths.size())) {
-                _backupPickerCurrentPath = _backupPickerDirPaths[_backupPickerSelectedIndex];
-                refreshBackupDirPicker();
-                return true;
-            }
+            activate_selected();
+            return true;
         }
 
         if (app::views::utils::isEscape(event)) {
@@ -612,8 +624,7 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
     _vm.selectedIndex = 0;
     const std::string directory_prefix = txt::lists_browser::kDirectoryPrefix.str();
 
-    ftxui::MenuOption menu_option;
-    menu_option.on_enter = [this, &screen, &returnToController] {
+    auto activate_selected = [this, &screen, &returnToController] {
         if (!_vm.hasValidSelection()) {
             return;
         }
@@ -626,6 +637,8 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
         returnToController = true;
         screen.Exit();
     };
+
+    ftxui::MenuOption menu_option;
 
     menu_option.entries_option.transform = [directory_prefix](const ftxui::EntryState& state) {
         ftxui::Element elm = ftxui::text(state.label);
@@ -703,7 +716,10 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
         container->SetActiveChild(menu.get());
     }
 
-    auto renderer = ftxui::Renderer(container, [this, buttons_container, menu] {
+    auto menu_box = std::make_shared<ftxui::Box>();
+    auto last_clicked_index = std::make_shared<int>(-1);
+
+    auto renderer = ftxui::Renderer(container, [this, buttons_container, menu, menu_box] {
         return ftxui::vbox({
             ftxui::text(txt::lists_browser::kTitle) | ftxui::bold | ftxui::color(ftxui::Color::CyanLight) | ftxui::center,
             blueSep(),
@@ -711,12 +727,38 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
             blueSep(),
             buttons_container->Render(),
             blueSep(),
-            menu->Render() | ftxui::vscroll_indicator | ftxui::frame | ftxui::flex,
+            menu->Render() | ftxui::vscroll_indicator | ftxui::frame | ftxui::flex | ftxui::reflect(*menu_box),
         }) | ftxui::border | ftxui::bold | ftxui::color(ftxui::Color::BlueLight);
     });
 
-    return ftxui::CatchEvent(renderer, [this, &screen, &returnToController](ftxui::Event event) {
+    return ftxui::CatchEvent(renderer, [this, &screen, &returnToController, menu, menu_box, last_clicked_index, activate_selected](ftxui::Event event) {
         if (event.is_mouse() && event.mouse().button == ftxui::Mouse::None) {
+            return true;
+        }
+
+        if (event.is_mouse() && event.mouse().button == ftxui::Mouse::Left &&
+            (event.mouse().motion == ftxui::Mouse::Pressed || event.mouse().motion == ftxui::Mouse::Released)) {
+            const auto& mouse = event.mouse();
+            if (menu_box->Contain(mouse.x, mouse.y)) {
+                menu->OnEvent(event);
+
+                if (event.mouse().motion == ftxui::Mouse::Released) {
+                    if (*last_clicked_index == _vm.selectedIndex) {
+                        *last_clicked_index = -1;
+                        activate_selected();
+                    } else {
+                        *last_clicked_index = _vm.selectedIndex;
+                    }
+                }
+                return true;
+            }
+            if (event.mouse().motion == ftxui::Mouse::Released) {
+                *last_clicked_index = -1;
+            }
+        }
+
+        if (event == ftxui::Event::Return && menu->Focused()) {
+            activate_selected();
             return true;
         }
 
