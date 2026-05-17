@@ -100,6 +100,7 @@ ftxui::Component FtxuiDeckEditorView::buildFilePickerModal(const ftxui::ButtonOp
     });
     container->SetActiveChild(menu.get());
     auto menu_box = std::make_shared<Box>();
+    auto click_armed = std::make_shared<bool>(false);
     auto last_clicked_index = std::make_shared<int>(-1);
 
     auto renderer = Renderer(container, [this, menu, cancel_btn, menu_box] {
@@ -114,33 +115,17 @@ ftxui::Component FtxuiDeckEditorView::buildFilePickerModal(const ftxui::ButtonOp
         }) | border | bold | color(Color::BlueLight) | center | size(WIDTH, LESS_THAN, 80);
     });
 
-    return CatchEvent(renderer, [this, menu, menu_box, last_clicked_index, activate_selected](Event event) {
-        if (event.is_mouse() && event.mouse().button == Mouse::None) {
+    return CatchEvent(renderer, [this, menu, menu_box, click_armed, last_clicked_index, activate_selected](Event event) {
+        if (app::views::utils::handleMenuTwoClickMouseSelect(
+                event,
+                menu,
+                menu_box,
+                _pickerSelectedIndex,
+                _pickerMenuEntries.size(),
+                *click_armed,
+                *last_clicked_index,
+                activate_selected)) {
             return true;
-        }
-
-        if (event.is_mouse() && event.mouse().button == Mouse::Left && event.mouse().motion == Mouse::Pressed) {
-            const auto& mouse = event.mouse();
-            if (menu_box->Contain(mouse.x, mouse.y)) {
-                menu->OnEvent(event);
-
-                const int local_y = mouse.y - menu_box->y_min;
-                const int visible_rows = menu_box->y_max - menu_box->y_min + 1;
-                const int used_rows = std::min<int>(visible_rows, static_cast<int>(_pickerMenuEntries.size()));
-                const bool clicked_item_row = local_y >= 0 && local_y < used_rows;
-
-                if (clicked_item_row) {
-                    if (*last_clicked_index == _pickerSelectedIndex) {
-                        *last_clicked_index = -1;
-                        activate_selected();
-                    } else {
-                        *last_clicked_index = _pickerSelectedIndex;
-                    }
-                }
-                return true;
-            }
-
-            *last_clicked_index = -1;
         }
 
         if (app::views::utils::isEscape(event)) {
@@ -536,9 +521,11 @@ void FtxuiDeckEditorView::run() {
     auto bulk_toolbar = Container::Horizontal({btn_select_all, btn_deselect_all, btn_delete_bulk, btn_copy_bulk, btn_move_bulk, btn_import});
 
     auto card_list_container = Container::Vertical({});
+    auto last_clicked_card_id = std::make_shared<std::string>();
     
-    _onDeckChangedInternal = [this, card_list_container, custom_btn_style]() {
+    _onDeckChangedInternal = [this, card_list_container, custom_btn_style, last_clicked_card_id]() {
         card_list_container->DetachAllChildren();
+        last_clicked_card_id->clear();
 
         if (_vm.deck) {
             auto cards = _vm.deck->getAllCards();
@@ -548,6 +535,7 @@ void FtxuiDeckEditorView::run() {
                 auto checkbox = Checkbox("", &_vm.cardSelectionState[card->card_id]);
                 auto row_container = Container::Horizontal({checkbox});
                 auto row_box = std::make_shared<ftxui::Box>();
+                auto checkbox_box = std::make_shared<ftxui::Box>();
 
                 auto row_with_edit = CatchEvent(row_container, [this, card, custom_btn_style](const Event& event) {
                     if (app::views::utils::isCharInsensitive(event, txt::deck_editor::kEditShortcut)) {
@@ -559,13 +547,13 @@ void FtxuiDeckEditorView::run() {
                     return false;
                 });
 
-                auto row_renderer = Renderer(row_with_edit, [this, row_with_edit, checkbox, card, row_box] {
+                auto row_renderer = Renderer(row_with_edit, [this, row_with_edit, checkbox, card, row_box, checkbox_box] {
                     const bool focused = row_with_edit->Focused();
                     if (focused) {
                         _focusedCardId = card->card_id;
                     }
                     auto row = hbox({
-                        checkbox->Render(),
+                        checkbox->Render() | reflect(*checkbox_box),
                         text(" "),
                         text(card->text_front) | color(Color::GreenLight) | size(WIDTH, EQUAL, 35),
                         separator() | bold | color(Color::BlueLight),
@@ -577,7 +565,8 @@ void FtxuiDeckEditorView::run() {
                     return row | reflect(*row_box);
                 });
 
-                auto row_mouse_focus = CatchEvent(row_renderer, [this, card, row_box, card_list_container, row_with_edit](Event event) {
+                auto row_component = std::make_shared<ftxui::Component>();
+                *row_component = CatchEvent(row_renderer, [this, card, row_box, checkbox_box, card_list_container, row_component, custom_btn_style, last_clicked_card_id](Event event) {
                     if (!event.is_mouse()) {
                         return false;
                     }
@@ -587,15 +576,31 @@ void FtxuiDeckEditorView::run() {
                         return false;
                     }
 
+                    if (checkbox_box->Contain(mouse.x, mouse.y)) {
+                        // Checkbox click should only toggle selection state.
+                        last_clicked_card_id->clear();
+                        return false;
+                    }
+
                     if (mouse.button == Mouse::Left && mouse.motion == Mouse::Pressed) {
                         _focusedCardId = card->card_id;
-                        card_list_container->SetActiveChild(row_with_edit.get());
+                        card_list_container->SetActiveChild(row_component->get());
+
+                        if (*last_clicked_card_id == card->card_id) {
+                            _vm.startEditing(card);
+                            _isEditing = true;
+                            _editModal = buildEditModal(custom_btn_style);
+                            last_clicked_card_id->clear();
+                            return true;
+                        }
+
+                        *last_clicked_card_id = card->card_id;
                     }
 
                     return false;
                 });
 
-                card_list_container->Add(row_mouse_focus);
+                card_list_container->Add(*row_component);
             }
         }
 
@@ -617,8 +622,9 @@ void FtxuiDeckEditorView::run() {
         btn_exit,
     });
     main_container->SetActiveChild(btn_start_study.get());
+    auto card_list_view_box = std::make_shared<ftxui::Box>();
 
-    auto renderer = Renderer(main_container, [this, bulk_toolbar, card_list_container, input_front, input_back, btn_add_card, btn_start_study, btn_exit] {
+    auto renderer = Renderer(main_container, [this, bulk_toolbar, card_list_container, input_front, input_back, btn_add_card, btn_start_study, btn_exit, card_list_view_box] {
         const std::string deck_name = _vm.deck ? _vm.deck->getName() : txt::common::kUnknown;
         const size_t card_count = _vm.deck ? _vm.deck->size() : 0;
 
@@ -629,7 +635,7 @@ void FtxuiDeckEditorView::run() {
             text(txt::deck_editor::headerStats(card_count, selected_count)) | color(Color::White) | center,
     });
 
-        auto card_list_view = card_list_container->Render() | vscroll_indicator | yframe | flex;
+        auto card_list_view = card_list_container->Render() | vscroll_indicator | yframe | flex | reflect(*card_list_view_box);
         auto hint = text(txt::deck_editor::kSelectionHint) | color(Color::White) | center;
 
         return vbox({
@@ -687,7 +693,7 @@ void FtxuiDeckEditorView::run() {
         return base;
     });
 
-    auto event_handler = CatchEvent(final_renderer, [this, &screen, delete_modal, move_modal, copy_modal, file_picker_modal, import_modal, input_front, input_back, card_list_container, main_container, custom_btn_style](Event event) {
+    auto event_handler = CatchEvent(final_renderer, [this, &screen, delete_modal, move_modal, copy_modal, file_picker_modal, import_modal, input_front, input_back, card_list_container, main_container, custom_btn_style, card_list_view_box](Event event) {
 
         if (event.is_mouse() && event.mouse().button == ftxui::Mouse::None) {
             return true;
@@ -724,6 +730,13 @@ void FtxuiDeckEditorView::run() {
         if (event.is_mouse() &&
             (event.mouse().button == ftxui::Mouse::WheelUp || event.mouse().button == ftxui::Mouse::WheelDown)) {
             main_container->SetActiveChild(card_list_container.get());
+        }
+
+        if (event.is_mouse() && event.mouse().button == ftxui::Mouse::Left && event.mouse().motion == ftxui::Mouse::Pressed) {
+            const auto& mouse = event.mouse();
+            if (card_list_view_box->Contain(mouse.x, mouse.y)) {
+                main_container->SetActiveChild(card_list_container.get());
+            }
         }
 
         // Only allow single-character shortcuts if the user isn't typing in the Add Card inputs
