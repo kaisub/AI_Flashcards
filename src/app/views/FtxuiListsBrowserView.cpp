@@ -39,6 +39,8 @@ void FtxuiListsBrowserView::run() {
             main_component = buildDeleteModal(screen, return_to_controller);
         } else if (_isBackupPickerOpen) {
             main_component = buildBackupDirPicker(screen);
+        } else if (_isRestorePickerOpen) {
+            main_component = buildRestoreFilePicker(screen);
         } else if (_isBackupOverwriteConfirm) {
             main_component = buildBackupOverwriteConfirm(screen);
         } else if (_isBackupDialogOpen) {
@@ -70,8 +72,13 @@ ftxui::Component FtxuiListsBrowserView::buildSettingsModal(ftxui::ScreenInteract
         screen.Exit();
     }, custom_btn_style);
 
-    auto restore_button = ftxui::Button(txt::lists_browser::kRestoreButton, [] {
-        // Placeholder action for future implementation.
+    auto restore_button = ftxui::Button(txt::lists_browser::kRestoreButton, [this, &screen] {
+        _restoreStatusMessage.clear();
+        _restoreLastSuccess = true;
+        _restorePickerCurrentPath = std::filesystem::current_path();
+        refreshRestoreFilePicker();
+        _isRestorePickerOpen = true;
+        screen.Exit();
     }, custom_btn_style);
 
     auto exit_button = ftxui::Button(txt::common::kBackEscape, [this, &screen] {
@@ -87,7 +94,8 @@ ftxui::Component FtxuiListsBrowserView::buildSettingsModal(ftxui::ScreenInteract
     });
     settings_container->SetActiveChild(language_button.get());
 
-    auto settings_renderer = ftxui::Renderer(settings_container, [language_button, copy_button, restore_button, exit_button] {
+    auto settings_renderer = ftxui::Renderer(settings_container, [this, language_button, copy_button, restore_button, exit_button] {
+        const auto status_color = _restoreLastSuccess ? ftxui::Color::GreenLight : ftxui::Color::Red;
         return ftxui::vbox({
             ftxui::text(txt::lists_browser::kSettingsDialogTitle) | ftxui::bold | ftxui::center,
             blueSep(),
@@ -99,6 +107,8 @@ ftxui::Component FtxuiListsBrowserView::buildSettingsModal(ftxui::ScreenInteract
             restore_button->Render(),
             ftxui::text(""),
             blueSep(),
+            ftxui::text(_restoreStatusMessage) | ftxui::color(status_color),
+            ftxui::text(""),
             exit_button->Render(),
         }) | ftxui::border | ftxui::bold | ftxui::color(ftxui::Color::BlueLight) | ftxui::center | ftxui::size(ftxui::WIDTH, ftxui::GREATER_THAN, 50);
     });
@@ -131,6 +141,12 @@ ftxui::Component FtxuiListsBrowserView::buildSettingsModal(ftxui::ScreenInteract
         }
 
         if (app::views::utils::isCharInsensitive(event, 'r')) {
+            _restoreStatusMessage.clear();
+            _restoreLastSuccess = true;
+            _restorePickerCurrentPath = std::filesystem::current_path();
+            refreshRestoreFilePicker();
+            _isRestorePickerOpen = true;
+            screen.Exit();
             return true;
         }
 
@@ -162,6 +178,54 @@ void FtxuiListsBrowserView::refreshBackupDirPicker() {
         _backupPickerDirPaths.push_back(dir);
     }
     _backupPickerSelectedIndex = 0;
+}
+
+void FtxuiListsBrowserView::refreshRestoreFilePicker() {
+    _restorePickerMenuEntries.clear();
+    _restorePickerPaths.clear();
+
+    if (_restorePickerCurrentPath.has_parent_path() &&
+        _restorePickerCurrentPath != _restorePickerCurrentPath.parent_path()) {
+        _restorePickerMenuEntries.emplace_back("[..] ..");
+        _restorePickerPaths.push_back(_restorePickerCurrentPath.parent_path());
+    }
+
+    std::vector<std::filesystem::path> dirs;
+    std::vector<std::filesystem::path> zips;
+    std::error_code erc;
+    for (const auto& entry : std::filesystem::directory_iterator(_restorePickerCurrentPath, erc)) {
+        const std::string fname = entry.path().filename().string();
+        if (fname.empty() || fname.front() == '.') {
+            continue;
+        }
+
+        if (entry.is_directory(erc)) {
+            dirs.push_back(entry.path());
+            continue;
+        }
+
+        if (entry.is_regular_file(erc)) {
+            auto ext = entry.path().extension().string();
+            std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
+            if (ext == ".zip") {
+                zips.push_back(entry.path());
+            }
+        }
+    }
+
+    std::sort(dirs.begin(), dirs.end());
+    std::sort(zips.begin(), zips.end());
+
+    for (const auto& dir : dirs) {
+        _restorePickerMenuEntries.emplace_back("[DIR] " + dir.filename().string());
+        _restorePickerPaths.push_back(dir);
+    }
+    for (const auto& file : zips) {
+        _restorePickerMenuEntries.emplace_back("[ZIP] " + file.filename().string());
+        _restorePickerPaths.push_back(file);
+    }
+
+    _restorePickerSelectedIndex = 0;
 }
 
 ftxui::Component FtxuiListsBrowserView::buildBackupDialog(ftxui::ScreenInteractive& screen) {
@@ -335,6 +399,126 @@ ftxui::Component FtxuiListsBrowserView::buildBackupDirPicker(ftxui::ScreenIntera
         if (app::views::utils::isCharInsensitive(event, 's')) {
             _backupTargetDir = _backupPickerCurrentPath;
             _isBackupPickerOpen = false;
+            screen.Exit();
+            return true;
+        }
+        return false;
+    });
+}
+
+ftxui::Component FtxuiListsBrowserView::buildRestoreFilePicker(ftxui::ScreenInteractive& screen) {
+    using namespace app::ui;
+
+    auto activate_selected = [this, &screen] {
+        if (_restorePickerSelectedIndex < 0 ||
+            _restorePickerSelectedIndex >= static_cast<int>(_restorePickerPaths.size())) {
+            return;
+        }
+
+        const auto selected = _restorePickerPaths[_restorePickerSelectedIndex];
+        std::error_code erc;
+        if (std::filesystem::is_directory(selected, erc)) {
+            _restorePickerCurrentPath = selected;
+            refreshRestoreFilePicker();
+            return;
+        }
+
+        auto ext = selected.extension().string();
+        std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
+        if (ext != ".zip") {
+            _restoreLastSuccess = false;
+            _restoreStatusMessage = txt::lists_browser::kRestoreInvalidFile.str();
+            return;
+        }
+
+        std::string restore_diagnostic;
+        const bool ok = app::utils::restoreDataFromBackup(selected, &restore_diagnostic);
+        _restoreLastSuccess = ok;
+        if (ok) {
+            _restoreStatusMessage = txt::lists_browser::kRestoreSuccess.str();
+            if (!triggerFolderOpened(_vm.currentPath)) {
+                triggerFolderOpened(std::filesystem::path{});
+            }
+        } else {
+            _restoreStatusMessage = txt::lists_browser::kRestoreFailed.str();
+            if (!restore_diagnostic.empty()) {
+                _restoreStatusMessage += " (" + restore_diagnostic + ")";
+            }
+        }
+        _isRestorePickerOpen = false;
+        screen.Exit();
+    };
+
+    ftxui::MenuOption menu_opt;
+    auto menu = ftxui::Menu(&_restorePickerMenuEntries, &_restorePickerSelectedIndex, menu_opt);
+
+    auto restore_action_label = std::make_shared<std::string>(txt::lists_browser::kRestoreButtonPrompt.str());
+    auto restore_btn = ftxui::Button(restore_action_label.get(), activate_selected);
+    auto cancel_btn = ftxui::Button(txt::common::kCancelEscape, [this, &screen] {
+        _restoreStatusMessage.clear();
+        _restoreLastSuccess = true;
+        _isRestorePickerOpen = false;
+        screen.Exit();
+    });
+
+    auto container = ftxui::Container::Vertical({
+        menu,
+        ftxui::Container::Horizontal({restore_btn, cancel_btn})
+    });
+    container->SetActiveChild(menu.get());
+    auto menu_box = std::make_shared<ftxui::Box>();
+    auto click_armed = std::make_shared<bool>(false);
+    auto last_clicked_index = std::make_shared<int>(-1);
+
+    auto renderer = ftxui::Renderer(container, [this, menu, restore_btn, cancel_btn, menu_box, restore_action_label] {
+        bool selected_is_directory = false;
+        if (_restorePickerSelectedIndex >= 0 &&
+            _restorePickerSelectedIndex < static_cast<int>(_restorePickerPaths.size())) {
+            std::error_code erc;
+            selected_is_directory = std::filesystem::is_directory(_restorePickerPaths[_restorePickerSelectedIndex], erc);
+        }
+        *restore_action_label = selected_is_directory
+            ? txt::lists_browser::kRestoreEnterFolderButton.str()
+            : txt::lists_browser::kRestoreButtonPrompt.str();
+
+        return ftxui::vbox({
+            ftxui::text(txt::lists_browser::kRestorePickerTitle) | ftxui::bold | ftxui::color(ftxui::Color::CyanLight) | ftxui::center,
+            blueSep(),
+            ftxui::text(" " + _restorePickerCurrentPath.string() + " ") | ftxui::color(ftxui::Color::White) | ftxui::center,
+            ftxui::text(txt::lists_browser::kRestoreSelectFileHint) | ftxui::color(ftxui::Color::GrayLight) | ftxui::center,
+            blueSep(),
+            menu->Render() | ftxui::vscroll_indicator | ftxui::frame | ftxui::size(ftxui::HEIGHT, ftxui::LESS_THAN, 15) | ftxui::reflect(*menu_box),
+            blueSep(),
+            ftxui::hbox({
+                restore_btn->Render() | ftxui::flex,
+                ftxui::text("  "),
+                cancel_btn->Render() | ftxui::flex
+            })
+        }) | ftxui::border | ftxui::bold | ftxui::color(ftxui::Color::BlueLight) | ftxui::center | ftxui::size(ftxui::WIDTH, ftxui::LESS_THAN, 85);
+    });
+
+    return ftxui::CatchEvent(renderer, [this, &screen, menu, menu_box, click_armed, last_clicked_index, activate_selected](ftxui::Event event) {
+        if (app::views::utils::handleMenuTwoClickMouseSelect(
+                event,
+                menu,
+                menu_box,
+                _restorePickerSelectedIndex,
+                _restorePickerMenuEntries.size(),
+                *click_armed,
+                *last_clicked_index,
+                activate_selected)) {
+            return true;
+        }
+
+        if (event == ftxui::Event::Return && menu->Focused()) {
+            activate_selected();
+            return true;
+        }
+
+        if (app::views::utils::isEscape(event)) {
+            _restoreStatusMessage.clear();
+            _restoreLastSuccess = true;
+            _isRestorePickerOpen = false;
             screen.Exit();
             return true;
         }
@@ -688,6 +872,8 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
     }, custom_btn_style);
 
     auto btn_settings = ftxui::Button(txt::lists_browser::kSettingsButton, [this, &screen] {
+        _restoreStatusMessage.clear();
+        _restoreLastSuccess = true;
         _isSettingsOpen = true;
         screen.Exit();
     }, custom_btn_style);
@@ -775,6 +961,8 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
             }
         }
         if (app::views::utils::isCharInsensitive(event, txt::lists_browser::kSettingsShortcut)) {
+            _restoreStatusMessage.clear();
+            _restoreLastSuccess = true;
             _isSettingsOpen = true;
             screen.Exit();
             return true;

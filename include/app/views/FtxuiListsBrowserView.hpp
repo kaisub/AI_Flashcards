@@ -35,7 +35,9 @@ private:
     bool _isBackupDialogOpen = false;
     bool _isBackupPickerOpen = false;
     bool _isBackupOverwriteConfirm = false;
+    bool _isRestorePickerOpen = false;
     bool _backupLastSuccess = true;
+    bool _restoreLastSuccess = true;
 
     std::filesystem::path _backupTargetDir;
     std::string _backupFileName;
@@ -47,6 +49,12 @@ private:
     std::vector<std::filesystem::path> _backupPickerDirPaths;
     int _backupPickerSelectedIndex = 0;
 
+    std::string _restoreStatusMessage;
+    std::filesystem::path _restorePickerCurrentPath;
+    std::vector<std::string> _restorePickerMenuEntries;
+    std::vector<std::filesystem::path> _restorePickerPaths;
+    int _restorePickerSelectedIndex = 0;
+
     // Modal / view builders
     ftxui::Component buildCreateListModal(ftxui::ScreenInteractive& screen, bool& returnToController);
     ftxui::Component buildCreateFolderModal(ftxui::ScreenInteractive& screen, bool& returnToController);
@@ -56,7 +64,9 @@ private:
     ftxui::Component buildBackupDialog(ftxui::ScreenInteractive& screen);
     ftxui::Component buildBackupDirPicker(ftxui::ScreenInteractive& screen);
     ftxui::Component buildBackupOverwriteConfirm(ftxui::ScreenInteractive& screen);
+    ftxui::Component buildRestoreFilePicker(ftxui::ScreenInteractive& screen);
     void refreshBackupDirPicker();
+    void refreshRestoreFilePicker();
     ftxui::Component buildBrowserView(ftxui::ScreenInteractive& screen, bool& returnToController);
 };
 

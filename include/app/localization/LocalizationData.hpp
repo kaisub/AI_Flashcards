@@ -192,6 +192,13 @@ inline constexpr LocalizedCString kBackupSourceMissing{"Source folder 'data' doe
 inline constexpr LocalizedCString kBackupPathEmpty{"Provide a file name.", "Podaj nazwę pliku."};
 inline constexpr LocalizedCString kBackupFailed{"Backup creation failed.", "Nie udało się utworzyć kopii."};
 inline constexpr LocalizedCString kBackupOverwriteQuestion{"File already exists. Overwrite?", "Plik już istnieje. Nadpisać?"};
+inline constexpr LocalizedCString kRestorePickerTitle{"Select restore file", "Wybierz plik przywracania"};
+inline constexpr LocalizedCString kRestoreSelectFileHint{"Choose a .zip backup file.", "Wybierz plik kopii .zip."};
+inline constexpr LocalizedCString kRestoreEnterFolderButton{"Enter [ENTER]", "Wejdź [ENTER]"};
+inline constexpr LocalizedCString kRestoreButtonPrompt{"Restore [ENTER]", "Przywróć [ENTER]"};
+inline constexpr LocalizedCString kRestoreSuccess{"Restore completed successfully.", "Przywracanie zakończone pomyślnie."};
+inline constexpr LocalizedCString kRestoreFailed{"Restore failed.", "Przywracanie nie powiodło się."};
+inline constexpr LocalizedCString kRestoreInvalidFile{"Select a valid .zip file.", "Wybierz poprawny plik .zip."};
 inline constexpr LocalizedCString kTitle{" AI Flashcards - Lists Browser ", " AI Flashcards - Przeglądarka List "};
 
 inline std::string currentPath(const std::string& path) {
