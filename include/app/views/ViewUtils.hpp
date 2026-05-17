@@ -10,6 +10,7 @@
 #include <vector>
 #include <ftxui/component/component.hpp>
 #include <ftxui/component/event.hpp>
+#include <ftxui/component/screen_interactive.hpp>
 #include <ftxui/dom/elements.hpp>
 
 namespace app::views::utils {
@@ -31,6 +32,25 @@ namespace app::views::utils {
         const auto upper = static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
         return event == ftxui::Event::Special(std::string(kAltPrefix) + std::string(1, lower)) ||
                event == ftxui::Event::Special(std::string(kAltPrefix) + std::string(1, upper));
+    }
+
+    inline bool isMouseHover(ftxui::Event event) {
+        return event.is_mouse() && event.mouse().button == ftxui::Mouse::None;
+    }
+
+    inline bool handleEscape(const ftxui::Event& event, const std::function<void()>& onEscape) {
+        if (!isEscape(event)) {
+            return false;
+        }
+        onEscape();
+        return true;
+    }
+
+    inline bool handleEscapeClose(const ftxui::Event& event, ftxui::ScreenInteractive& screen, const std::function<void()>& onClose) {
+        return handleEscape(event, [&screen, &onClose] {
+            onClose();
+            screen.Exit();
+        });
     }
 
     // Shared list behavior: first click selects an item, second click on the same selected item activates it.

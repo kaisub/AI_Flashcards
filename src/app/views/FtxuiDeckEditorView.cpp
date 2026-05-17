@@ -103,8 +103,7 @@ ftxui::Component FtxuiDeckEditorView::buildFilePickerModal(const ftxui::ButtonOp
             return true;
         }
 
-        if (app::views::utils::isEscape(event)) {
-            _isFilePickerActive = false;
+        if (app::views::utils::handleEscape(event, [this] { _isFilePickerActive = false; })) {
             return true;
         }
         return false;
@@ -153,8 +152,7 @@ ftxui::Component FtxuiDeckEditorView::buildEditModal(const ftxui::ButtonOption& 
     });
 
     return CatchEvent(edit_renderer, [this](const Event& event) {
-        if (app::views::utils::isEscape(event)) {
-            _isEditing = false;
+        if (app::views::utils::handleEscape(event, [this] { _isEditing = false; })) {
             return true;
         }
         return false;
@@ -202,8 +200,7 @@ ftxui::Component FtxuiDeckEditorView::buildDeleteModal(const ftxui::ButtonOption
     });
 
     return CatchEvent(delete_renderer, [this](const Event& event) {
-        if (app::views::utils::isEscape(event)) {
-            _isDeletingBulk = false;
+        if (app::views::utils::handleEscape(event, [this] { _isDeletingBulk = false; })) {
             return true;
         }
         return false;
@@ -257,8 +254,7 @@ ftxui::Component FtxuiDeckEditorView::buildMoveModal(const ftxui::ButtonOption& 
     });
 
     return CatchEvent(move_renderer, [this, do_move](const Event& event) {
-        if (app::views::utils::isEscape(event)) {
-            _isMovingBulk = false;
+        if (app::views::utils::handleEscape(event, [this] { _isMovingBulk = false; })) {
             return true;
         }
         if (event == Event::Return) {
@@ -316,8 +312,7 @@ ftxui::Component FtxuiDeckEditorView::buildCopyModal(const ftxui::ButtonOption& 
     });
 
     return CatchEvent(copy_renderer, [this, do_copy](const Event& event) {
-        if (app::views::utils::isEscape(event)) {
-            _isCopyingBulk = false;
+        if (app::views::utils::handleEscape(event, [this] { _isCopyingBulk = false; })) {
             return true;
         }
         if (event == Event::Return) {
@@ -400,8 +395,7 @@ ftxui::Component FtxuiDeckEditorView::buildImportModal(const ftxui::ButtonOption
     });
 
     return CatchEvent(import_renderer, [this](const Event& event) {
-        if (app::views::utils::isEscape(event)) {
-            _isImporting = false;
+        if (app::views::utils::handleEscape(event, [this] { _isImporting = false; })) {
             return true;
         }
         return false;
@@ -670,7 +664,7 @@ void FtxuiDeckEditorView::run() {
 
     auto event_handler = CatchEvent(final_renderer, [this, &screen, delete_modal, move_modal, copy_modal, file_picker_modal, import_modal, input_front, input_back, card_list_container, main_container, custom_btn_style, card_list_view_box](Event event) {
 
-        if (event.is_mouse() && event.mouse().button == ftxui::Mouse::None) {
+        if (app::views::utils::isMouseHover(event)) {
             return true;
         }
 
@@ -745,9 +739,10 @@ void FtxuiDeckEditorView::run() {
                 return true;
             }
         }
-        if (app::views::utils::isEscape(event)) {
-            triggerExitToBrowser();
-            screen.Exit();
+        if (app::views::utils::handleEscape(event, [this, &screen] {
+                triggerExitToBrowser();
+                screen.Exit();
+            })) {
             return true;
         }
         return false;

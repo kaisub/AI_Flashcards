@@ -143,7 +143,7 @@ void FtxuiStudyConfigView::run() {
 
     auto event_handler = CatchEvent(renderer, [this, &screen, start_action](Event event) {
         // Discard mouse movement events to prevent UI lag
-        if (event.is_mouse() && event.mouse().button == Mouse::None) {
+        if (app::views::utils::isMouseHover(event)) {
             return true;
         }
 
@@ -152,9 +152,10 @@ void FtxuiStudyConfigView::run() {
             return true;
         }
 
-        if (app::views::utils::isEscape(event)) {
-            triggerCancel();
-            screen.ExitLoopClosure()();
+        if (app::views::utils::handleEscape(event, [this, &screen] {
+                triggerCancel();
+                screen.ExitLoopClosure()();
+            })) {
             return true;
         }
         return false;

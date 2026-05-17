@@ -126,13 +126,11 @@ ftxui::Component FtxuiListsBrowserView::buildSettingsModal(ftxui::ScreenInteract
     });
 
     return ftxui::CatchEvent(settings_renderer, [this, &screen](ftxui::Event event) {
-        if (event.is_mouse() && event.mouse().button == ftxui::Mouse::None) {
+        if (app::views::utils::isMouseHover(event)) {
             return true;
         }
 
-        if (app::views::utils::isEscape(event)) {
-            _isSettingsOpen = false;
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this] { _isSettingsOpen = false; })) {
             return true;
         }
 
@@ -272,13 +270,11 @@ ftxui::Component FtxuiListsBrowserView::buildBackupDialog(ftxui::ScreenInteracti
     });
 
     return ftxui::CatchEvent(renderer, [this, &screen](ftxui::Event event) {
-        if (event.is_mouse() && event.mouse().button == ftxui::Mouse::None) {
+        if (app::views::utils::isMouseHover(event)) {
             return true;
         }
 
-        if (app::views::utils::isEscape(event)) {
-            _isBackupDialogOpen = false;
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this] { _isBackupDialogOpen = false; })) {
             return true;
         }
         return false;
@@ -354,9 +350,7 @@ ftxui::Component FtxuiListsBrowserView::buildBackupDirPicker(ftxui::ScreenIntera
             return true;
         }
 
-        if (app::views::utils::isEscape(event)) {
-            _isBackupPickerOpen = false;
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this] { _isBackupPickerOpen = false; })) {
             return true;
         }
         if (app::views::utils::isCharInsensitive(event, 's')) {
@@ -478,11 +472,11 @@ ftxui::Component FtxuiListsBrowserView::buildRestoreFilePicker(ftxui::ScreenInte
             return true;
         }
 
-        if (app::views::utils::isEscape(event)) {
-            _restoreStatusMessage.clear();
-            _restoreLastSuccess = true;
-            _isRestorePickerOpen = false;
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this] {
+                _restoreStatusMessage.clear();
+                _restoreLastSuccess = true;
+                _isRestorePickerOpen = false;
+            })) {
             return true;
         }
         return false;
@@ -527,9 +521,7 @@ ftxui::Component FtxuiListsBrowserView::buildBackupOverwriteConfirm(ftxui::Scree
     });
 
     return ftxui::CatchEvent(renderer, [this, &screen](const ftxui::Event& event) {
-        if (app::views::utils::isEscape(event)) {
-            _isBackupOverwriteConfirm = false;
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this] { _isBackupOverwriteConfirm = false; })) {
             return true;
         }
         return false;
@@ -578,9 +570,7 @@ ftxui::Component FtxuiListsBrowserView::buildCreateListModal(ftxui::ScreenIntera
     });
 
     return ftxui::CatchEvent(create_renderer, [this, &screen, create_action](const ftxui::Event& event) {
-        if (app::views::utils::isEscape(event)) {
-            _isCreatingList = false;
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this] { _isCreatingList = false; })) {
             return true;
         }
         if (event == ftxui::Event::Return) {
@@ -633,9 +623,7 @@ ftxui::Component FtxuiListsBrowserView::buildCreateFolderModal(ftxui::ScreenInte
     });
 
     return ftxui::CatchEvent(create_renderer, [this, &screen, create_action](const ftxui::Event& event) {
-        if (app::views::utils::isEscape(event)) {
-            _isCreatingFolder = false;
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this] { _isCreatingFolder = false; })) {
             return true;
         }
         if (event == ftxui::Event::Return) {
@@ -689,9 +677,7 @@ ftxui::Component FtxuiListsBrowserView::buildRenameModal(ftxui::ScreenInteractiv
     });
 
     return ftxui::CatchEvent(rename_renderer, [this, &screen, rename_action](const ftxui::Event& event) {
-        if (app::views::utils::isEscape(event)) {
-            _isRenaming = false;
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this] { _isRenaming = false; })) {
             return true;
         }
         if (event == ftxui::Event::Return) {
@@ -740,9 +726,7 @@ ftxui::Component FtxuiListsBrowserView::buildDeleteModal(ftxui::ScreenInteractiv
     });
 
     return ftxui::CatchEvent(delete_renderer, [this, &screen](const ftxui::Event& event) {
-        if (app::views::utils::isEscape(event)) {
-            _isDeleting = false;
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this] { _isDeleting = false; })) {
             return true;
         }
         return false;
@@ -884,10 +868,10 @@ ftxui::Component FtxuiListsBrowserView::buildBrowserView(ftxui::ScreenInteractiv
             return true;
         }
 
-        if (app::views::utils::isEscape(event)) {
-            returnToController = true;
-            triggerBackRequested();
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this, &returnToController] {
+                returnToController = true;
+                triggerBackRequested();
+            })) {
             return true;
         }
         if (app::views::utils::isCharInsensitive(event, txt::common::kExitApp)) {

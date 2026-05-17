@@ -130,9 +130,7 @@ ftxui::Component FtxuiStudySessionView::buildDeleteModal(ftxui::ScreenInteractiv
     });
 
     return CatchEvent(delete_renderer, [this, &screen](const Event& event) {
-        if (app::views::utils::isEscape(event)) {
-            _isDeleting = false;
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this] { _isDeleting = false; })) {
             return true;
         }
         return false;
@@ -191,9 +189,7 @@ ftxui::Component FtxuiStudySessionView::buildEditModal(ftxui::ScreenInteractive&
     });
 
     return CatchEvent(edit_renderer, [this, &screen, save_action](const Event& event) {
-        if (app::views::utils::isEscape(event)) {
-            _isEditing = false;
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this] { _isEditing = false; })) {
             return true;
         }
         if (event == Event::Return) {
@@ -247,9 +243,7 @@ ftxui::Component FtxuiStudySessionView::buildCopyModal(ftxui::ScreenInteractive&
     });
 
     return CatchEvent(copy_renderer, [this, &screen](const Event& event) {
-        if (app::views::utils::isEscape(event)) {
-            _isCopying = false;
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this] { _isCopying = false; })) {
             return true;
         }
         return false;
@@ -431,11 +425,11 @@ ftxui::Component FtxuiStudySessionView::buildCardView(ftxui::ScreenInteractive& 
             flip_action();
             return true;
         }
-        if (app::views::utils::isEscape(event)) {
-            focusedButtonIndex = toFocusIndex(FocusSlot::Exit);
-            returnToController = true;
-            triggerExitRequested();
-            screen.Exit();
+        if (app::views::utils::handleEscapeClose(event, screen, [this, &focusedButtonIndex, &returnToController] {
+                focusedButtonIndex = toFocusIndex(FocusSlot::Exit);
+                returnToController = true;
+                triggerExitRequested();
+            })) {
             return true;
         }
         if (is_alt_char(txt::study_session::kUndoShortcut)) {
