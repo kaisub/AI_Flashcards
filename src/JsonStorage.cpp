@@ -79,7 +79,9 @@ namespace storage {
     }
 
     fs::path JsonStorage::getTempPath(const fs::path& relativePath) const {
-        return getFullPath(relativePath).string() + ".tmp";
+        auto tempPath = getFullPath(relativePath);
+        tempPath += ".tmp";
+        return tempPath;
     }
 
 
@@ -98,6 +100,7 @@ namespace storage {
         try {
             nlohmann::json jso;
             ifs >> jso;
+            ifs.close();
 
             const bool needsNormalization = cardsNeedNormalization(jso);
 
@@ -142,6 +145,7 @@ namespace storage {
                 throw std::runtime_error("Failed to open temporary file for writing: " + tempPath.string());
             }
             ofs << jso.dump(4); // Pretty print with 4 spaces indent
+            ofs.close();
 
             // Atomically replace the original file
             // std::filesystem::rename is atomic for same-filesystem moves on POSIX systems

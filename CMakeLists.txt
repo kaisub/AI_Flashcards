@@ -33,13 +33,21 @@ endif()
 # Compiler Warnings (Best Practices)
 # ==========================================
 add_library(project_warnings INTERFACE)
-target_compile_options(project_warnings INTERFACE
-    -Wall
-    -Wextra
-    -Wpedantic
-    -Wconversion
-    -Wshadow
-)
+if(MSVC)
+    target_compile_options(project_warnings INTERFACE
+        /W4
+        /permissive-
+        /utf-8
+    )
+else()
+    target_compile_options(project_warnings INTERFACE
+        -Wall
+        -Wextra
+        -Wpedantic
+        -Wconversion
+        -Wshadow
+    )
+endif()
 
 # ==========================================
 # FetchContent for dependencies
@@ -54,7 +62,7 @@ FetchContent_Declare(
 )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
-# nlohmann/json (header-only — populate manually to avoid running their CMakeLists.txt)
+# nlohmann/json
 FetchContent_Declare(
     nlohmann_json
     GIT_REPOSITORY https://github.com/nlohmann/json.git
@@ -62,13 +70,7 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(googletest)
-
-FetchContent_GetProperties(nlohmann_json)
-if(NOT nlohmann_json_POPULATED)
-    FetchContent_Populate(nlohmann_json)
-    add_library(nlohmann_json::nlohmann_json INTERFACE IMPORTED GLOBAL)
-    target_include_directories(nlohmann_json::nlohmann_json INTERFACE "${nlohmann_json_SOURCE_DIR}/include")
-endif()
+FetchContent_MakeAvailable(nlohmann_json)
 
 # FTXUI
 FetchContent_Declare(
@@ -153,6 +155,25 @@ target_include_directories(flashcards_tests PRIVATE
 # Register the test executable with CTest
 include(GoogleTest)
 gtest_discover_tests(flashcards_tests)
+
+# ==========================================
+# Windows UTF-8 Manifest
+# ==========================================
+if(WIN32)
+    set(MANIFEST_FILE "${CMAKE_CURRENT_BINARY_DIR}/utf8_process.manifest")
+    file(WRITE "${MANIFEST_FILE}"
+"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+"<assembly xmlns=\"urn:schemas-microsoft-com:asm.v1\" manifestVersion=\"1.0\">\n"
+"  <application>\n"
+"    <windowsSettings>\n"
+"      <activeCodePage xmlns=\"http://schemas.microsoft.com/SMI/2019/WindowsSettings\">UTF-8</activeCodePage>\n"
+"    </windowsSettings>\n"
+"  </application>\n"
+"</assembly>\n"
+    )
+    target_sources(flashcards_app PRIVATE "${MANIFEST_FILE}")
+    target_sources(flashcards_tests PRIVATE "${MANIFEST_FILE}")
+endif()
 
 # Install targets to bin directory
 install(TARGETS flashcards_app DESTINATION bin)

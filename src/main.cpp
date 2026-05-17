@@ -5,9 +5,24 @@
 #include "app/views/FtxuiStudySessionView.hpp"
 #include "core/DeckManager.hpp"
 #include "storage/JsonStorage.hpp"
+#include <clocale>
+
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
 
 int main() {
     try {
+        // Force the C-runtime to use UTF-8 for character width calculations
+#ifdef _WIN32
+        std::setlocale(LC_ALL, ".UTF8");
+        SetConsoleOutputCP(CP_UTF8);
+        SetConsoleCP(CP_UTF8);
+#else
+        std::setlocale(LC_ALL, "");
+#endif
+
         // 1. Set up the data directory
         auto dataPath = std::filesystem::current_path() / "data";
         if (!std::filesystem::exists(dataPath)) {
